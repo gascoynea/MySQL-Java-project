@@ -4,30 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c6c1ed0f-0722-4596-8d46-623794c3837d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mvnw" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mvnw.cmd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/BDAccess/DBAAppointments.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/BDAccess/DBAContacts.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/BDAccess/DBACountries.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/BDAccess/DBACustomers.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/BDAccess/DBAFirstLevelDivisions.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/BDAccess/DBAUsers.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Database/DBConnection.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Model/Countries.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/MainController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/demo/Sample.fxml" afterDir="false" />
+    <list default="true" id="c6c1ed0f-0722-4596-8d46-623794c3837d" name="Changes" comment="Updated things like creating DBAccess classes. Got started on having my program talk tom the DB locally (not updated to VM yet). Also, next step is to figure out adding data form program to DB and see if it works. Should be simple ADD commands from program similar to how you view/pull data off DB. Some issues with mysql connector. Also, think about creating FXML for program. Did Timestamp as shown not sure if correct.">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,6 +62,14 @@
       <option name="presentableId" value="Default" />
       <updated>1697489216900</updated>
     </task>
+    <task id="LOCAL-00001" summary="Updated things like creating DBAccess classes. Got started on having my program talk tom the DB locally (not updated to VM yet). Also, next step is to figure out adding data form program to DB and see if it works. Should be simple ADD commands from program similar to how you view/pull data off DB. Some issues with mysql connector. Also, think about creating FXML for program. Did Timestamp as shown not sure if correct.">
+      <created>1697496436145</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1697496436145</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -96,5 +82,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Updated things like creating DBAccess classes. Got started on having my program talk tom the DB locally (not updated to VM yet). Also, next step is to figure out adding data form program to DB and see if it works. Should be simple ADD commands from program similar to how you view/pull data off DB. Some issues with mysql connector. Also, think about creating FXML for program. Did Timestamp as shown not sure if correct." />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated things like creating DBAccess classes. Got started on having my program talk tom the DB locally (not updated to VM yet). Also, next step is to figure out adding data form program to DB and see if it works. Should be simple ADD commands from program similar to how you view/pull data off DB. Some issues with mysql connector. Also, think about creating FXML for program. Did Timestamp as shown not sure if correct." />
   </component>
 </project>
