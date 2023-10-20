@@ -29,6 +29,7 @@ public class DBConnection {
         }
         catch(ClassNotFoundException e){
             e.printStackTrace();
+            //System.out.println("Error:" + e.getMessage());
         }
         return connection;
     }
