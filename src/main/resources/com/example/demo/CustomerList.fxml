@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="203.0" layoutY="14.0" text="Customer Records">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <TableView fx:id="CustomerRec_Table" layoutX="11.0" layoutY="49.0" prefHeight="282.0" prefWidth="579.0">
+        <columns>
+          <TableColumn fx:id="CustomerID_Col" prefWidth="75.0" text="Customer ID" />
+            <TableColumn fx:id="LastName_Col" prefWidth="75.0" text="Last Name" />
+          <TableColumn fx:id="FirstName_Col" prefWidth="75.0" text="First Name" />
+            <TableColumn fx:id="Address_Col" prefWidth="184.0" text="Address" />
+            <TableColumn fx:id="PostalCode_Col" prefWidth="71.0" text="Postal Code" />
+            <TableColumn fx:id="PhoneNum_Col" prefWidth="98.0" text="Phone Number" />
+        </columns>
+      </TableView>
+      <Button layoutX="248.0" layoutY="331.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" text="Delete Record" />
+      <Button layoutX="11.0" layoutY="331.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="137.0" text="Customer Information" />
+      <Button layoutX="466.0" layoutY="331.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" text="Exit" />
+   </children>
+</AnchorPane>
