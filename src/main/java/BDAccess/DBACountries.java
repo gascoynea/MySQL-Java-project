@@ -4,7 +4,6 @@ import Database.DBConnection;
 import Model.Countries;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -24,7 +23,12 @@ public class DBACountries {
             while(rs.next()){
                 int cID = rs.getInt("Country_ID");
                 String cName = rs.getString("Country");
-                Countries cSet = new Countries(cID, cName);
+                Timestamp create_Date = rs.getTimestamp("Create_Date");
+                String created_by = rs.getString("Created_By");
+                Timestamp last_Update = rs.getTimestamp("Last_Update");
+                String last_Updated_By = rs.getString("Last_Updated_By");
+
+                Countries cSet = new Countries(cID, cName, create_Date, created_by, last_Update, last_Updated_By);
                 countryList.add(cSet);
             }
         } catch (SQLException e) {
@@ -48,6 +52,13 @@ public class DBACountries {
         }
         catch (SQLException throwables){
             throwables.printStackTrace();
+
+        }
+    }
+    public static void getCountryName(){
+        ObservableList<Countries> countries = DBACountries.getAllCountries();
+        for (Countries country : countries){
+            System.out.println(country.getName());
         }
     }
 }

@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -19,9 +20,11 @@ public class MainAppointmetController implements Initializable {
     public Button addApptButton;
     public Button removeApptButton;
     public Button editApptButton;
+    public TableView tableView;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
     }
 
     public void onCustomerRecordsClick(ActionEvent actionEvent) throws IOException {

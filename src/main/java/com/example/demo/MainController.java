@@ -20,12 +20,15 @@ import java.net.URL;
 import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
     public Button loginButton;
     public TextField userNameLogin;
     public TextField passwordLogin;
+    public Label locationLabel;
+    public Label loginFormText;
 
     @FXML
 

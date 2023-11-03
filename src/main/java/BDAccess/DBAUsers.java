@@ -1,6 +1,7 @@
 package BDAccess;
 
 import Database.DBConnection;
+import Model.Countries;
 import Model.Users;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -25,7 +26,12 @@ public class DBAUsers {
                 int userID = rs.getInt("User_ID");
                 String userName = rs.getString("User_Name");
                 String userPassword = rs.getString("Password");
-                Users userSet = new Users(userID, userName, userPassword);
+                Timestamp createDate = rs.getTimestamp("Create_Date");
+                String createdBy = rs.getString("Created_By");
+                Timestamp lastUpdate = rs.getTimestamp("Last_Update");
+                String lastUpdatedBy = rs.getString("Last_Updated_By");
+
+                Users userSet = new Users(userID, userName, userPassword, createDate, createdBy, lastUpdate, lastUpdatedBy);
                 usersList.add(userSet);
             }
         } catch (SQLException e) {
@@ -34,21 +40,10 @@ public class DBAUsers {
 
         return usersList;
     }
-
-    public static void checkDateConversion(){
-        System.out.println("CREATE DATE TEST");
-        String sql = "select Create_Date from countries";
-        try{
-            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-
-            while(rs.next()){
-                Timestamp ts = rs.getTimestamp("Create_Date");
-                System.out.println("CD: " + ts.toLocalDateTime().toString());
-            }
-        }
-        catch (SQLException throwables){
-            throwables.printStackTrace();
+    public static void getUserNames(){
+        ObservableList<Users> users = DBAUsers.getAllUsers();
+        for (Users user : users){
+            System.out.println(user.getUserName());
         }
     }
 }

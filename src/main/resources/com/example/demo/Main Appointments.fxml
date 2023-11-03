@@ -7,21 +7,29 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.MainAppointmetController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="373.0" prefWidth="906.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.MainAppointmetController">
    <children>
-      <Label fx:id="apptLabel" layoutX="225.0" layoutY="21.0" text="Appointments">
+      <Label fx:id="apptLabel" layoutX="17.0" layoutY="16.0" text="Appointments">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <Button fx:id="apptsCustRecordsButton" layoutX="473.0" layoutY="26.0" mnemonicParsing="false" onAction="#onCustomerRecordsClick" text="Customer Records" />
+      <Button fx:id="apptsCustRecordsButton" layoutX="778.0" layoutY="21.0" mnemonicParsing="false" onAction="#onCustomerRecordsClick" text="Customer Records" />
       <Button fx:id="addApptButton" layoutX="17.0" layoutY="337.0" mnemonicParsing="false" onAction="#onAddClick" text="Add" />
       <Button fx:id="removeApptButton" layoutX="92.0" layoutY="337.0" mnemonicParsing="false" text="Remove" />
       <Button fx:id="editApptButton" layoutX="55.0" layoutY="337.0" mnemonicParsing="false" onAction="#onEditClick" text="Edit" />
-      <TableView layoutX="17.0" layoutY="56.0" prefHeight="281.0" prefWidth="569.0">
+      <TableView fx:id="tableView" layoutX="17.0" layoutY="56.0" prefHeight="281.0" prefWidth="874.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="C1" />
-          <TableColumn prefWidth="75.0" text="C2" />
+          <TableColumn prefWidth="98.0" text="Appoinment_ID" />
+          <TableColumn prefWidth="52.0" text="Title" />
+            <TableColumn prefWidth="94.0" text="Description" />
+            <TableColumn prefWidth="72.0" text="Location" />
+            <TableColumn prefWidth="77.0" text="Contact" />
+            <TableColumn prefWidth="76.0" text="Type" />
+            <TableColumn prefWidth="140.0" text="Start Date &amp; Time" />
+            <TableColumn prefWidth="124.0" text="End Date &amp; Time" />
+            <TableColumn prefWidth="87.0" text="Customer_ID" />
+            <TableColumn prefWidth="53.0" text="User_ID" />
         </columns>
       </TableView>
    </children>

@@ -4,20 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c6c1ed0f-0722-4596-8d46-623794c3837d" name="Changes" comment="NEed to figure out how to have fxml have controllers.">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/AppointmentInformationController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/ApptInfoDropDownController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/CustomerListController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/CustomerRecordController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/CustomerSearchController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/demo/Appoinment Information with DropMenu.fxml" afterDir="false" />
+    <list default="true" id="c6c1ed0f-0722-4596-8d46-623794c3837d" name="Changes" comment="Need to figure out to implement zone ID, and pc language preference on login screen. Also, populate windows with data.">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/demo/French.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/BDAccess/DBAAppointments.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BDAccess/DBAAppointments.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/BDAccess/DBAContacts.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BDAccess/DBAContacts.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/BDAccess/DBACountries.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BDAccess/DBACountries.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/BDAccess/DBACustomers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BDAccess/DBACustomers.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/BDAccess/DBAFirstLevelDivisions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BDAccess/DBAFirstLevelDivisions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/BDAccess/DBAUsers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BDAccess/DBAUsers.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Appointments.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/Appointments.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Contacts.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/Contacts.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Countries.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/Countries.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Customers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/Customers.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/FirstLevelDivisions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/FirstLevelDivisions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Users.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/Users.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/MainAppointmetController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/MainAppointmetController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/demo/Appoinment Information.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/demo/Appoinment Information.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/demo/Customer Search.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/demo/Customer Search.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/demo/CustomerList.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/demo/CustomerList.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/demo/CustomerRecord.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/demo/CustomerRecord.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/demo/LoginForm.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/demo/LoginForm.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/demo/Main Appointments.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/demo/Main Appointments.fxml" afterDir="false" />
     </list>
@@ -55,24 +59,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "Downloaded.Files.Path.Enabled": "true",
-    "Repository.Attach.Annotations": "false",
-    "Repository.Attach.JavaDocs": "false",
-    "Repository.Attach.Sources": "false",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "last_directory_selection": "C:/Users/adam gascoyne/Desktop/SCHOOL WGU/C195/demo/src/main/java/com/example/demo",
-    "last_opened_file_path": "C:/Users/adam gascoyne/Desktop/SCHOOL WGU/C195/demo",
-    "project.structure.last.edited": "Libraries",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "run.code.analysis.last.selected.profile": "pProject Default"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;true&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;last_directory_selection&quot;: &quot;C:/Users/adam gascoyne/Desktop/SCHOOL WGU/C195/demo/src/main/java/com/example/demo&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/adam gascoyne/Desktop/SCHOOL WGU/C195/demo&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.demo.Main" />
@@ -153,7 +157,14 @@
       <option name="project" value="LOCAL" />
       <updated>1698301216274</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Need to figure out to implement zone ID, and pc language preference on login screen. Also, populate windows with data.">
+      <created>1698885657334</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1698885657335</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -171,6 +182,7 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="Updated things like creating DBAccess classes. Got started on having my program talk tom the DB locally (not updated to VM yet). Also, next step is to figure out adding data form program to DB and see if it works. Should be simple ADD commands from program similar to how you view/pull data off DB. Some issues with mysql connector. Also, think about creating FXML for program. Did Timestamp as shown not sure if correct." />
     <MESSAGE value="NEed to figure out how to have fxml have controllers." />
-    <option name="LAST_COMMIT_MESSAGE" value="NEed to figure out how to have fxml have controllers." />
+    <MESSAGE value="Need to figure out to implement zone ID, and pc language preference on login screen. Also, populate windows with data." />
+    <option name="LAST_COMMIT_MESSAGE" value="Need to figure out to implement zone ID, and pc language preference on login screen. Also, populate windows with data." />
   </component>
 </project>
