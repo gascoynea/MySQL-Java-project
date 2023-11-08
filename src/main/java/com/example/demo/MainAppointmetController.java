@@ -1,35 +1,109 @@
 package com.example.demo;
-import Model.Appointments;
 import BDAccess.DBAAppointments;
+import Model.Appointments;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Timestamp;
 import java.util.ResourceBundle;
 
 public class MainAppointmetController implements Initializable {
-    public Label apptLabel;
-    public Button apptsCustRecordsButton;
-    public Button addApptButton;
-    public Button removeApptButton;
-    public Button editApptButton;
-    public TableView tableView;
+    @FXML
+    private Button addApptButton;
+
+    @FXML
+    public TableColumn<Appointments, String> apptIDCol;
+
+    @FXML
+    private Label apptLabel;
+
+    @FXML
+    private Button apptsCustRecordsButton;
+
+    @FXML
+    public TableColumn<Appointments, Integer> contactCol;
+
+    @FXML
+    public TableColumn<Appointments, String> createdByCol;
+
+    @FXML
+    public TableColumn<Appointments, Integer> customerIDCol;
+
+    @FXML
+    public TableColumn<Appointments, Timestamp> dateCreatedCol;
+
+    @FXML
+    public TableColumn<Appointments, String> descriptionCol;
+
+    @FXML
+    private Button editApptButton;
+
+    @FXML
+    public TableColumn<Appointments, Timestamp> endDandTCol;
+
+    @FXML
+    public TableColumn<Appointments, Timestamp> lastUpdateCol;
+
+    @FXML
+    public TableColumn<Appointments, String> lastUpdatedByCol;
+
+    @FXML
+    public TableColumn<Appointments, String> locationCol;
+
+    @FXML
+    private Button removeApptButton;
+
+    @FXML
+    public TableColumn<Appointments, Timestamp> startDandTCol;
+
+    @FXML
+    public TableView<Appointments> tableView;
+
+    @FXML
+    public TableColumn<Appointments, String> titleCol;
+
+    @FXML
+    public TableColumn<Appointments, String> typeCol;
+
+    @FXML
+    public TableColumn<Appointments, Integer> userIDCol;
+    ObservableList<Appointments> apptList = null;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        apptList = DBAAppointments.getAllAppointments();
+        apptIDCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("appointmentID"));
+        titleCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("title"));
+        descriptionCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("description"));
+        locationCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("location"));
+        typeCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("type"));
+        startDandTCol.setCellValueFactory(new PropertyValueFactory<Appointments, Timestamp>("start"));
+        endDandTCol.setCellValueFactory(new PropertyValueFactory<Appointments, Timestamp>("end"));
+        dateCreatedCol.setCellValueFactory(new PropertyValueFactory<Appointments, Timestamp>("createDate"));
+        createdByCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("created_by"));
+        lastUpdateCol.setCellValueFactory(new PropertyValueFactory<Appointments, Timestamp>("lastUpdate"));
+        lastUpdatedByCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("lastUpdatedBy"));
+        customerIDCol.setCellValueFactory(new PropertyValueFactory<Appointments, Integer>("customerId"));
+        userIDCol.setCellValueFactory(new PropertyValueFactory<Appointments, Integer>("userId"));
+        contactCol.setCellValueFactory(new PropertyValueFactory<Appointments, Integer>("contactId"));
+        tableView.setItems(apptList);
     }
 
     public void onCustomerRecordsClick(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("CustomerList.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 600, 400);
+        Scene scene = new Scene(fxmlLoader.load(), 600, 365);
         Stage stage = new Stage();
         stage.setTitle("Customers List");
         stage.setScene(scene);

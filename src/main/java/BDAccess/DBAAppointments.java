@@ -2,10 +2,9 @@ package BDAccess;
 
 import Database.DBConnection;
 import Model.Appointments;
-import Model.Countries;
+import javafx.beans.property.IntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -39,11 +38,12 @@ public class DBAAppointments {
                 int contact_ID = rs.getInt("Contact_ID");
                 Appointments aSet = new Appointments(aID, title, description, location, type, start, end, create_date, created_by, last_Update, last_Updated_By, customer_ID, user_ID, contact_ID);
                 appointmentsList.add(aSet);
+                System.out.println("Appt ID:" + aID);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
+        System.out.println(appointmentsList.get(0).getaID());
         return appointmentsList;
     }
     public static void getAppointmentID() {

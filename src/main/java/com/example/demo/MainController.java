@@ -2,8 +2,6 @@ package com.example.demo;
 
 import BDAccess.DBAUsers;
 import Model.Users;
-import javafx.application.Platform;
-import javafx.application.Preloader;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,14 +11,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
-import org.xml.sax.ErrorHandler;
-
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
@@ -52,7 +46,7 @@ public class MainController implements Initializable {
             if(namesList.contains(loginName)){
                 if(passwordsList.contains(password)){
                     FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Main Appointments.fxml"));
-                    Scene scene = new Scene(fxmlLoader.load(), 600, 400);
+                    Scene scene = new Scene(fxmlLoader.load(), 905, 400);
                     Stage stage = new Stage();
                     stage.setTitle("Hello!");
                     stage.setScene(scene);

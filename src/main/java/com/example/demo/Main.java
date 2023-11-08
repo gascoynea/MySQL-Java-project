@@ -2,14 +2,11 @@ package com.example.demo;
 
 import BDAccess.*;
 import javafx.application.Application;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.Locale;
 
 public class Main extends Application {
     @Override
@@ -23,12 +20,13 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         Database.DBConnection.openConnection();
-        DBACountries.getCountryName();
-        DBACustomers.getCustomerNames();
-        DBAContacts.getContactName();
+//        DBACountries.getCountryName();
+//        DBACustomers.getCustomerNames();
+//        DBAContacts.getContactName();
         DBAAppointments.getAppointmentID();
-        DBAFirstLevelDivisions.getDivisionName();
-        DBAUsers.getUserNames();
+//        DBAFirstLevelDivisions.getDivisionName();
+//        DBAUsers.getUserNames();
+        DBAAppointments.getAllAppointments();
         launch();
         Database.DBConnection.closeConnection();
     }
