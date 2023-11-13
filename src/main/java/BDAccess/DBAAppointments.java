@@ -38,18 +38,18 @@ public class DBAAppointments {
                 int contact_ID = rs.getInt("Contact_ID");
                 Appointments aSet = new Appointments(aID, title, description, location, type, start, end, create_date, created_by, last_Update, last_Updated_By, customer_ID, user_ID, contact_ID);
                 appointmentsList.add(aSet);
-                System.out.println("Appt ID:" + aID);
+                //System.out.println("created by:" + aID);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println(appointmentsList.get(0).getaID());
+        //System.out.println(appointmentsList.get(0).getAppointmentID());
         return appointmentsList;
     }
     public static void getAppointmentID() {
         ObservableList<Appointments> appointments = DBAAppointments.getAllAppointments();
         for (Appointments appts : appointments) {
-            System.out.println(appts.getaID() + " " + appts.getTitle());
+//            System.out.println(appts.getaID() + " " + appts.getTitle());
         }
     }
 }

@@ -11,10 +11,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.net.URLClassLoader;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
@@ -27,8 +31,25 @@ public class MainController implements Initializable {
     @FXML
 
 
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
+    public void initialize(URL url, ResourceBundle Bundle) {
+        //Getting local zone location.
+        try {
+            Locale locale = Locale.getDefault();
+            ZoneId region = ZoneId.systemDefault().normalized();
+            locationLabel.setText(String.valueOf(region));
+            ResourceBundle language = ResourceBundle.getBundle("Bundle", locale);
+            System.out.println(Locale.getDefault());
+            if (locale.getLanguage() != "en") {
+                loginButton.setText(language.getString("login"));
+                loginFormText.setText(language.getString("America"));
+                locationLabel.setText(language.getString("America"));
+                passwordLogin.setText(language.getString("Password"));
+                userNameLogin.setText(language.getString("Username"));
+                System.out.println(region);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML
@@ -39,6 +60,8 @@ public class MainController implements Initializable {
         String password = passwordLogin.getText();
         List namesList = new ArrayList();
         List passwordsList = new ArrayList<>();
+        Locale locale = Locale.getDefault();
+        ResourceBundle language = ResourceBundle.getBundle("Bundle", locale);
             for (Users user : usersList){
                 namesList.add(user.getUserName());
                 passwordsList.add(user.getUserPassword());
@@ -46,7 +69,7 @@ public class MainController implements Initializable {
             if(namesList.contains(loginName)){
                 if(passwordsList.contains(password)){
                     FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Main Appointments.fxml"));
-                    Scene scene = new Scene(fxmlLoader.load(), 905, 400);
+                    Scene scene = new Scene(fxmlLoader.load(), 1250, 400);
                     Stage stage = new Stage();
                     stage.setTitle("Hello!");
                     stage.setScene(scene);
@@ -54,19 +77,37 @@ public class MainController implements Initializable {
                     ((Stage) loginButton.getScene().getWindow()).close();
                 }
                 else {
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Error");
-                    alert.setHeaderText("Wrong Password!");
-                    alert.setContentText("Please reinput your password. Thank you.");
-                    alert.showAndWait();
+                    if(locale.getLanguage() == "en") {
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Error");
+                        alert.setHeaderText("Wrong Password!");
+                        alert.setContentText("Please reinput your password. Thank you.");
+                        alert.showAndWait();
+                    }
+                    else{
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle(language.getString("Error"));
+                        alert.setHeaderText(language.getString("WrongPass"));
+                        alert.setContentText("ReinputPass");
+                        alert.showAndWait();
+                    }
                 }
             }
             else{
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Error");
-                alert.setHeaderText("Wrong Username!");
-                alert.setContentText("Please reinput your username. Thank you.");
-                alert.showAndWait();
+                if(locale.getLanguage() != "en") {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Error");
+                    alert.setHeaderText("Wrong Username!");
+                    alert.setContentText("Please reinput your username. Thank you.");
+                    alert.showAndWait();
+                }
+                else {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle(language.getString("Error"));
+                    alert.setHeaderText(language.getString("WrongUsername"));
+                    alert.setContentText("Reinputusername");
+                    alert.showAndWait();
+                }
             }
     }
 }

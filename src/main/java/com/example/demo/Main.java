@@ -13,7 +13,6 @@ public class Main extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("LoginForm.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();
     }
@@ -23,10 +22,9 @@ public class Main extends Application {
 //        DBACountries.getCountryName();
 //        DBACustomers.getCustomerNames();
 //        DBAContacts.getContactName();
-        DBAAppointments.getAppointmentID();
+//        DBAAppointments.getAppointmentID();
 //        DBAFirstLevelDivisions.getDivisionName();
 //        DBAUsers.getUserNames();
-        DBAAppointments.getAllAppointments();
         launch();
         Database.DBConnection.closeConnection();
     }

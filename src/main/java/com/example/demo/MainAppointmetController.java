@@ -6,14 +6,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Timestamp;
@@ -24,7 +22,7 @@ public class MainAppointmetController implements Initializable {
     private Button addApptButton;
 
     @FXML
-    public TableColumn<Appointments, String> apptIDCol;
+    public TableColumn<Appointments, Integer> apptIDCol;
 
     @FXML
     private Label apptLabel;
@@ -80,11 +78,15 @@ public class MainAppointmetController implements Initializable {
     @FXML
     public TableColumn<Appointments, Integer> userIDCol;
     ObservableList<Appointments> apptList = null;
+    public Appointments selectedAppointment = null;
+    private Parent root;
+    private Stage stage;
+    private Scene scene;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         apptList = DBAAppointments.getAllAppointments();
-        apptIDCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("appointmentID"));
+        apptIDCol.setCellValueFactory(new PropertyValueFactory<Appointments, Integer>("appointmentID"));
         titleCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("title"));
         descriptionCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("description"));
         locationCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("location"));
@@ -92,7 +94,7 @@ public class MainAppointmetController implements Initializable {
         startDandTCol.setCellValueFactory(new PropertyValueFactory<Appointments, Timestamp>("start"));
         endDandTCol.setCellValueFactory(new PropertyValueFactory<Appointments, Timestamp>("end"));
         dateCreatedCol.setCellValueFactory(new PropertyValueFactory<Appointments, Timestamp>("createDate"));
-        createdByCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("created_by"));
+        createdByCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("createdBy"));
         lastUpdateCol.setCellValueFactory(new PropertyValueFactory<Appointments, Timestamp>("lastUpdate"));
         lastUpdatedByCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("lastUpdatedBy"));
         customerIDCol.setCellValueFactory(new PropertyValueFactory<Appointments, Integer>("customerId"));
@@ -103,7 +105,7 @@ public class MainAppointmetController implements Initializable {
 
     public void onCustomerRecordsClick(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("CustomerList.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 600, 365);
+        Scene scene = new Scene(fxmlLoader.load(), 1090, 365);
         Stage stage = new Stage();
         stage.setTitle("Customers List");
         stage.setScene(scene);
@@ -113,7 +115,7 @@ public class MainAppointmetController implements Initializable {
 
     public void onAddClick(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Appoinment Information with DropMenu.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 600, 400);
+        Scene scene = new Scene(fxmlLoader.load(), 700, 400);
         Stage stage = new Stage();
         stage.setTitle("Add Appointment to known user");
         stage.setScene(scene);
@@ -122,12 +124,26 @@ public class MainAppointmetController implements Initializable {
     }
 
     public void onEditClick(ActionEvent actionEvent) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("CustomerRecord.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 600, 400);
-        Stage stage = new Stage();
-        stage.setTitle("Customer Information Sheet");
-        stage.setScene(scene);
-        stage.show();
-        ((Stage) editApptButton.getScene().getWindow()).close();
+        try{
+            if(tableView.getSelectionModel().getSelectedItem() != null) {
+                selectedAppointment = tableView.getSelectionModel().getSelectedItem();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("Appoinment Information.fxml"));
+                root = loader.load();
+                AppointmentInformationController scene2controller = loader.getController();
+                scene2controller.populateTextFields(selectedAppointment);
+                stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+                scene = new Scene(root);
+                stage.setScene(scene);
+            }
+            else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("No appointment selected.");
+                alert.setContentText("Please select an appointment. Thank you.");
+                alert.showAndWait();
+            }
+        }catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

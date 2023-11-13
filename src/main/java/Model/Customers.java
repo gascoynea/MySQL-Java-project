@@ -3,8 +3,8 @@ package Model;
 import java.sql.Timestamp;
 
 public class Customers {
-    private int custID;
-    private String custName;
+    private int customerID;
+    private String customerName;
     private String address;
     private String postCode;
     private String phone;
@@ -15,33 +15,32 @@ public class Customers {
     private String lastUpdatedBy;
     private int divisionID;
 
-    public Customers(int customerId, String customerName, String address, String postalCode, String phone, Timestamp createDate, String createdBy, Timestamp lastUpdate, String lastUpdatedBy, int divisionId) {
-        this.custID = customerId;
-        this.custName = customerName;
-        this.address = address;
-        this.postCode = postalCode;
-        this.phone = phone;
-        this.createDate = createDate;
-        this.createdBy = createdBy;
-        this.lastUpdate = lastUpdate;
-        this.lastUpdatedBy = lastUpdatedBy;
-        this.divisionID = divisionId;
+    public Customers(int inCustomerId, String inCustomerName, String inAddress, String inPostalCode, String inPhone, Timestamp inCreateDate, String inCreatedBy, Timestamp inLastUpdate, String inLastUpdatedBy, int inDivisionId) {
+        this.customerID = inCustomerId;
+        this.customerName = inCustomerName;
+        this.address = inAddress;
+        this.postCode = inPostalCode;
+        this.phone = inPhone;
+        this.createDate = inCreateDate;
+        this.createdBy = inCreatedBy;
+        this.lastUpdate = inLastUpdate;
+        this.lastUpdatedBy = inLastUpdatedBy;
+        this.divisionID = inDivisionId;
+    }
+    public int getCustomerID() {
+        return customerID;
     }
 
-    public int getCustID() {
-        return custID;
+    public void setCustomerID(int customerID) {
+        this.customerID = customerID;
     }
 
-    public void setCustID(int custID) {
-        this.custID = custID;
+    public String getCustomerName() {
+        return customerName;
     }
 
-    public String getCustName() {
-        return custName;
-    }
-
-    public void setCustName(String custName) {
-        this.custName = custName;
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
     }
 
     public String getAddress() {
@@ -107,4 +106,5 @@ public class Customers {
     public void setDivisionID(int divisionID) {
         this.divisionID = divisionID;
     }
+
 }

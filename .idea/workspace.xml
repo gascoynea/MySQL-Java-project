@@ -5,14 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c6c1ed0f-0722-4596-8d46-623794c3837d" name="Changes" comment="I just update all the DBAs to grab data from the DB and created instances of their respectives models into lists. I updated the models to create instances of themselves into an observable list.&#10;&#10;Still need to figure out how to implement the resources to uses locales to change language from individuals pc.&#10;Need to populate table in the FXML windows.">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Bundle.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/BDAccess/DBAAppointments.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BDAccess/DBAAppointments.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/BDAccess/DBACustomers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BDAccess/DBACustomers.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Model/Appointments.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/Appointments.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Customers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/Customers.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/AppointmentInformationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/AppointmentInformationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/CustomerListController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/CustomerListController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/MainAppointmetController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/MainAppointmetController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/demo/Main Appointments.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/demo/Main Appointments.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/demo/Appoinment Information.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/demo/Appoinment Information.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/demo/CustomerList.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/demo/CustomerList.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/demo/French.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/demo/LoginForm.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/demo/LoginForm.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,6 +31,7 @@
       <list>
         <option value="FxmlFile" />
         <option value="Class" />
+        <option value="XML Properties File" />
       </list>
     </option>
   </component>
@@ -68,6 +76,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\adam gascoyne\Desktop\SCHOOL WGU\C195\demo\src\main\resources" />
       <recent name="C:\Users\adam gascoyne\Desktop\SCHOOL WGU\C195\demo\src\main\resources\com\example\demo" />
       <recent name="C:\Users\adam gascoyne\Desktop\SCHOOL WGU\C195\demo\src\main\java\com\example\demo" />
     </key>
@@ -169,7 +178,14 @@
       <option name="project" value="LOCAL" />
       <updated>1699054317344</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="I just update all the DBAs to grab data from the DB and created instances of their respectives models into lists. I updated the models to create instances of themselves into an observable list.&#10;&#10;Still need to figure out how to implement the resources to uses locales to change language from individuals pc.&#10;Need to populate table in the FXML windows.">
+      <created>1699407737638</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1699407737638</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -190,5 +206,24 @@
     <MESSAGE value="Need to figure out to implement zone ID, and pc language preference on login screen. Also, populate windows with data." />
     <MESSAGE value="I just update all the DBAs to grab data from the DB and created instances of their respectives models into lists. I updated the models to create instances of themselves into an observable list.&#10;&#10;Still need to figure out how to implement the resources to uses locales to change language from individuals pc.&#10;Need to populate table in the FXML windows." />
     <option name="LAST_COMMIT_MESSAGE" value="I just update all the DBAs to grab data from the DB and created instances of their respectives models into lists. I updated the models to create instances of themselves into an observable list.&#10;&#10;Still need to figure out how to implement the resources to uses locales to change language from individuals pc.&#10;Need to populate table in the FXML windows." />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.RuntimeException" package="java.lang" />
+          <option name="timeStamp" value="7" />
+        </breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.reflect.InvocationTargetException" package="java.lang.reflect" />
+          <option name="timeStamp" value="10" />
+        </breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$PROJECT_DIR$/../../../../../../Program Files/Java/jdk-17/lib/src.zip!/java.base/java/lang/Integer.java</url>
+          <line>630</line>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

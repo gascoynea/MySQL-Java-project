@@ -44,7 +44,7 @@ public class DBACustomers {
     public static void getCustomerNames(){
         ObservableList<Customers> customers = DBACustomers.getAllCustomers();
         for (Customers customer : customers){
-            System.out.println(customer.getCustName());
+            System.out.println(customer.getCustomerName());
         }
     }
 }
