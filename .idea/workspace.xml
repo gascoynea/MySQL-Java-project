@@ -6,25 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="c6c1ed0f-0722-4596-8d46-623794c3837d" name="Changes" comment="I need to implement add, save, and delete functions to appointments and customer records that update the DB. Also, look into if you can save the initial instance of the DB to revert back to.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/BDAccess/DBAAppointments.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BDAccess/DBAAppointments.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/BDAccess/DBACountries.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BDAccess/DBACountries.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/BDAccess/DBACustomers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BDAccess/DBACustomers.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/BDAccess/DBAFirstLevelDivisions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BDAccess/DBAFirstLevelDivisions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Countries.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/Countries.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Customers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/Customers.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Model/FirstLevelDivisions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/FirstLevelDivisions.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/AppointmentInformationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/AppointmentInformationController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/ApptInfoDropDownController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/ApptInfoDropDownController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/CustomerListController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/CustomerListController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/CustomerRecordController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/CustomerRecordController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/MainAppointmetController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/MainAppointmetController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/MainController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/demo/Appoinment Information with DropMenu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/demo/Appoinment Information with DropMenu.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/demo/Appoinment Information.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/demo/Appoinment Information.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/demo/CustomerList.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/demo/CustomerList.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/demo/CustomerRecord.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/demo/CustomerRecord.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/demo/Main Appointments.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/demo/Main Appointments.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -201,7 +188,14 @@
       <option name="project" value="LOCAL" />
       <updated>1699842734829</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="I need to implement add, save, and delete functions to appointments and customer records that update the DB. Also, look into if you can save the initial instance of the DB to revert back to.">
+      <created>1700106488264</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1700106488264</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

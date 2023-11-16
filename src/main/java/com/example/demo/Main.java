@@ -20,8 +20,8 @@ public class Main extends Application {
     public static void main(String[] args) {
         Database.DBConnection.openConnection();
 //        System.out.println(DBACountries.getCountryName());
-        DBACustomers.getCustomerNames();
-//        DBAContacts.getContactName();
+//        DBACustomers.getCustomerNames();
+        DBAContacts.getContactName();
 //        DBAAppointments.getAppointmentID();
 //        DBAFirstLevelDivisions.getDivisionName();
 //        DBAUsers.getUserNames();

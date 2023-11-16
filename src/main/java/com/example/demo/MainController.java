@@ -28,9 +28,12 @@ public class MainController implements Initializable {
     public Label locationLabel;
     public Label loginFormText;
 
+
+    class reference{
+        public static String userName;
+        public static int userID;
+    }
     @FXML
-
-
     public void initialize(URL url, ResourceBundle Bundle) {
         //Getting local zone location.
         try {
@@ -68,6 +71,13 @@ public class MainController implements Initializable {
             }
             if(namesList.contains(loginName)){
                 if(passwordsList.contains(password)){
+
+                    reference.userName = loginName;
+                    for(Users user: usersList) {
+                        if(loginName.equals(user.getUserName()))
+                            System.out.println(loginName + " " + user.getUserID());
+                        reference.userID = user.getUserID();
+                    }
                     FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Main Appointments.fxml"));
                     Scene scene = new Scene(fxmlLoader.load(), 1250, 400);
                     Stage stage = new Stage();

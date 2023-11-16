@@ -1,8 +1,10 @@
 package com.example.demo;
 
 import BDAccess.DBAAppointments;
+import BDAccess.DBAContacts;
 import BDAccess.DBACustomers;
 import Model.Appointments;
+import Model.Contacts;
 import Model.Customers;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,10 +15,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.MenuButton;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import org.w3c.dom.events.MouseEvent;
 
 import java.io.IOException;
 import java.net.URL;
@@ -26,6 +26,8 @@ import java.util.ResourceBundle;
 public class ApptInfoDropDownController implements Initializable {
     @FXML
     public TextField createdByTF;
+    @FXML
+    public ComboBox contactListCB;
     @FXML
     private TextField apptTF;
 
@@ -75,6 +77,7 @@ public class ApptInfoDropDownController implements Initializable {
     private TextField userIDTF;
     ObservableList<Customers> customerList = null;
     ObservableList<Appointments> appointmentsList = null;
+    ObservableList<Contacts> contactsList = null;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         customerList = DBACustomers.getAllCustomers();
@@ -90,6 +93,17 @@ public class ApptInfoDropDownController implements Initializable {
             appointmentIDsList.add(appoinment.getAppointmentID());
         }
         apptTF.setText(String.valueOf(newAppointmentID(appointmentIDsList)));
+
+        contactsList = DBAContacts.getAllContacts();
+        ObservableList<String> contactNames = FXCollections.observableArrayList();
+        for(Contacts contact : contactsList){
+            contactNames.add(contact.getContact_Name());
+            }
+        contactListCB.setItems(contactNames);
+        userIDTF.setText(String.valueOf(MainController.reference.userID));
+        createdByTF.setText(MainController.reference.userName);
+        lastUpdatedByTF.setText(MainController.reference.userName);
+
     }
     public void onSaveButtonClick(ActionEvent actionEvent) {
     }
@@ -104,27 +118,31 @@ public class ApptInfoDropDownController implements Initializable {
         ((Stage) cancelButton.getScene().getWindow()).close();
     }
     public void onCustomerNameSelected(ActionEvent actionEvent){
-        String customerName = customerListDD.getValue().toString();
-        String custNameTemp;
-        int customerID;
-        int apptCustID;
-        int contactID;
-
-        for (Customers customer : customerList){
-            custNameTemp = customer.getCustomerName();
-            if (custNameTemp == customerName){
-                customerIDTF.setText(String.valueOf(customer.getCustomerID()));
-                customerID = customer.getCustomerID();
-                for(Appointments appointment: appointmentsList){
-                    apptCustID = appointment.getCustomerId();
-                    if(apptCustID == customerID){
-                        contactID = appointment.getContactId();
-                        contactIDTF.setText(String.valueOf(contactID));
+        if(customerListDD.isFocused()) {
+            String customerName = customerListDD.getValue().toString();
+            String custNameTemp;
+            for (Customers customer : customerList) {
+                custNameTemp = customer.getCustomerName();
+                if (custNameTemp == customerName) {
+                    customerIDTF.setText(String.valueOf(customer.getCustomerID()));
                     }
+            }
+        }
+    }
+
+    public void onContactNameSelected(ActionEvent actionEvent){
+        if(contactListCB.isFocused()){
+            String contactName = contactListCB.getValue().toString();
+            String contactNameTemp;
+            for(Contacts contact : contactsList){
+                contactNameTemp = contact.getContact_Name();
+                if (contactNameTemp == contactName){
+                    contactIDTF.setText(String.valueOf(contact.getConID()));
                 }
             }
         }
     }
+
     public int newAppointmentID(List appointmentIDs){
         int newAppointmentID;
         int possibleID = 1;

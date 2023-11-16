@@ -1,8 +1,11 @@
 package com.example.demo;
 import BDAccess.DBAAppointments;
+import BDAccess.DBAContacts;
 import BDAccess.DBACustomers;
 import Model.Appointments;
+import Model.Contacts;
 import Model.Customers;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -26,6 +30,8 @@ public class AppointmentInformationController implements Initializable {
     public Button saveButton;
     @FXML
     public TextField customerNameTF;
+    @FXML
+    public ComboBox contactNameCB;
 
     @FXML
     private Button cancelButton;
@@ -71,8 +77,15 @@ public class AppointmentInformationController implements Initializable {
     Appointments appointmentInformation = null;
     ObservableList<Appointments> currentAppointmentsList = DBAAppointments.getAllAppointments();
     ObservableList<Customers> customersList = DBACustomers.getAllCustomers();
+    ObservableList<Contacts> contactsList = DBAContacts.getAllContacts();
+    ObservableList<String> contactNamesList = FXCollections.observableArrayList();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        for (Contacts contact : contactsList){
+            contactNamesList.add(contact.getContact_Name());
+        }
+        contactNameCB.setItems(contactNamesList);
     }
     public void onCancelButtonClick(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Main Appointments.fxml"));
@@ -166,6 +179,17 @@ public class AppointmentInformationController implements Initializable {
 //        } catch (SQLException e) {
 //            throw new RuntimeException(e);
         }
+    @FXML
+    public void onContactNameSelected(ActionEvent actionEvent) {
+        String contactName = contactNameCB.getValue().toString();
+        int contactID = 0;
+        for (Contacts contact : contactsList){
+            if(contactName.equals(contact.getContact_Name())){
+                contactID = contact.getConID();
+            }
+        }
+        contactField.setText(String.valueOf(contactID));
+    }
 
 
 //            Alert alert = new Alert(Alert.AlertType.ERROR);
