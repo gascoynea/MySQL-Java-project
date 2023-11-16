@@ -19,8 +19,8 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         Database.DBConnection.openConnection();
-//        DBACountries.getCountryName();
-//        DBACustomers.getCustomerNames();
+//        System.out.println(DBACountries.getCountryName());
+        DBACustomers.getCustomerNames();
 //        DBAContacts.getContactName();
 //        DBAAppointments.getAppointmentID();
 //        DBAFirstLevelDivisions.getDivisionName();

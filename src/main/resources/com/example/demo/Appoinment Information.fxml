@@ -45,22 +45,23 @@
                   <Font size="24.0" />
                </font>
             </Label>
-            <Button fx:id="saveButton" layoutX="164.0" layoutY="348.0" mnemonicParsing="false" onAction="#onSaveButtonClick" text="Save" />
+            <Button fx:id="saveButton" layoutX="265.0" layoutY="350.0" mnemonicParsing="false" onAction="#onSaveButtonClick" text="Save" />
             <Button fx:id="cancelButton" layoutX="430.0" layoutY="348.0" mnemonicParsing="false" onAction="#onCancelButtonClick" text="Cancel" />
-            <TextField fx:id="appointmentIDField" editable="false" layoutX="110.0" layoutY="56.0" promptText="Appointment ID" />
+            <TextField fx:id="appointmentIDField" editable="false" layoutX="211.0" layoutY="58.0" promptText="Appointment ID" />
             <TextField fx:id="createdByFeild" editable="false" layoutX="382.0" layoutY="98.0" promptText="Created By" />
-            <TextField fx:id="titleField" layoutX="109.0" layoutY="98.0" promptText="Title" />
-            <TextField fx:id="endField" layoutX="110.0" layoutY="291.0" promptText="End" />
+            <TextField fx:id="titleField" layoutX="210.0" layoutY="100.0" promptText="Title" />
+            <TextField fx:id="endField" layoutX="211.0" layoutY="293.0" promptText="End" />
             <TextField fx:id="createDateField" editable="false" layoutX="382.0" layoutY="56.0" promptText="Create Date" />
-            <TextField fx:id="descriptionField" layoutX="109.0" layoutY="140.0" promptText="Description" />
-            <TextField fx:id="locationField" layoutX="109.0" layoutY="179.0" promptText="Location" />
-            <TextField fx:id="typeField" layoutX="109.0" layoutY="216.0" promptText="Type" />
-            <TextField fx:id="startField" layoutX="109.0" layoutY="254.0" promptText="Start" />
+            <TextField fx:id="descriptionField" layoutX="210.0" layoutY="142.0" promptText="Description" />
+            <TextField fx:id="locationField" layoutX="210.0" layoutY="181.0" promptText="Location" />
+            <TextField fx:id="typeField" layoutX="210.0" layoutY="218.0" promptText="Type" />
+            <TextField fx:id="startField" layoutX="210.0" layoutY="256.0" promptText="Start" />
             <TextField fx:id="lastUpdateField" layoutX="382.0" layoutY="139.0" promptText="Last Updated" />
             <TextField fx:id="lastUpdatedByField" layoutX="382.0" layoutY="179.0" promptText="Last Updated  By" />
             <TextField fx:id="customerIDField" editable="false" layoutX="382.0" layoutY="216.0" promptText="Customer ID" />
             <TextField fx:id="userIDField" editable="false" layoutX="382.0" layoutY="254.0" promptText="User ID" />
             <TextField fx:id="contactField" editable="false" layoutX="382.0" layoutY="291.0" promptText="Contact ID" />
+            <TextField fx:id="customerNameTF" editable="false" layoutX="35.0" layoutY="58.0" promptText="Customer Name" />
       </children>
     </AnchorPane>
   </children>

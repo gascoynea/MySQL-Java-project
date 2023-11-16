@@ -4,31 +4,33 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="1096.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.CustomerListController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="1246.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.CustomerListController">
    <children>
-      <Label layoutX="429.0" layoutY="7.0" text="Customer Records">
+      <Label layoutX="526.0" layoutY="7.0" text="Customer Records">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <TableView fx:id="CustomerRec_Table" layoutX="11.0" layoutY="49.0" prefHeight="282.0" prefWidth="1071.0">
+      <TableView fx:id="CustomerRec_Table" layoutX="11.0" layoutY="49.0" prefHeight="282.0" prefWidth="1224.0">
         <columns>
           <TableColumn fx:id="customerID_Col" prefWidth="76.0" text="Customer ID" />
           <TableColumn fx:id="nameCol" prefWidth="151.0" text="Name" />
             <TableColumn fx:id="Address_Col" prefWidth="182.0" text="Address" />
             <TableColumn fx:id="PostalCode_Col" prefWidth="83.0" text="Postal Code" />
-            <TableColumn fx:id="PhoneNum_Col" prefWidth="108.0" text="Phone Number" />
-            <TableColumn fx:id="createDateCol" prefWidth="99.0" text="Create Date" />
-            <TableColumn fx:id="createdByCol" prefWidth="103.0" text="Created By" />
-            <TableColumn fx:id="lastUpdateCol" prefWidth="93.0" text="Last Updated" />
-            <TableColumn fx:id="lastUpdatedByCol" prefWidth="106.0" text="Last Updated By" />
-            <TableColumn fx:id="divisionIDCol" minWidth="0.0" prefWidth="69.0" text="Division ID" />
+            <TableColumn fx:id="divisionCol" prefWidth="113.0" text="Division" />
+            <TableColumn fx:id="PhoneNum_Col" prefWidth="105.0" text="Phone Number" />
+            <TableColumn fx:id="createDateCol" prefWidth="113.0" text="Create Date" />
+            <TableColumn fx:id="createdByCol" prefWidth="92.0" text="Created By" />
+            <TableColumn fx:id="lastUpdateCol" prefWidth="139.0" text="Last Updated" />
+            <TableColumn fx:id="lastUpdatedByCol" prefWidth="97.0" text="Last Updated By" />
+            <TableColumn fx:id="divisionIDCol" minWidth="0.0" prefWidth="72.0" text="Division ID" />
         </columns>
       </TableView>
-      <Button layoutX="248.0" layoutY="331.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" text="Delete Record" />
-      <Button fx:id="customerInfoButton" layoutX="11.0" layoutY="331.0" mnemonicParsing="false" onAction="#onCustInfoButtonclick" prefHeight="25.0" prefWidth="137.0" text="Customer Information" />
-      <Button fx:id="apptsButton" layoutX="466.0" layoutY="331.0" mnemonicParsing="false" onAction="#onApptsButtonClick" prefHeight="25.0" prefWidth="120.0" text="Appointments" />
+      <Button layoutX="1105.0" layoutY="331.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" text="Delete Record" />
+      <Button fx:id="customerInfoButton" layoutX="11.0" layoutY="331.0" mnemonicParsing="false" onAction="#onCustInfoButtonclick" prefHeight="25.0" prefWidth="178.0" text="Customer Information/Update" />
+      <Button fx:id="apptsButton" layoutX="1115.0" layoutY="12.0" mnemonicParsing="false" onAction="#onApptsButtonClick" prefHeight="25.0" prefWidth="120.0" text="Appointments" />
       <TextField fx:id="customerSearchTextField" layoutX="11.0" layoutY="24.0" promptText="Customer Search" />
       <Button fx:id="searchButton" layoutX="160.0" layoutY="24.0" mnemonicParsing="false" onAction="#onSearchButtonClick" text="Search" />
+      <Button fx:id="addCustomerButton" layoutX="189.0" layoutY="331.0" mnemonicParsing="false" onAction="#onAddCustomerButtonClick" prefHeight="25.0" prefWidth="137.0" text="Add Customer Record" />
    </children>
 </AnchorPane>

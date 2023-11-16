@@ -1,44 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.CustomerRecordController">
+<AnchorPane prefHeight="400.0" prefWidth="1625.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.CustomerRecordController">
    <children>
-      <Label layoutX="31.0" layoutY="26.0" text="Customer Information">
+      <Label layoutX="31.0" layoutY="13.0" text="Customer Information">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField layoutX="44.0" layoutY="91.0" promptText="Customer ID" />
-      <TextField layoutX="44.0" layoutY="116.0" promptText="Name" />
-      <TextField layoutX="44.0" layoutY="141.0" promptText="Address" />
-      <TextField layoutX="44.0" layoutY="166.0" promptText="Postal Code" />
-      <TextField layoutX="44.0" layoutY="191.0" promptText="State/Province" />
-      <TextField layoutX="44.0" layoutY="216.0" promptText="Country" />
-      <TextField layoutX="44.0" layoutY="241.0" promptText="Phone Number" />
-      <TextField layoutX="44.0" layoutY="266.0" promptText="Time Updated" />
-      <Button fx:id="saveButton" layoutX="44.0" layoutY="346.0" mnemonicParsing="false" onAction="#onSaveClick" text="Save" />
-      <Button fx:id="cancelButton" layoutX="141.0" layoutY="346.0" mnemonicParsing="false" onAction="#onCancelButtonCllick" text="Cancel" />
-      <Label layoutX="352.0" layoutY="26.0" text="Appointments">
+      <TextField fx:id="customerIDTF" editable="false" layoutX="45.0" layoutY="88.0" promptText="Customer ID" />
+      <TextField fx:id="nameTF" layoutX="45.0" layoutY="113.0" promptText="Name" />
+      <TextField fx:id="addressTF" layoutX="45.0" layoutY="138.0" promptText="Address" />
+      <TextField fx:id="postalcodeTF" layoutX="44.0" layoutY="163.0" promptText="Postal Code" />
+      <TextField fx:id="phoneNumberTF" layoutX="44.0" layoutY="188.0" promptText="Phone Number" />
+      <Button fx:id="saveButton" layoutX="44.0" layoutY="346.0" mnemonicParsing="false" onAction="#onSaveClick" prefHeight="25.0" prefWidth="75.0" text="Save" />
+      <Button fx:id="cancelButton" layoutX="118.0" layoutY="346.0" mnemonicParsing="false" onAction="#onCancelButtonCllick" prefHeight="25.0" prefWidth="75.0" text="Cancel" />
+      <Label layoutX="857.0" layoutY="13.0" text="Appointments">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <TableView layoutX="238.0" layoutY="63.0" prefHeight="268.0" prefWidth="340.0">
+      <TableView fx:id="tableViewAppointments" layoutX="238.0" layoutY="63.0" prefHeight="282.0" prefWidth="1351.0">
         <columns>
-          <TableColumn prefWidth="53.0" text="Appt ID" />
-          <TableColumn prefWidth="97.0" text="Title" />
-            <TableColumn prefWidth="97.0" text="Date" />
+          <TableColumn fx:id="apptIDCol" prefWidth="53.0" text="Appt ID" />
+          <TableColumn fx:id="titleCol" prefWidth="97.0" text="Title" />
+            <TableColumn fx:id="descriptionCol" prefWidth="97.0" text="Description" />
+            <TableColumn fx:id="locationCol" prefWidth="97.0" text="Location" />
+            <TableColumn fx:id="typeCol" prefWidth="97.0" text="Type" />
+            <TableColumn fx:id="startCol" prefWidth="122.0" text="Start Date &amp; Time" />
+            <TableColumn fx:id="endCol" prefWidth="118.0" text="End Date &amp; Time" />
+            <TableColumn fx:id="dateCreatedCol" prefWidth="90.0" text="Date Created" />
+            <TableColumn fx:id="createdByCol" prefWidth="93.0" text="Created By" />
+            <TableColumn fx:id="lastUpdatedCol" prefWidth="99.0" text="Last Update" />
+            <TableColumn fx:id="lastUpdatedByCol" prefWidth="113.0" text="Last Updated By" />
+            <TableColumn fx:id="customerIDCol" prefWidth="112.0" text="Customer ID" />
+            <TableColumn fx:id="userIDCol" prefWidth="87.0" text="User ID" />
+            <TableColumn fx:id="contactIDCol" prefWidth="74.0" text="Contact ID" />
         </columns>
       </TableView>
-      <Button fx:id="editButton" layoutX="282.0" layoutY="346.0" mnemonicParsing="false" onAction="#onEditButtonClick" text="Edit" />
-      <Button fx:id="addButton" layoutX="238.0" layoutY="346.0" mnemonicParsing="false" onAction="#onAddButtonClick" text="Add" />
-      <Button fx:id="deleteButton" layoutX="527.0" layoutY="346.0" mnemonicParsing="false" onAction="#onDeleteButtonClick" text="Delete" />
+      <Button fx:id="editButton" layoutX="329.0" layoutY="346.0" mnemonicParsing="false" onAction="#onEditButtonClick" prefHeight="25.0" prefWidth="92.0" text="Edit" />
+      <Button fx:id="addAppointmentButton" layoutX="238.0" layoutY="346.0" mnemonicParsing="false" onAction="#onAddAppointmentButtonClick" prefHeight="25.0" prefWidth="92.0" text="Add" />
+      <Button fx:id="deleteButton" layoutX="1497.0" layoutY="346.0" mnemonicParsing="false" onAction="#onDeleteButtonClick" prefHeight="25.0" prefWidth="92.0" text="Delete" />
+      <ComboBox fx:id="countryComBox" layoutX="44.0" layoutY="255.0" onAction="#onCountrySelected" onMouseClicked="#onMouseCountrySelect" prefWidth="150.0" promptText="Country" />
+      <ComboBox fx:id="stateProvinceComBox" layoutX="44.0" layoutY="280.0" prefWidth="150.0" promptText="State/Province" />
    </children>
 </AnchorPane>

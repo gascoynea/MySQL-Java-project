@@ -1,24 +1,23 @@
 package com.example.demo;
 
 import BDAccess.DBACustomers;
+import Model.Countries;
 import Model.Customers;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Array;
 import java.sql.Timestamp;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -26,6 +25,9 @@ import java.util.stream.Collectors;
 public class CustomerListController implements Initializable {
     public TextField customerSearchTextField;
     public Button searchButton;
+    public Button addCustomerButton;
+    @FXML
+    private TableColumn<Customers, String> divisionCol;
     @FXML
     private TableColumn<Customers, String> Address_Col;
 
@@ -68,27 +70,51 @@ public class CustomerListController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         customerList = DBACustomers.getAllCustomers();
-        customerID_Col.setCellValueFactory(new PropertyValueFactory<Customers, Integer>("customerID"));
-        nameCol.setCellValueFactory(new PropertyValueFactory<Customers, String>("customerName"));
-        Address_Col.setCellValueFactory(new PropertyValueFactory<Customers, String>("address"));
-        PostalCode_Col.setCellValueFactory(new PropertyValueFactory<Customers, String>("postCode"));
-        PhoneNum_Col.setCellValueFactory(new PropertyValueFactory<Customers, String>("phone"));
-        createDateCol.setCellValueFactory(new PropertyValueFactory<Customers, Timestamp>("createDate"));
-        createdByCol.setCellValueFactory(new PropertyValueFactory<Customers, String>("createdBy"));
-        lastUpdateCol.setCellValueFactory(new PropertyValueFactory<Customers, Timestamp>("lastUpdate"));
-        lastUpdatedByCol.setCellValueFactory(new PropertyValueFactory<Customers, String>("lastUpdatedBy"));
-        divisionIDCol.setCellValueFactory(new PropertyValueFactory<Customers, Integer>("divisionID"));
+
+        customerID_Col.setCellValueFactory(new PropertyValueFactory<>("customerID"));
+        nameCol.setCellValueFactory(new PropertyValueFactory<>("customerName"));
+        Address_Col.setCellValueFactory(new PropertyValueFactory<>("address"));
+        PostalCode_Col.setCellValueFactory(new PropertyValueFactory<>("postCode"));
+        divisionCol.setCellValueFactory(new PropertyValueFactory<Customers, String>("division"));
+        PhoneNum_Col.setCellValueFactory(new PropertyValueFactory<>("phone"));
+        createDateCol.setCellValueFactory(new PropertyValueFactory<>("createDate"));
+        createdByCol.setCellValueFactory(new PropertyValueFactory<>("createdBy"));
+        lastUpdateCol.setCellValueFactory(new PropertyValueFactory<>("lastUpdate"));
+        lastUpdatedByCol.setCellValueFactory(new PropertyValueFactory<>("lastUpdatedBy"));
+        divisionIDCol.setCellValueFactory(new PropertyValueFactory<>("divisionID"));
+
         CustomerRec_Table.setItems(customerList);
     }
     @FXML
     public void onCustInfoButtonclick(ActionEvent actionEvent) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("CustomerRecord.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 600, 400);
-        Stage stage = new Stage();
-        stage.setTitle("Customer Information Sheet");
-        stage.setScene(scene);
-        stage.show();
-        ((Stage) customerInfoButton.getScene().getWindow()).close();
+        try{
+            if(CustomerRec_Table.getSelectionModel().selectedItemProperty().get() != null) {
+                Customers selectedCustomer = CustomerRec_Table.getSelectionModel().selectedItemProperty().get();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("CustomerRecord.fxml"));
+                Parent root = loader.load();
+                CustomerRecordController scene2controller = loader.getController();
+                scene2controller.populateScene(selectedCustomer);
+                Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+                Scene scene = new Scene(root);
+                stage.setScene(scene);
+            }
+            else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("No customer selected.");
+                alert.setContentText("Please select a customer. Thank you.");
+                alert.showAndWait();
+            }
+        }catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+//        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("CustomerRecord.fxml"));
+//        Scene scene = new Scene(fxmlLoader.load(), 600, 400);
+//        Stage stage = new Stage();
+//        stage.setTitle("Customer Information Sheet");
+//        stage.setScene(scene);
+//        stage.show();
+//        ((Stage) customerInfoButton.getScene().getWindow()).close();
     }
     @FXML
     public void onApptsButtonClick(ActionEvent actionEvent) throws IOException {
@@ -113,4 +139,20 @@ public class CustomerListController implements Initializable {
                     input.getCustomerName().toLowerCase().contains(word.toLowerCase()) || Integer.toString(input.getCustomerID()).contains(word.toLowerCase()));
         }).collect(Collectors.toList());
     }
+
+    public void onAddCustomerButtonClick(ActionEvent actionEvent) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("CustomerRecord.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 1600, 400);
+        Stage stage = new Stage();
+        stage.setTitle("Customer Information Sheet");
+        stage.setScene(scene);
+        stage.show();
+        ((Stage) customerInfoButton.getScene().getWindow()).close();
+    }
+
+//    public void onCustomerRecordSelected(MouseEvent mouseEvent) {
+//        Customers selectedCustomer = CustomerRec_Table.getSelectionModel().selectedItemProperty().get();
+//        System.out.println(selectedCustomer.getCustomerName());
+////        return selectedCustomer;
+//    }
 }

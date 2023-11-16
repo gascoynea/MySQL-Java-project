@@ -14,7 +14,7 @@ public class DBACountries {
         ObservableList<Countries> countryList = FXCollections.observableArrayList();
 
         try{
-            String sql = "SELECT * from countries";
+            String sql = "SELECT Country_ID, Country from countries";
 
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
 
@@ -23,18 +23,19 @@ public class DBACountries {
             while(rs.next()){
                 int cID = rs.getInt("Country_ID");
                 String cName = rs.getString("Country");
-                Timestamp create_Date = rs.getTimestamp("Create_Date");
-                String created_by = rs.getString("Created_By");
-                Timestamp last_Update = rs.getTimestamp("Last_Update");
-                String last_Updated_By = rs.getString("Last_Updated_By");
+//                Timestamp create_Date = rs.getTimestamp("Create_Date");
+//                String created_by = rs.getString("Created_By");
+//                Timestamp last_Update = rs.getTimestamp("Last_Update");
+//                String last_Updated_By = rs.getString("Last_Updated_By");
 
-                Countries cSet = new Countries(cID, cName, create_Date, created_by, last_Update, last_Updated_By);
+//                Countries cSet = new Countries(cID, cName, create_Date, created_by, last_Update, last_Updated_By);
+                Countries cSet = new Countries(cID, cName);
                 countryList.add(cSet);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
+//        System.out.println(countryList);
         return countryList;
     }
 
@@ -55,10 +56,14 @@ public class DBACountries {
 
         }
     }
-    public static void getCountryName(){
+    public static ObservableList<String> getCountryName(){
         ObservableList<Countries> countries = DBACountries.getAllCountries();
+        ObservableList<String> countryNames = FXCollections.observableArrayList();
+//        ArrayList<String> countryNames = new ArrayList<>();
         for (Countries country : countries){
-            System.out.println(country.getName());
+            countryNames.add(country.getName());
+//            System.out.println(country.getName() + " " + country.getId());
         }
+        return countryNames;
     }
 }

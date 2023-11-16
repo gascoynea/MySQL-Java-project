@@ -38,7 +38,7 @@ public class MainController implements Initializable {
             ZoneId region = ZoneId.systemDefault().normalized();
             locationLabel.setText(String.valueOf(region));
             ResourceBundle language = ResourceBundle.getBundle("Bundle", locale);
-            System.out.println(Locale.getDefault());
+//            System.out.println(Locale.getDefault());
             if (locale.getLanguage() != "en") {
                 loginButton.setText(language.getString("login"));
                 loginFormText.setText(language.getString("America"));

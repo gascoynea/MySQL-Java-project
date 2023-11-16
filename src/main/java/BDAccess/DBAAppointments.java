@@ -2,7 +2,6 @@ package BDAccess;
 
 import Database.DBConnection;
 import Model.Appointments;
-import javafx.beans.property.IntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import java.sql.PreparedStatement;
@@ -46,10 +45,8 @@ public class DBAAppointments {
         //System.out.println(appointmentsList.get(0).getAppointmentID());
         return appointmentsList;
     }
-    public static void getAppointmentID() {
+    public static ObservableList<Appointments> getAppointmentID() {
         ObservableList<Appointments> appointments = DBAAppointments.getAllAppointments();
-        for (Appointments appts : appointments) {
-//            System.out.println(appts.getaID() + " " + appts.getTitle());
-        }
+        return appointments;
     }
 }

@@ -4,22 +4,27 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c6c1ed0f-0722-4596-8d46-623794c3837d" name="Changes" comment="I just update all the DBAs to grab data from the DB and created instances of their respectives models into lists. I updated the models to create instances of themselves into an observable list.&#10;&#10;Still need to figure out how to implement the resources to uses locales to change language from individuals pc.&#10;Need to populate table in the FXML windows.">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Bundle.properties" afterDir="false" />
+    <list default="true" id="c6c1ed0f-0722-4596-8d46-623794c3837d" name="Changes" comment="I need to implement add, save, and delete functions to appointments and customer records that update the DB. Also, look into if you can save the initial instance of the DB to revert back to.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/BDAccess/DBAAppointments.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BDAccess/DBAAppointments.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/BDAccess/DBACountries.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BDAccess/DBACountries.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/BDAccess/DBACustomers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BDAccess/DBACustomers.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Appointments.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/Appointments.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/BDAccess/DBAFirstLevelDivisions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BDAccess/DBAFirstLevelDivisions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Countries.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/Countries.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Model/Customers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/Customers.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/FirstLevelDivisions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/FirstLevelDivisions.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/AppointmentInformationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/AppointmentInformationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/ApptInfoDropDownController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/ApptInfoDropDownController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/CustomerListController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/CustomerListController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/CustomerRecordController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/CustomerRecordController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/MainAppointmetController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/MainAppointmetController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/MainController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/demo/Appoinment Information with DropMenu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/demo/Appoinment Information with DropMenu.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/demo/Appoinment Information.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/demo/Appoinment Information.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/demo/CustomerList.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/demo/CustomerList.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/demo/French.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/demo/LoginForm.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/demo/LoginForm.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/demo/CustomerRecord.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/demo/CustomerRecord.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/demo/Main Appointments.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/demo/Main Appointments.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,6 +37,7 @@
         <option value="FxmlFile" />
         <option value="Class" />
         <option value="XML Properties File" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -75,6 +81,9 @@
   }
 }</component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.example.demo" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\adam gascoyne\Desktop\SCHOOL WGU\C195\demo\src\main\resources" />
       <recent name="C:\Users\adam gascoyne\Desktop\SCHOOL WGU\C195\demo\src\main\resources\com\example\demo" />
@@ -185,7 +194,14 @@
       <option name="project" value="LOCAL" />
       <updated>1699407737638</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="I used a lambda expression to search known appoinments by name and ID.&#10;&#10;I need to be able to Add, Edit cutomer records and appoinments as well as deleting both.">
+      <created>1699842734829</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1699842734829</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -205,15 +221,13 @@
     <MESSAGE value="NEed to figure out how to have fxml have controllers." />
     <MESSAGE value="Need to figure out to implement zone ID, and pc language preference on login screen. Also, populate windows with data." />
     <MESSAGE value="I just update all the DBAs to grab data from the DB and created instances of their respectives models into lists. I updated the models to create instances of themselves into an observable list.&#10;&#10;Still need to figure out how to implement the resources to uses locales to change language from individuals pc.&#10;Need to populate table in the FXML windows." />
-    <option name="LAST_COMMIT_MESSAGE" value="I just update all the DBAs to grab data from the DB and created instances of their respectives models into lists. I updated the models to create instances of themselves into an observable list.&#10;&#10;Still need to figure out how to implement the resources to uses locales to change language from individuals pc.&#10;Need to populate table in the FXML windows." />
+    <MESSAGE value="I used a lambda expression to search known appoinments by name and ID.&#10;&#10;I need to be able to Add, Edit cutomer records and appoinments as well as deleting both." />
+    <MESSAGE value="I need to implement add, save, and delete functions to appointments and customer records that update the DB. Also, look into if you can save the initial instance of the DB to revert back to." />
+    <option name="LAST_COMMIT_MESSAGE" value="I need to implement add, save, and delete functions to appointments and customer records that update the DB. Also, look into if you can save the initial instance of the DB to revert back to." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <breakpoint enabled="true" type="java-exception">
-          <properties class="java.lang.RuntimeException" package="java.lang" />
-          <option name="timeStamp" value="7" />
-        </breakpoint>
         <breakpoint enabled="true" type="java-exception">
           <properties class="java.lang.reflect.InvocationTargetException" package="java.lang.reflect" />
           <option name="timeStamp" value="10" />

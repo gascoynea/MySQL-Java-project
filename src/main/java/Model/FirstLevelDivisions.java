@@ -10,13 +10,14 @@ public class FirstLevelDivisions {
     private Timestamp last_Updated;
     private String last_Updated_By;
     private int countryID;
-    public FirstLevelDivisions(int divID, String division, Timestamp createDate, String createdBy, Timestamp lastUpdate, String lastUpdatedBy, int countryID) {
+    public FirstLevelDivisions(int divID, String division, int countryID) {
+//        Timestamp createDate, String createdBy, Timestamp lastUpdate, String lastUpdatedBy, int countryID
         this.divID = divID;
         this.division = division;
-        this.create_Date = createDate;
-        this.created_By = createdBy;
-        this.last_Updated = lastUpdate;
-        this.last_Updated_By = lastUpdatedBy;
+//        this.create_Date = createDate;
+//        this.created_By = createdBy;
+//        this.last_Updated = lastUpdate;
+//        this.last_Updated_By = lastUpdatedBy;
         this.countryID = countryID;
     }
 

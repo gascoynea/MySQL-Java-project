@@ -105,7 +105,7 @@ public class MainAppointmetController implements Initializable {
 
     public void onCustomerRecordsClick(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("CustomerList.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1090, 365);
+        Scene scene = new Scene(fxmlLoader.load(), 1250, 365);
         Stage stage = new Stage();
         stage.setTitle("Customers List");
         stage.setScene(scene);
@@ -115,7 +115,7 @@ public class MainAppointmetController implements Initializable {
 
     public void onAddClick(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Appoinment Information with DropMenu.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 700, 400);
+        Scene scene = new Scene(fxmlLoader.load(), 650, 400);
         Stage stage = new Stage();
         stage.setTitle("Add Appointment to known user");
         stage.setScene(scene);

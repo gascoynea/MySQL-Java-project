@@ -1,6 +1,8 @@
 package com.example.demo;
 import BDAccess.DBAAppointments;
+import BDAccess.DBACustomers;
 import Model.Appointments;
+import Model.Customers;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,6 +24,8 @@ public class AppointmentInformationController implements Initializable {
     public TextField appointmentIDField;
     @FXML
     public Button saveButton;
+    @FXML
+    public TextField customerNameTF;
 
     @FXML
     private Button cancelButton;
@@ -66,12 +70,13 @@ public class AppointmentInformationController implements Initializable {
     public TextField userIDField;
     Appointments appointmentInformation = null;
     ObservableList<Appointments> currentAppointmentsList = DBAAppointments.getAllAppointments();
+    ObservableList<Customers> customersList = DBACustomers.getAllCustomers();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
     }
     public void onCancelButtonClick(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Main Appointments.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 600, 400);
+        Scene scene = new Scene(fxmlLoader.load(), 1250, 400);
         Stage stage = new Stage();
         stage.setTitle("Main Appointments");
         stage.setScene(scene);
@@ -96,6 +101,11 @@ public class AppointmentInformationController implements Initializable {
         customerIDField.setText(String.valueOf(populatingAppointment.getCustomerId()));
         userIDField.setText(String.valueOf(populatingAppointment.getUserId()));
         contactField.setText(String.valueOf(populatingAppointment.getContactId()));
+        for (Customers customer : customersList){
+            if(customer.getCustomerID() == appointmentInformation.getCustomerId()){
+                customerNameTF.setText(customer.getCustomerName());
+            }
+        }
         //System.out.println(appointmentInformation.getDescription());
     }
 

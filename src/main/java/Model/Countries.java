@@ -11,13 +11,14 @@ public class Countries {
     private Timestamp last_Updated;
     private String last_Updated_By;
 
-    public Countries(int id, String name, Timestamp create_Date, String created_By, Timestamp last_Update, String last_Updated_By){
+    public Countries(int id, String name){
+//        Timestamp create_Date, String created_By, Timestamp last_Update, String last_Updated_By
         this.id = id;
         this.name = name;
-        this.create_Date = create_Date;
-        this.created_By = created_By;
-        this.last_Updated = last_Update;
-        this.last_Updated_By = last_Updated_By;
+//        this.create_Date = create_Date;
+//        this.created_By = created_By;
+//        this.last_Updated = last_Update;
+//        this.last_Updated_By = last_Updated_By;
     }
 
     public int getId() {
