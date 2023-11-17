@@ -32,19 +32,15 @@
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.AppointmentInformationController">
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.AppointmentInformationController">
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
       <children>
-            <Label layoutX="184.0" layoutY="14.0" text="Appointment Information">
+            <Label layoutX="187.0" layoutY="14.0" text="Edit Known Appointment">
                <font>
                   <Font size="24.0" />
                </font>
@@ -60,13 +56,14 @@
             <TextField fx:id="locationField" layoutX="210.0" layoutY="181.0" promptText="Location" />
             <TextField fx:id="typeField" layoutX="210.0" layoutY="218.0" promptText="Type" />
             <TextField fx:id="startField" layoutX="210.0" layoutY="256.0" promptText="Start" />
-            <TextField fx:id="lastUpdateField" layoutX="382.0" layoutY="139.0" promptText="Last Updated" />
-            <TextField fx:id="lastUpdatedByField" layoutX="382.0" layoutY="179.0" promptText="Last Updated  By" />
+            <TextField fx:id="lastUpdateField" editable="false" layoutX="382.0" layoutY="139.0" promptText="Last Updated" />
+            <TextField fx:id="lastUpdatedByField" editable="false" layoutX="382.0" layoutY="179.0" promptText="Last Updated  By" />
             <TextField fx:id="customerIDField" editable="false" layoutX="382.0" layoutY="216.0" promptText="Customer ID" />
             <TextField fx:id="userIDField" editable="false" layoutX="382.0" layoutY="254.0" promptText="User ID" />
             <TextField fx:id="contactField" editable="false" layoutX="382.0" layoutY="291.0" promptText="Contact ID" />
             <TextField fx:id="customerNameTF" editable="false" layoutX="35.0" layoutY="58.0" promptText="Customer Name" />
             <ComboBox fx:id="contactNameCB" layoutX="35.0" layoutY="181.0" onAction="#onContactNameSelected" prefWidth="150.0" promptText="Contacts" />
+            <ComboBox fx:id="customerNameCB" layoutX="33.0" layoutY="87.0" onAction="#onCustomerNameSelected" prefWidth="150.0" promptText="Customer Name" />
       </children>
     </AnchorPane>
   </children>

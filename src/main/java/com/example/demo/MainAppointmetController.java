@@ -114,7 +114,7 @@ public class MainAppointmetController implements Initializable {
     }
 
     public void onAddClick(ActionEvent actionEvent) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Appoinment Information with DropMenu.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Add Appointment.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 650, 400);
         Stage stage = new Stage();
         stage.setTitle("Add Appointment to known user");
@@ -127,7 +127,7 @@ public class MainAppointmetController implements Initializable {
         try{
             if(tableView.getSelectionModel().getSelectedItem() != null) {
                 selectedAppointment = tableView.getSelectionModel().getSelectedItem();
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("Appoinment Information.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("Edit Appointment.fxml"));
                 root = loader.load();
                 AppointmentInformationController scene2controller = loader.getController();
                 scene2controller.populateTextFields(selectedAppointment);

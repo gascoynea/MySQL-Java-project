@@ -47,11 +47,12 @@ public class DBACustomers {
 
         return customersList;
     }
-    public static void getCustomerNames(){
+    public static ObservableList<String> getCustomerNames(){
         ObservableList<Customers> customers = DBACustomers.getAllCustomers();
+        ObservableList<String> customerNamesList = FXCollections.observableArrayList();
         for (Customers customer : customers){
-            System.out.println(customer.getCustomerName() + customer.getDivision());
-
+            customerNamesList.add(customer.getCustomerName());
         }
+        return customerNamesList;
     }
 }

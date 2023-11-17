@@ -40,7 +40,7 @@
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="400.0" prefWidth="586.0" VBox.vgrow="ALWAYS">
       <children>
-            <Label layoutX="184.0" layoutY="24.0" text="Appointment Information">
+            <Label layoutX="185.0" layoutY="14.0" text="Create New Appointment">
                <font>
                   <Font size="24.0" />
                </font>

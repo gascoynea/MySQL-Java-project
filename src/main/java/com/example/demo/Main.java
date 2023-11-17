@@ -19,11 +19,11 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         Database.DBConnection.openConnection();
-//        System.out.println(DBACountries.getCountryName());
+//        System.out.println(DBACountries.getCountryNames());
 //        DBACustomers.getCustomerNames();
         DBAContacts.getContactName();
 //        DBAAppointments.getAppointmentID();
-//        DBAFirstLevelDivisions.getDivisionName();
+//        DBAFirstLevelDivisions.getDivisionNames();
 //        DBAUsers.getUserNames();
         launch();
         Database.DBConnection.closeConnection();

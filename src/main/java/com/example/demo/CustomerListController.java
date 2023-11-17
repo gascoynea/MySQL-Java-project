@@ -141,10 +141,10 @@ public class CustomerListController implements Initializable {
     }
 
     public void onAddCustomerButtonClick(ActionEvent actionEvent) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("CustomerRecord.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1600, 400);
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("AddCustomer.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 600, 275);
         Stage stage = new Stage();
-        stage.setTitle("Customer Information Sheet");
+        stage.setTitle("Add new customer");
         stage.setScene(scene);
         stage.show();
         ((Stage) customerInfoButton.getScene().getWindow()).close();

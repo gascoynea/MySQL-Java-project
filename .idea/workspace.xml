@@ -4,14 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c6c1ed0f-0722-4596-8d46-623794c3837d" name="Changes" comment="I need to implement add, save, and delete functions to appointments and customer records that update the DB. Also, look into if you can save the initial instance of the DB to revert back to.">
+    <list default="true" id="c6c1ed0f-0722-4596-8d46-623794c3837d" name="Changes" comment="I need to implement add, save, and delete functions to appointments and customer records that update the DB. Also, look into if you can save the initial instance of the DB to revert back to.&#10;&#10;I need to add a dropdown combox to change the appointments customer name that will also update customer ID field">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/AddCustomerController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/demo/AddCustomer.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/BDAccess/DBACountries.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BDAccess/DBACountries.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/BDAccess/DBACustomers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BDAccess/DBACustomers.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/BDAccess/DBAFirstLevelDivisions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BDAccess/DBAFirstLevelDivisions.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/AppointmentInformationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/AppointmentInformationController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/ApptInfoDropDownController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/ApptInfoDropDownController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/CustomerListController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/CustomerListController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/CustomerRecordController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/CustomerRecordController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/demo/Appoinment Information with DropMenu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/demo/Appoinment Information with DropMenu.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/demo/Appoinment Information.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/demo/Appoinment Information.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/MainAppointmetController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/MainAppointmetController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/demo/Appoinment Information with DropMenu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/demo/Add Appointment.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/demo/Appoinment Information.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/demo/Edit Appointment.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,10 +28,10 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="FxmlFile" />
-        <option value="Class" />
         <option value="XML Properties File" />
         <option value="Interface" />
+        <option value="FxmlFile" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -49,24 +56,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;true&quot;,
-    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;last_directory_selection&quot;: &quot;C:/Users/adam gascoyne/Desktop/SCHOOL WGU/C195/demo/src/main/java/com/example/demo&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/adam gascoyne/Desktop/SCHOOL WGU/C195/demo&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "Downloaded.Files.Path.Enabled": "true",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "last_directory_selection": "C:/Users/adam gascoyne/Desktop/SCHOOL WGU/C195/demo/src/main/java/com/example/demo",
+    "last_opened_file_path": "C:/Users/adam gascoyne/Desktop/SCHOOL WGU/SceneBuilder.lnk",
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "run.code.analysis.last.selected.profile": "pProject Default"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="com.example.demo" />
@@ -195,7 +202,14 @@
       <option name="project" value="LOCAL" />
       <updated>1700106488264</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="I need to implement add, save, and delete functions to appointments and customer records that update the DB. Also, look into if you can save the initial instance of the DB to revert back to.&#10;&#10;I need to add a dropdown combox to change the appointments customer name that will also update customer ID field">
+      <created>1700111942698</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1700111942698</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -217,7 +231,8 @@
     <MESSAGE value="I just update all the DBAs to grab data from the DB and created instances of their respectives models into lists. I updated the models to create instances of themselves into an observable list.&#10;&#10;Still need to figure out how to implement the resources to uses locales to change language from individuals pc.&#10;Need to populate table in the FXML windows." />
     <MESSAGE value="I used a lambda expression to search known appoinments by name and ID.&#10;&#10;I need to be able to Add, Edit cutomer records and appoinments as well as deleting both." />
     <MESSAGE value="I need to implement add, save, and delete functions to appointments and customer records that update the DB. Also, look into if you can save the initial instance of the DB to revert back to." />
-    <option name="LAST_COMMIT_MESSAGE" value="I need to implement add, save, and delete functions to appointments and customer records that update the DB. Also, look into if you can save the initial instance of the DB to revert back to." />
+    <MESSAGE value="I need to implement add, save, and delete functions to appointments and customer records that update the DB. Also, look into if you can save the initial instance of the DB to revert back to.&#10;&#10;I need to add a dropdown combox to change the appointments customer name that will also update customer ID field" />
+    <option name="LAST_COMMIT_MESSAGE" value="I need to implement add, save, and delete functions to appointments and customer records that update the DB. Also, look into if you can save the initial instance of the DB to revert back to.&#10;&#10;I need to add a dropdown combox to change the appointments customer name that will also update customer ID field" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

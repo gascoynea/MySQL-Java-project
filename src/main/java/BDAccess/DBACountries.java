@@ -56,7 +56,7 @@ public class DBACountries {
 
         }
     }
-    public static ObservableList<String> getCountryName(){
+    public static ObservableList<String> getCountryNames(){
         ObservableList<Countries> countries = DBACountries.getAllCountries();
         ObservableList<String> countryNames = FXCollections.observableArrayList();
 //        ArrayList<String> countryNames = new ArrayList<>();

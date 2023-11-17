@@ -1,4 +1,5 @@
 package com.example.demo;
+
 import BDAccess.DBAAppointments;
 import BDAccess.DBAContacts;
 import BDAccess.DBACustomers;
@@ -16,10 +17,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
 
 public class AppointmentInformationController implements Initializable {
@@ -32,6 +33,7 @@ public class AppointmentInformationController implements Initializable {
     public TextField customerNameTF;
     @FXML
     public ComboBox contactNameCB;
+    public ComboBox customerNameCB;
 
     @FXML
     private Button cancelButton;
@@ -79,6 +81,7 @@ public class AppointmentInformationController implements Initializable {
     ObservableList<Customers> customersList = DBACustomers.getAllCustomers();
     ObservableList<Contacts> contactsList = DBAContacts.getAllContacts();
     ObservableList<String> contactNamesList = FXCollections.observableArrayList();
+    ObservableList<String> customersNamesList = FXCollections.observableArrayList();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -86,6 +89,13 @@ public class AppointmentInformationController implements Initializable {
             contactNamesList.add(contact.getContact_Name());
         }
         contactNameCB.setItems(contactNamesList);
+
+        for(Customers customer: customersList){
+            customersNamesList.add(customer.getCustomerName());
+        }
+        customerNameCB.setItems(customersNamesList);
+        lastUpdateField.setText(getTime());
+        lastUpdatedByField.setText(MainController.reference.userName);
     }
     public void onCancelButtonClick(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Main Appointments.fxml"));
@@ -119,7 +129,8 @@ public class AppointmentInformationController implements Initializable {
                 customerNameTF.setText(customer.getCustomerName());
             }
         }
-        //System.out.println(appointmentInformation.getDescription());
+        lastUpdateField.setText(getTime());
+        lastUpdatedByField.setText(MainController.reference.userName);
     }
 
     public void onSaveButtonClick(ActionEvent actionEvent) throws SQLException {
@@ -189,6 +200,22 @@ public class AppointmentInformationController implements Initializable {
             }
         }
         contactField.setText(String.valueOf(contactID));
+    }
+    @FXML
+    public void onCustomerNameSelected(ActionEvent actionEvent) {
+        String customerName = customerNameCB.getValue().toString();
+        int customerID = 0;
+        for (Customers customer : customersList) {
+            if(customer.getCustomerName().equals(customerName)){
+                customerID = customer.getCustomerID();
+            }
+        }
+        customerIDField.setText(String.valueOf(customerID));
+//        customerNameTF.setText(customerName);
+    }
+    public String getTime(){
+        String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date());
+        return timeStamp;
     }
 
 

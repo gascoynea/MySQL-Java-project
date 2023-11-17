@@ -109,13 +109,13 @@ public class CustomerRecordController implements Initializable {
 
     @FXML
     private TableColumn<Appointments, Integer> userIDCol;
-
+    ObservableList<String> divisionNames = DBAFirstLevelDivisions.getDivisionNames();
+    ObservableList<String> countryNames = DBACountries.getCountryNames();
+    ObservableList<Customers> customersList = DBACustomers.getAllCustomers();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //Have to create two methods. one for creating a new custID for adding a new record and one for bring in the customer if from a record being updated
-        ObservableList<String> divisionNames = DBAFirstLevelDivisions.getDivisionName();
-        ObservableList<String> countryNames = DBACountries.getCountryName();
-        ObservableList<Customers> customersList = DBACustomers.getAllCustomers();
+
         List<Integer> custIDs = new ArrayList<Integer>();
         for(Customers customer : customersList){
             Integer custID = customer.getCustomerID();
@@ -167,20 +167,24 @@ public class CustomerRecordController implements Initializable {
     }
 
     public void onAddAppointmentButtonClick(ActionEvent actionEvent) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Appoinment Information.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 600, 400);
-        Stage stage = new Stage();
-        stage.setTitle("Add Appointment");
-        stage.setScene(scene);
-        stage.show();
-        ((Stage) addAppointmentButton.getScene().getWindow()).close();
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Edit Appointment.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 600, 400);
+            Stage stage = new Stage();
+            stage.setTitle("Add Appointment");
+            stage.setScene(scene);
+            stage.show();
+            ((Stage) addAppointmentButton.getScene().getWindow()).close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void onEditButtonClick(ActionEvent actionEvent) throws IOException {
         try{
             if(tableViewAppointments.getSelectionModel().getSelectedItem() != null) {
                 Appointments selectedAppointment = tableViewAppointments.getSelectionModel().getSelectedItem();
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("Appoinment Information.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("Edit Appointment.fxml"));
                 Parent root = loader.load();
                 AppointmentInformationController scene2controller = loader.getController();
                 scene2controller.populateTextFields(selectedAppointment);

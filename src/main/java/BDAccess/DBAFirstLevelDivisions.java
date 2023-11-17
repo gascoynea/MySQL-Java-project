@@ -6,7 +6,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.*;
-import java.util.ArrayList;
 
 public class DBAFirstLevelDivisions {
     public static ObservableList<FirstLevelDivisions> getAllFirstLevelDivisions() {
@@ -38,7 +37,7 @@ public class DBAFirstLevelDivisions {
 
         return firstLevelDivisionsList;
     }
-    public static ObservableList<String> getDivisionName(){
+    public static ObservableList<String> getDivisionNames(){
         ObservableList<FirstLevelDivisions> divisionsList = DBAFirstLevelDivisions.getAllFirstLevelDivisions();
         ObservableList<String> divisionNames = FXCollections.observableArrayList();
         for (FirstLevelDivisions division : divisionsList){

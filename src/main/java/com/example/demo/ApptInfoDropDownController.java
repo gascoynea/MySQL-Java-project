@@ -20,6 +20,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -103,7 +104,8 @@ public class ApptInfoDropDownController implements Initializable {
         userIDTF.setText(String.valueOf(MainController.reference.userID));
         createdByTF.setText(MainController.reference.userName);
         lastUpdatedByTF.setText(MainController.reference.userName);
-
+        dateCreatedTF.setText(getTime());
+        lastUpdatedTF.setText(getTime());
     }
     public void onSaveButtonClick(ActionEvent actionEvent) {
     }
@@ -152,5 +154,8 @@ public class ApptInfoDropDownController implements Initializable {
         newAppointmentID = possibleID;
         return newAppointmentID;
     }
-
+    public String getTime(){
+        String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date());
+        return timeStamp;
+    }
 }
