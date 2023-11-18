@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Timestamp;
@@ -104,7 +105,7 @@ public class MainAppointmetController implements Initializable {
     }
 
     public void onCustomerRecordsClick(ActionEvent actionEvent) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("CustomerList.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Main Customers.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1250, 365);
         Stage stage = new Stage();
         stage.setTitle("Customers List");
@@ -117,7 +118,7 @@ public class MainAppointmetController implements Initializable {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Add Appointment.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 650, 400);
         Stage stage = new Stage();
-        stage.setTitle("Add Appointment to known user");
+        stage.setTitle("Add Appointment to a known user");
         stage.setScene(scene);
         stage.show();
         ((Stage) addApptButton.getScene().getWindow()).close();
@@ -129,10 +130,11 @@ public class MainAppointmetController implements Initializable {
                 selectedAppointment = tableView.getSelectionModel().getSelectedItem();
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("Edit Appointment.fxml"));
                 root = loader.load();
-                AppointmentInformationController scene2controller = loader.getController();
+                EditAppointmentController scene2controller = loader.getController();
                 scene2controller.populateTextFields(selectedAppointment);
                 stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
                 scene = new Scene(root);
+                stage.setTitle("Edit known appointment");
                 stage.setScene(scene);
             }
             else {
@@ -144,6 +146,24 @@ public class MainAppointmetController implements Initializable {
             }
         }catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+    @FXML
+    public void onRemoveButtonClick(ActionEvent actionEvent) {
+        if(tableView.getSelectionModel().selectedItemProperty().get() != null) {
+            Appointments appointmentinfo = tableView.getSelectionModel().selectedItemProperty().get();
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation");
+            alert.setHeaderText("Are you sure you want to remove this appointment with ID: " + appointmentinfo.getAppointmentID() + ", Title of: " + appointmentinfo.getTitle() + "?");
+            alert.setContentText("Please select 'OK' to remove. Thank you.");
+            alert.showAndWait();
+        }
+        else{
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("No appointment selected.");
+            alert.setContentText("Please select an appointment to remove. Thank you.");
+            alert.showAndWait();
         }
     }
 }

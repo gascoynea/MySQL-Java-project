@@ -11,20 +11,20 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <TextField fx:id="customerIDTF" layoutX="105.0" layoutY="49.0" promptText="Customer ID" />
+      <TextField fx:id="customerIDTF" editable="false" layoutX="105.0" layoutY="49.0" promptText="Customer ID" />
       <TextField fx:id="customerNameTF" layoutX="105.0" layoutY="74.0" promptText="Customer Name" />
       <TextField fx:id="addressTF" layoutX="105.0" layoutY="99.0" promptText="Address" />
       <TextField fx:id="postalCodeTF" layoutX="105.0" layoutY="124.0" promptText="Postal Code" />
       <TextField fx:id="phoneNumberTF" layoutX="105.0" layoutY="149.0" promptText="Phone Number" />
       <ComboBox fx:id="countryCB" layoutX="104.0" layoutY="174.0" onAction="#onCountrySelected" prefWidth="150.0" promptText="Countries" />
       <ComboBox fx:id="divisionCB" layoutX="340.0" layoutY="49.0" onAction="#onDivisionSelect" prefWidth="150.0" promptText="Divisions" />
-      <TextField fx:id="cratedByTF" layoutX="341.0" layoutY="124.0" promptText="Created By" />
-      <TextField fx:id="lastUpdatedByTF" layoutX="341.0" layoutY="174.0" promptText="Last Updated By" />
-      <TextField fx:id="countryIDTF" layoutX="105.0" layoutY="200.0" promptText="Country ID" />
-      <TextField fx:id="divisionIDTF" layoutX="341.0" layoutY="74.0" promptText="DivisionID" />
+      <TextField fx:id="cratedByTF" editable="false" layoutX="341.0" layoutY="124.0" promptText="Created By" />
+      <TextField fx:id="lastUpdatedByTF" editable="false" layoutX="341.0" layoutY="174.0" promptText="Last Updated By" />
+      <TextField fx:id="countryIDTF" editable="false" layoutX="105.0" layoutY="200.0" promptText="Country ID" />
+      <TextField fx:id="divisionIDTF" editable="false" layoutX="341.0" layoutY="74.0" promptText="DivisionID" />
       <Button fx:id="saveButton" layoutX="342.0" layoutY="200.0" mnemonicParsing="false" onAction="#onSaveButtonClick" text="Save" />
       <Button fx:id="cancelButton" layoutX="438.0" layoutY="200.0" mnemonicParsing="false" onAction="#onCancelButtonClick" text="Cancel" />
-      <TextField fx:id="createdDateTF" layoutX="341.0" layoutY="99.0" promptText="Create Date/Time" />
-      <TextField fx:id="lastUpdatedDateTF" layoutX="341.0" layoutY="149.0" promptText="Last Updated Date/Time" />
+      <TextField fx:id="createdDateTF" editable="false" layoutX="341.0" layoutY="99.0" promptText="Create Date/Time" />
+      <TextField fx:id="lastUpdatedDateTF" editable="false" layoutX="341.0" layoutY="149.0" promptText="Last Updated Date/Time" />
    </children>
 </AnchorPane>

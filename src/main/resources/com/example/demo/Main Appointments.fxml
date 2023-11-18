@@ -13,7 +13,7 @@
       </Label>
       <Button fx:id="apptsCustRecordsButton" layoutX="1125.0" layoutY="21.0" mnemonicParsing="false" onAction="#onCustomerRecordsClick" text="Customer Records" />
       <Button fx:id="addApptButton" layoutX="17.0" layoutY="337.0" mnemonicParsing="false" onAction="#onAddClick" text="Add" />
-      <Button fx:id="removeApptButton" layoutX="92.0" layoutY="337.0" mnemonicParsing="false" text="Remove" />
+      <Button fx:id="removeApptButton" layoutX="92.0" layoutY="337.0" mnemonicParsing="false" onAction="#onRemoveButtonClick" text="Remove" />
       <Button fx:id="editApptButton" layoutX="55.0" layoutY="337.0" mnemonicParsing="false" onAction="#onEditClick" text="Edit" />
       <TableView fx:id="tableView" layoutX="17.0" layoutY="51.0" prefHeight="281.0" prefWidth="1221.0">
         <columns>

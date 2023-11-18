@@ -1,7 +1,8 @@
 package com.example.demo;
 
+import BDAccess.DBAAppointments;
 import BDAccess.DBACustomers;
-import Model.Countries;
+import Model.Appointments;
 import Model.Customers;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,19 +14,18 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Timestamp;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class CustomerListController implements Initializable {
+public class MainCustomerController implements Initializable {
     public TextField customerSearchTextField;
     public Button searchButton;
     public Button addCustomerButton;
+    public Button deleteButton;
     @FXML
     private TableColumn<Customers, String> divisionCol;
     @FXML
@@ -67,6 +67,7 @@ public class CustomerListController implements Initializable {
     @FXML
     private TableColumn<Customers, String> nameCol;
     ObservableList<Customers> customerList = null;
+    ObservableList<Appointments> appointmentsList = DBAAppointments.getAllAppointments();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         customerList = DBACustomers.getAllCustomers();
@@ -90,7 +91,7 @@ public class CustomerListController implements Initializable {
         try{
             if(CustomerRec_Table.getSelectionModel().selectedItemProperty().get() != null) {
                 Customers selectedCustomer = CustomerRec_Table.getSelectionModel().selectedItemProperty().get();
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("CustomerRecord.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("Customer Record.fxml"));
                 Parent root = loader.load();
                 CustomerRecordController scene2controller = loader.getController();
                 scene2controller.populateScene(selectedCustomer);
@@ -108,13 +109,6 @@ public class CustomerListController implements Initializable {
         }catch (IOException e) {
             throw new RuntimeException(e);
         }
-//        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("CustomerRecord.fxml"));
-//        Scene scene = new Scene(fxmlLoader.load(), 600, 400);
-//        Stage stage = new Stage();
-//        stage.setTitle("Customer Information Sheet");
-//        stage.setScene(scene);
-//        stage.show();
-//        ((Stage) customerInfoButton.getScene().getWindow()).close();
     }
     @FXML
     public void onApptsButtonClick(ActionEvent actionEvent) throws IOException {
@@ -141,13 +135,40 @@ public class CustomerListController implements Initializable {
     }
 
     public void onAddCustomerButtonClick(ActionEvent actionEvent) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("AddCustomer.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Add Customer.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600, 275);
         Stage stage = new Stage();
         stage.setTitle("Add new customer");
         stage.setScene(scene);
         stage.show();
         ((Stage) customerInfoButton.getScene().getWindow()).close();
+    }
+
+    public void onDeleteButtonClick(ActionEvent actionEvent) {
+        Customers customerInfo = CustomerRec_Table.getSelectionModel().selectedItemProperty().get();
+        try {
+            int counter = 0;
+            for(Appointments appointment : appointmentsList){
+                if(appointment.getCustomerId() == customerInfo.getCustomerID()) {
+                    counter += 1;
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setHeaderText("There are appointments made for this customer.");
+                    alert.setContentText("Please delete all appointment related to this customer to delete customer record. Thank you.");
+                    alert.showAndWait();
+                }
+            }
+            if (counter == 0) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation");
+                alert.setHeaderText("Are you sure you want to delete this customer record?");
+                alert.setContentText("Please select 'OK' to delete. Thank you.");
+                alert.showAndWait();
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
 //    public void onCustomerRecordSelected(MouseEvent mouseEvent) {

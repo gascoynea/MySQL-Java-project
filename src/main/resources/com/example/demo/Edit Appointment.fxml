@@ -36,7 +36,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.AppointmentInformationController">
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.EditAppointmentController">
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
       <children>
@@ -61,7 +61,7 @@
             <TextField fx:id="customerIDField" editable="false" layoutX="382.0" layoutY="216.0" promptText="Customer ID" />
             <TextField fx:id="userIDField" editable="false" layoutX="382.0" layoutY="254.0" promptText="User ID" />
             <TextField fx:id="contactField" editable="false" layoutX="382.0" layoutY="291.0" promptText="Contact ID" />
-            <TextField fx:id="customerNameTF" editable="false" layoutX="35.0" layoutY="58.0" promptText="Customer Name" />
+            <TextField fx:id="customerNameTF" editable="false" layoutX="35.0" layoutY="58.0" promptText="Customer Name" visible="false" />
             <ComboBox fx:id="contactNameCB" layoutX="35.0" layoutY="181.0" onAction="#onContactNameSelected" prefWidth="150.0" promptText="Contacts" />
             <ComboBox fx:id="customerNameCB" layoutX="33.0" layoutY="87.0" onAction="#onCustomerNameSelected" prefWidth="150.0" promptText="Customer Name" />
       </children>

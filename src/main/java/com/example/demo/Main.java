@@ -11,7 +11,7 @@ import java.io.IOException;
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("LoginForm.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Login Form.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
         stage.setScene(scene);
         stage.show();
@@ -21,7 +21,7 @@ public class Main extends Application {
         Database.DBConnection.openConnection();
 //        System.out.println(DBACountries.getCountryNames());
 //        DBACustomers.getCustomerNames();
-        DBAContacts.getContactName();
+//        DBAContacts.getContactName();
 //        DBAAppointments.getAppointmentID();
 //        DBAFirstLevelDivisions.getDivisionNames();
 //        DBAUsers.getUserNames();

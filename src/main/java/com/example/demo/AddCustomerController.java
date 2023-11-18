@@ -9,11 +9,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
+
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -69,6 +70,7 @@ public class AddCustomerController implements Initializable {
 
     @FXML
     private Button saveButton;
+    private
     ObservableList<String> divisionNamesList = DBAFirstLevelDivisions.getDivisionNames();
     ObservableList<String> countryNamesList = DBACountries.getCountryNames();
     ObservableList<String> customerNamesList = DBACustomers.getCustomerNames();
@@ -85,8 +87,8 @@ public class AddCustomerController implements Initializable {
         customerIDTF.setText(String.valueOf(newCustomerID(custIDs)));
         countryCB.setItems(countryNamesList);
         divisionCB.setItems(divisionNamesList);
-        cratedByTF.setText(MainController.reference.userName);
-        lastUpdatedByTF.setText(MainController.reference.userName);
+        cratedByTF.setText(LoginFormController.reference.userName);
+        lastUpdatedByTF.setText(LoginFormController.reference.userName);
         createdDateTF.setText(getTime());
         lastUpdatedDateTF.setText(getTime());
     }
@@ -101,19 +103,20 @@ public class AddCustomerController implements Initializable {
     }
     @FXML
     void onCancelButtonClick(ActionEvent event) {
-
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation");
+        alert.setHeaderText("Are you sure you want to cancel creating this new customer?");
+        alert.setContentText("Please select 'OK' to cancel. Thank you.");
+        alert.showAndWait();
     }
 
     @FXML
     void onCountrySelected(ActionEvent event) {
         String a = countryCB.getValue().toString();
-        System.out.println(a + 1);
         if (a.equals("U.S")) {
-            System.out.println(a + 2);
             int cID = 1;
             ObservableList<FirstLevelDivisions> divList = DBAFirstLevelDivisions.getAllFirstLevelDivisions();
             ObservableList<String> divNames = FXCollections.observableArrayList();
-            System.out.println("you are good so far in the US");
             for (FirstLevelDivisions division : divList) {
                 if (division.getCountryID() == cID) {
                     divNames.add(division.getDivision());
@@ -123,11 +126,9 @@ public class AddCustomerController implements Initializable {
             divisionCB.setItems(divNames);
         }
         else if(a.equals("UK")){
-            System.out.println(a + 2);
             int cID = 2;
             ObservableList<FirstLevelDivisions> divList = DBAFirstLevelDivisions.getAllFirstLevelDivisions();
             ObservableList<String> divNames = FXCollections.observableArrayList();
-            System.out.println("you are good so far in the UK");
             for(FirstLevelDivisions division : divList){
                 if(division.getCountryID() == cID){
                     divNames.add(division.getDivision());
@@ -137,11 +138,9 @@ public class AddCustomerController implements Initializable {
             divisionCB.setItems(divNames);
         }
         else {
-            System.out.println(a + 2);
             int cID = 3;
             ObservableList<FirstLevelDivisions> divList = DBAFirstLevelDivisions.getAllFirstLevelDivisions();
             ObservableList<String> divNames = FXCollections.observableArrayList();
-            System.out.println("you are good so far in the syrup land");
             for(FirstLevelDivisions division : divList){
                 if(division.getCountryID() == cID){
                     divNames.add(division.getDivision());
@@ -167,6 +166,31 @@ public class AddCustomerController implements Initializable {
 
     @FXML
     void onSaveButtonClick(ActionEvent event) {
+        try {
+            if(0 != 0) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("One or more Text Fields or Combo Box's are empty.");
+                alert.setContentText("Please fill in all fields or box's before saving. Thank you.");
+                alert.showAndWait();
+            }
+            else {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation");
+                alert.setHeaderText("Are you sure you want to save this customer?");
+                alert.setContentText("Please select 'OK' to save. Thank you.");
+                alert.showAndWait();
+                FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Main Customers.fxml"));
+                Scene scene = new Scene(fxmlLoader.load(), 1250, 400);
+                Stage stage = new Stage();
+                stage.setTitle("Main Customers");
+                stage.setScene(scene);
+                stage.show();
+                ((Stage) cancelButton.getScene().getWindow()).close();
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
     public String getTime(){
         String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date());

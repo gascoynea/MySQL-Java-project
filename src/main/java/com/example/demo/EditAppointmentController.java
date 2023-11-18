@@ -13,17 +13,19 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.net.URL;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
 
-public class AppointmentInformationController implements Initializable {
+public class EditAppointmentController implements Initializable {
 
     @FXML
     public TextField appointmentIDField;
@@ -84,7 +86,6 @@ public class AppointmentInformationController implements Initializable {
     ObservableList<String> customersNamesList = FXCollections.observableArrayList();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         for (Contacts contact : contactsList){
             contactNamesList.add(contact.getContact_Name());
         }
@@ -95,9 +96,14 @@ public class AppointmentInformationController implements Initializable {
         }
         customerNameCB.setItems(customersNamesList);
         lastUpdateField.setText(getTime());
-        lastUpdatedByField.setText(MainController.reference.userName);
+        lastUpdatedByField.setText(LoginFormController.reference.userName);
     }
     public void onCancelButtonClick(ActionEvent actionEvent) throws IOException {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation");
+        alert.setHeaderText("Are you sure you want to cancel editing this appointment?");
+        alert.setContentText("Please select 'OK' to cancel. Thank you.");
+        alert.showAndWait();
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Main Appointments.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1250, 400);
         Stage stage = new Stage();
@@ -127,29 +133,68 @@ public class AppointmentInformationController implements Initializable {
         for (Customers customer : customersList){
             if(customer.getCustomerID() == appointmentInformation.getCustomerId()){
                 customerNameTF.setText(customer.getCustomerName());
+                customerNameCB.getSelectionModel().select(customerNameTF.getText());
+                for(Contacts contact : contactsList) {
+                    String conID = String.valueOf(contact.getConID());
+                    if (conID.equals(contactField.getText())) {
+                        contactNameCB.getSelectionModel().select(contact.getContact_Name());
+                    }
+                }
             }
         }
         lastUpdateField.setText(getTime());
-        lastUpdatedByField.setText(MainController.reference.userName);
+        lastUpdatedByField.setText(LoginFormController.reference.userName);
     }
 
-    public void onSaveButtonClick(ActionEvent actionEvent) throws SQLException {
-        System.out.println(currentAppointmentsList.get(0).getTitle());
-        appointmentInformation.setAppointmentID(Integer.parseInt(appointmentIDField.getText()));
-        appointmentInformation.setTitle(titleField.getText());
-        appointmentInformation.setDescription(descriptionField.getText());
-        appointmentInformation.setLocation(locationField.getText());
-        appointmentInformation.setType(typeField.getText());
-        appointmentInformation.setStart(Timestamp.valueOf(startField.getText()));
-        appointmentInformation.setEnd(Timestamp.valueOf(endField.getText()));
-        appointmentInformation.setCreateDate(Timestamp.valueOf(createDateField.getText()));
-        appointmentInformation.setCreatedBy(createdByFeild.getText());
-        appointmentInformation.setLastUpdate(Timestamp.valueOf(lastUpdateField.getText()));
-        appointmentInformation.setLastUpdatedBy(lastUpdatedByField.getText());
-        appointmentInformation.setCustomerId(Integer.parseInt(customerIDField.getText()));
-        appointmentInformation.setUserId(Integer.parseInt(userIDField.getText()));
-        appointmentInformation.setContactId(Integer.parseInt(contactField.getText()));
-        System.out.println(appointmentInformation.getDescription() + appointmentInformation.getAppointmentID());
+    public void onSaveButtonClick(ActionEvent actionEvent) throws SQLException, IOException {
+        try
+        {
+            if(customerNameCB.getValue() == null || contactNameCB.getValue() == null || appointmentIDField.getText().equals("") || titleField.getText().equals("")
+            || descriptionField.getText().equals("") || locationField.getText().equals("") || typeField.getText().equals("") || startField.getText().equals("")
+            || endField.getText().equals("") || createDateField.getText().equals("") || createdByFeild.getText().equals("") || lastUpdateField.getText().equals("")
+            || lastUpdatedByField.getText().equals("") || customerIDField.getText().equals("") || userIDField.getText().equals("") || contactField.getText().equals("")
+            || customerNameTF.getText().equals("")) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("One or more Text Fields or Combo Box's are empty.");
+                alert.setContentText("Please fill in all fields or box's before saving. Thank you.");
+                alert.showAndWait();
+            }
+            else {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation");
+                alert.setHeaderText("Are you sure you want to update this appointment?");
+                alert.setContentText("Please select 'OK' to update. Thank you.");
+                alert.showAndWait();
+                System.out.println(currentAppointmentsList.get(0).getTitle());
+                appointmentInformation.setAppointmentID(Integer.parseInt(appointmentIDField.getText()));
+                appointmentInformation.setTitle(titleField.getText());
+                appointmentInformation.setDescription(descriptionField.getText());
+                appointmentInformation.setLocation(locationField.getText());
+                appointmentInformation.setType(typeField.getText());
+                appointmentInformation.setStart(Timestamp.valueOf(startField.getText()));
+                appointmentInformation.setEnd(Timestamp.valueOf(endField.getText()));
+                appointmentInformation.setCreateDate(Timestamp.valueOf(createDateField.getText()));
+                appointmentInformation.setCreatedBy(createdByFeild.getText());
+                appointmentInformation.setLastUpdate(Timestamp.valueOf(lastUpdateField.getText()));
+                appointmentInformation.setLastUpdatedBy(lastUpdatedByField.getText());
+                appointmentInformation.setCustomerId(Integer.parseInt(customerIDField.getText()));
+                appointmentInformation.setUserId(Integer.parseInt(userIDField.getText()));
+                appointmentInformation.setContactId(Integer.parseInt(contactField.getText()));
+                System.out.println(appointmentInformation.getDescription() + appointmentInformation.getAppointmentID());
+                FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Main Appointments.fxml"));
+                Scene scene = new Scene(fxmlLoader.load(), 1250, 400);
+                Stage stage = new Stage();
+                stage.setTitle("Main Appointments");
+                stage.setScene(scene);
+                stage.show();
+                ((Stage) cancelButton.getScene().getWindow()).close();
+            }
+        } catch (NumberFormatException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         //Update appointment in Table List
 //        try {
 //            for (Appointments appointment : currentAppointmentsList) {
@@ -217,14 +262,5 @@ public class AppointmentInformationController implements Initializable {
         String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date());
         return timeStamp;
     }
-
-
-//            Alert alert = new Alert(Alert.AlertType.ERROR);
-//            alert.setTitle("Confirmation");
-//            alert.setHeaderText("Are you sure?");
-//            alert.setContentText("Please select yes or no. Thank you.");
-//            alert.showAndWait();
-
-//        System.out.println(DBAAppointments.getAllAppointments().get(0).getTitle());
 }
 

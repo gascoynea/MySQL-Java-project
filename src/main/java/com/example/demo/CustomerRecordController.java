@@ -112,6 +112,10 @@ public class CustomerRecordController implements Initializable {
     ObservableList<String> divisionNames = DBAFirstLevelDivisions.getDivisionNames();
     ObservableList<String> countryNames = DBACountries.getCountryNames();
     ObservableList<Customers> customersList = DBACustomers.getAllCustomers();
+    ObservableList<Appointments> appointmentsList = DBAAppointments.getAllAppointments();
+    public Appointments customerAppointmentInfo;
+    private Customers customerInfo;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //Have to create two methods. one for creating a new custID for adding a new record and one for bring in the customer if from a record being updated
@@ -154,7 +158,7 @@ public class CustomerRecordController implements Initializable {
     }
 
     public void onCancelButtonCllick(ActionEvent actionEvent) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("CustomerList.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Main Customers.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1250, 400);
         Stage stage = new Stage();
         stage.setTitle("Customer Records");
@@ -164,17 +168,36 @@ public class CustomerRecordController implements Initializable {
     }
 
     public void onDeleteButtonClick(ActionEvent actionEvent) {
+        try {
+            if(tableViewAppointments.getSelectionModel().selectedItemProperty().get() == null) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("You need to select an appointment to delete.");
+                alert.setContentText("Please click on an appointment in the table. Thank you.");
+                alert.showAndWait();
+                }
+           else {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation");
+                alert.setHeaderText("Are you sure you want to delete this appointment?");
+                alert.setContentText("Please select 'OK' to delete. Thank you.");
+                alert.showAndWait();
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void onAddAppointmentButtonClick(ActionEvent actionEvent) throws IOException {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Edit Appointment.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 600, 400);
-            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Add Appointment.fxml"));
+            Parent root = loader.load();
+            AddAppointmentController scene2controller = loader.getController();
+            scene2controller.populateTextFields(customerInfo);
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
             stage.setTitle("Add Appointment");
             stage.setScene(scene);
-            stage.show();
-            ((Stage) addAppointmentButton.getScene().getWindow()).close();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -186,10 +209,11 @@ public class CustomerRecordController implements Initializable {
                 Appointments selectedAppointment = tableViewAppointments.getSelectionModel().getSelectedItem();
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("Edit Appointment.fxml"));
                 Parent root = loader.load();
-                AppointmentInformationController scene2controller = loader.getController();
+                EditAppointmentController scene2controller = loader.getController();
                 scene2controller.populateTextFields(selectedAppointment);
                 Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
                 Scene scene = new Scene(root);
+                stage.setTitle("Edit Appointment");
                 stage.setScene(scene);
             }
             else {
@@ -215,58 +239,47 @@ public class CustomerRecordController implements Initializable {
 
     public void onCountrySelected(ActionEvent actionEvent) {
         String a = countryComBox.getValue().toString();
-        System.out.println(a + 1);
         if(a.equals("U.S")){
-            System.out.println(a + 2);
             int cID = 1;
             ObservableList<FirstLevelDivisions> divList = DBAFirstLevelDivisions.getAllFirstLevelDivisions();
             ObservableList<String> divNames = FXCollections.observableArrayList();
-            System.out.println("you are good so far in the US");
             for(FirstLevelDivisions division : divList){
                 if(division.getCountryID() == cID){
                     divNames.add(division.getDivision());
                 }
             }
-
             stateProvinceComBox.setItems(divNames);
         }
         else if(a.equals("UK")){
-            System.out.println(a + 2);
             int cID = 2;
             ObservableList<FirstLevelDivisions> divList = DBAFirstLevelDivisions.getAllFirstLevelDivisions();
             ObservableList<String> divNames = FXCollections.observableArrayList();
-            System.out.println("you are good so far in the UK");
             for(FirstLevelDivisions division : divList){
                 if(division.getCountryID() == cID){
                     divNames.add(division.getDivision());
                 }
             }
-
             stateProvinceComBox.setItems(divNames);
         }
         else {
-            System.out.println(a + 2);
             int cID = 3;
             ObservableList<FirstLevelDivisions> divList = DBAFirstLevelDivisions.getAllFirstLevelDivisions();
             ObservableList<String> divNames = FXCollections.observableArrayList();
-            System.out.println("you are good so far in the syrup land");
             for(FirstLevelDivisions division : divList){
                 if(division.getCountryID() == cID){
                     divNames.add(division.getDivision());
                 }
             }
-
             stateProvinceComBox.setItems(divNames);
         }
     }
 
     public void onMouseCountrySelect(MouseEvent mouseEvent) {
-//        String a = String.valueOf(countryComBox);
-//        System.out.println(a);
+//
     }
     public void populateScene(Customers customerInformation){
         //Appointments customerAppointments,
-        Customers customerInfo = customerInformation;
+        customerInfo = customerInformation;
         ObservableList<FirstLevelDivisions> firstLevelDivisionsList = DBAFirstLevelDivisions.getAllFirstLevelDivisions();
         ObservableList<Countries> countriesList = DBACountries.getAllCountries();
         ObservableList<Appointments> apptList = DBAAppointments.getAllAppointments();
