@@ -7,6 +7,10 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.util.Arrays;
+import java.util.TimeZone;
 
 public class Main extends Application {
     @Override
@@ -19,6 +23,13 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         Database.DBConnection.openConnection();
+
+//        String[] zoneList = TimeZone.getAvailableIDs();
+//        String est = "EST";
+//        System.out.println(TimeZone.getDefault());
+//        TimeZone.setDefault(TimeZone.getTimeZone("EST"));
+//        System.out.println(TimeZone.getDefault());
+
 //        System.out.println(DBACountries.getCountryNames());
 //        DBACustomers.getCustomerNames();
 //        DBAContacts.getContactName();

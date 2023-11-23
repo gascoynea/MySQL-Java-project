@@ -151,22 +151,68 @@ public class CustomerRecordController implements Initializable {
 //        tableViewAppointments.setItems(apptList);
     }
     public void onSaveClick(ActionEvent actionEvent) {
-        ObservableList<Customers> originalCustomersList = DBACustomers.getAllCustomers();
-        for(Customers cutomers : originalCustomersList){
-            System.out.println(cutomers);
+        try {
+            if(customerIDTF.getText().equals("") || nameTF.getText().equals("") || addressTF.getText().equals("") || postalcodeTF.getText().equals("")
+                    || phoneNumberTF.getText().equals("") || countryComBox.getValue() == null || stateProvinceComBox.getValue() == null){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("One or more Text Fields or Combo Box's are empty.");
+                alert.setContentText("Please fill in all fields or box's before saving. Thank you.");
+                alert.showAndWait();
+            }
+            else {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation");
+                alert.setHeaderText("Are you sure you want to save this edit to this customer?");
+                alert.setContentText("Please select 'OK' to save. Thank you.");
+                alert.showAndWait();
+
+                if(alert.getResult().getButtonData().isCancelButton()){
+                    alert.close();
+                }
+                else {
+                    FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Main Customers.fxml"));
+                    Scene scene = new Scene(fxmlLoader.load(), 1250, 400);
+                    Stage stage = new Stage();
+                    stage.setTitle("Main Customers");
+                    stage.setScene(scene);
+                    stage.show();
+                    ((Stage) cancelButton.getScene().getWindow()).close();
+
+                    /*
+                    !!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+                    Code for saving this customers new information in the main customer table view as well as updating the database
+
+                    !!!!!!!!!!!!!!!!!!!!!!!!!!!
+                     */
+
+                }
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
-
     public void onCancelButtonCllick(ActionEvent actionEvent) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Main Customers.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1250, 400);
-        Stage stage = new Stage();
-        stage.setTitle("Customer Records");
-        stage.setScene(scene);
-        stage.show();
-        ((Stage) cancelButton.getScene().getWindow()).close();
-    }
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation");
+        alert.setHeaderText("Are you sure you want to cancel editing this customer?");
+        alert.setContentText("Please select 'OK' to cancel. Thank you.");
+        alert.showAndWait();
 
+        if(alert.getResult().getButtonData().isCancelButton()){
+            alert.close();
+        }
+        else {
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Main Customers.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 1250, 400);
+            Stage stage = new Stage();
+            stage.setTitle("Customer Records");
+            stage.setScene(scene);
+            stage.show();
+            ((Stage) cancelButton.getScene().getWindow()).close();
+        }
+    }
     public void onDeleteButtonClick(ActionEvent actionEvent) {
         try {
             if(tableViewAppointments.getSelectionModel().selectedItemProperty().get() == null) {
@@ -182,12 +228,17 @@ public class CustomerRecordController implements Initializable {
                 alert.setHeaderText("Are you sure you want to delete this appointment?");
                 alert.setContentText("Please select 'OK' to delete. Thank you.");
                 alert.showAndWait();
+                if(alert.getResult().getButtonData().isCancelButton()){
+                    alert.close();
+                }
+                else {
+                    //Code for appointment deletion and have table view be updated to reflect deletion as well as database and other table views such as main appt table
+                }
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
-
     public void onAddAppointmentButtonClick(ActionEvent actionEvent) throws IOException {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Add Appointment.fxml"));
@@ -202,7 +253,6 @@ public class CustomerRecordController implements Initializable {
             throw new RuntimeException(e);
         }
     }
-
     public void onEditButtonClick(ActionEvent actionEvent) throws IOException {
         try{
             if(tableViewAppointments.getSelectionModel().getSelectedItem() != null) {
@@ -236,7 +286,6 @@ public class CustomerRecordController implements Initializable {
         newCustomerID = possibleID;
         return newCustomerID;
     }
-
     public void onCountrySelected(ActionEvent actionEvent) {
         String a = countryComBox.getValue().toString();
         if(a.equals("U.S")){
@@ -273,7 +322,6 @@ public class CustomerRecordController implements Initializable {
             stateProvinceComBox.setItems(divNames);
         }
     }
-
     public void onMouseCountrySelect(MouseEvent mouseEvent) {
 //
     }

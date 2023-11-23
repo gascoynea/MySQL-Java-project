@@ -3,6 +3,7 @@ package com.example.demo;
 import BDAccess.DBACountries;
 import BDAccess.DBACustomers;
 import BDAccess.DBAFirstLevelDivisions;
+import Database.DBConnection;
 import Model.Customers;
 import Model.FirstLevelDivisions;
 import javafx.collections.FXCollections;
@@ -15,8 +16,15 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
+import java.sql.PreparedStatement;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -76,6 +84,7 @@ public class AddCustomerController implements Initializable {
     ObservableList<String> customerNamesList = DBACustomers.getCustomerNames();
     ObservableList<Customers> customersList = DBACustomers.getAllCustomers();
     ObservableList<FirstLevelDivisions> divisionsList = DBAFirstLevelDivisions.getAllFirstLevelDivisions();
+    private static PreparedStatement preparedStatement;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -102,14 +111,26 @@ public class AddCustomerController implements Initializable {
         return newCustomerID;
     }
     @FXML
-    void onCancelButtonClick(ActionEvent event) {
+    void onCancelButtonClick(ActionEvent event) throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation");
         alert.setHeaderText("Are you sure you want to cancel creating this new customer?");
         alert.setContentText("Please select 'OK' to cancel. Thank you.");
         alert.showAndWait();
-    }
 
+        if(alert.getResult().getButtonData().isCancelButton()){
+            alert.close();
+        }
+        else {
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Main Customers.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 1250, 400);
+            Stage stage = new Stage();
+            stage.setTitle("Main Appointments");
+            stage.setScene(scene);
+            stage.show();
+            ((Stage) cancelButton.getScene().getWindow()).close();
+        }
+    }
     @FXML
     void onCountrySelected(ActionEvent event) {
         String a = countryCB.getValue().toString();
@@ -151,7 +172,6 @@ public class AddCustomerController implements Initializable {
         }
 
     }
-
     @FXML
     void onDivisionSelect(ActionEvent event) {
         String divName = divisionCB.getValue().toString();
@@ -163,11 +183,13 @@ public class AddCustomerController implements Initializable {
         }
         divisionIDTF.setText(String.valueOf(divID));
     }
-
     @FXML
     void onSaveButtonClick(ActionEvent event) {
         try {
-            if(0 != 0) {
+            if(customerIDTF.getText().equals("") || customerNameTF.getText().equals("") || addressTF.getText().equals("") || postalCodeTF.getText().equals("")
+            || phoneNumberTF.getText().equals("") || countryCB.getValue() == null || countryIDTF.getText().equals("") || divisionCB.getValue() == null
+            || divisionIDTF.getText().equals("") || createdDateTF.getText().equals("") || cratedByTF.getText().equals("") || lastUpdatedDateTF.getText().equals("")
+            || lastUpdatedByTF.getText().equals("")) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");
                 alert.setHeaderText("One or more Text Fields or Combo Box's are empty.");
@@ -180,13 +202,50 @@ public class AddCustomerController implements Initializable {
                 alert.setHeaderText("Are you sure you want to save this customer?");
                 alert.setContentText("Please select 'OK' to save. Thank you.");
                 alert.showAndWait();
-                FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Main Customers.fxml"));
-                Scene scene = new Scene(fxmlLoader.load(), 1250, 400);
-                Stage stage = new Stage();
-                stage.setTitle("Main Customers");
-                stage.setScene(scene);
-                stage.show();
-                ((Stage) cancelButton.getScene().getWindow()).close();
+
+                if(alert.getResult().getButtonData().isCancelButton()) {
+                    alert.close();
+                }
+                else {
+                    DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                    int custID = Integer.parseInt(customerIDTF.getText());
+                    String custName = customerNameTF.getText();
+                    String custAddress = addressTF.getText();
+                    String custPostalCode = postalCodeTF.getText();
+                    String custPhoneNumber = phoneNumberTF.getText();
+                    int custDivisionID = Integer.parseInt(divisionIDTF.getText());
+                    String custCreatedDate = createdDateTF.getText();
+                    LocalDateTime custcd = LocalDateTime.parse(custCreatedDate, format);
+                    String custCreatedBy = cratedByTF.getText();
+                    String custLastUpdateDateTime = lastUpdatedDateTF.getText();
+                    LocalDateTime luDT =LocalDateTime.parse(custLastUpdateDateTime, format);
+                    String custLastUpdatedBy = lastUpdatedByTF.getText();
+
+                    //Adding customer to the DB
+                    String customerStatement = "INSERT INTO customers (Customer_ID, Customer_Name, Address," +
+                            " Postal_Code, Phone, Create_Date, Created_By, Last_Update, Last_Updated_By," +
+                            " Division_ID) VALUES (?,?,?,?,?,?,?,?,?,?)";
+                    preparedStatement = DBConnection.getConnection().prepareStatement(customerStatement);
+                    preparedStatement.setInt(1, custID);
+                    preparedStatement.setString(2, custName);
+                    preparedStatement.setString(3, custAddress);
+                    preparedStatement.setString(4, custPostalCode);
+                    preparedStatement.setString(5, custPhoneNumber);
+                    preparedStatement.setTimestamp(6, Timestamp.valueOf(custcd));
+                    preparedStatement.setString(7, custCreatedBy);
+                    preparedStatement.setTimestamp(8, Timestamp.valueOf(luDT));
+                    preparedStatement.setString(9, custLastUpdatedBy);
+                    preparedStatement.setInt(10, custDivisionID);
+                    preparedStatement.execute();
+
+                    FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Main Customers.fxml"));
+                    Scene scene = new Scene(fxmlLoader.load(), 1250, 400);
+                    Stage stage = new Stage();
+                    stage.setTitle("Main Customers");
+                    stage.setScene(scene);
+                    stage.show();
+                    ((Stage) cancelButton.getScene().getWindow()).close();
+                }
             }
         } catch (Exception e) {
             throw new RuntimeException(e);

@@ -1,6 +1,8 @@
 package com.example.demo;
 import BDAccess.DBAAppointments;
+import Database.DBConnection;
 import Model.Appointments;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,8 +17,12 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ResourceBundle;
+import java.util.TimeZone;
 
 public class MainAppointmetController implements Initializable {
     @FXML
@@ -78,7 +84,7 @@ public class MainAppointmetController implements Initializable {
 
     @FXML
     public TableColumn<Appointments, Integer> userIDCol;
-    ObservableList<Appointments> apptList = null;
+    ObservableList<Appointments> apptList = FXCollections.observableArrayList();
     public Appointments selectedAppointment = null;
     private Parent root;
     private Stage stage;
@@ -103,7 +109,6 @@ public class MainAppointmetController implements Initializable {
         contactCol.setCellValueFactory(new PropertyValueFactory<Appointments, Integer>("contactId"));
         tableView.setItems(apptList);
     }
-
     public void onCustomerRecordsClick(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Main Customers.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1250, 365);
@@ -113,7 +118,6 @@ public class MainAppointmetController implements Initializable {
         stage.show();
         ((Stage) apptsCustRecordsButton.getScene().getWindow()).close();
     }
-
     public void onAddClick(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Add Appointment.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 650, 400);
@@ -123,7 +127,6 @@ public class MainAppointmetController implements Initializable {
         stage.show();
         ((Stage) addApptButton.getScene().getWindow()).close();
     }
-
     public void onEditClick(ActionEvent actionEvent) throws IOException {
         try{
             if(tableView.getSelectionModel().getSelectedItem() != null) {
@@ -149,14 +152,28 @@ public class MainAppointmetController implements Initializable {
         }
     }
     @FXML
-    public void onRemoveButtonClick(ActionEvent actionEvent) {
+    public void onRemoveButtonClick(ActionEvent actionEvent) throws SQLException {
         if(tableView.getSelectionModel().selectedItemProperty().get() != null) {
+            Connection connection = DBConnection.openConnection();
             Appointments appointmentinfo = tableView.getSelectionModel().selectedItemProperty().get();
+            int apptIDDel = appointmentinfo.getAppointmentID();
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirmation");
-            alert.setHeaderText("Are you sure you want to remove this appointment with ID: " + appointmentinfo.getAppointmentID() + ", Title of: " + appointmentinfo.getTitle() + "?");
+            alert.setHeaderText("Are you sure you want to remove this appointment with ID: " + apptIDDel + ", Title of: " + appointmentinfo.getTitle() + "?");
             alert.setContentText("Please select 'OK' to remove. Thank you.");
             alert.showAndWait();
+            if(alert.getResult().getButtonData().isDefaultButton()){
+                for(Appointments appointment : apptList){
+                    if(appointment.getAppointmentID() == apptIDDel){
+                        String delAppt = "DELETE FROM appointments WHERE Appointment_ID=?";
+                        PreparedStatement psDelete = connection.prepareStatement(delAppt);
+                        psDelete.setInt(1, apptIDDel);
+                        psDelete.executeUpdate();
+                        psDelete.close();
+                        tableView.setItems(DBAAppointments.getAllAppointments());
+                    }
+                }
+            }
         }
         else{
             Alert alert = new Alert(Alert.AlertType.ERROR);

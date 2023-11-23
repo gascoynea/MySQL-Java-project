@@ -4,23 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c6c1ed0f-0722-4596-8d46-623794c3837d" name="Changes" comment="I need to implement add, save, and delete functions to appointments and customer records that update the DB. Also, look into if you can save the initial instance of the DB to revert back to.&#10;&#10;I need to add a dropdown combox to change the appointments customer name that will also update customer ID field">
+    <list default="true" id="c6c1ed0f-0722-4596-8d46-623794c3837d" name="Changes" comment="I need to implement add, save, and delete functions to appointments and customer records that update the DB. Also, look into if you can save the initial instance of the DB to revert back to.&#10;&#10;I need to add a dropdown combox to change the appointments customer name that will also update customer ID field&#10;&#10;I need to find out what happened to delete function on the main customer controller. &#10;&#10;Almost done finishing up all the errors and checks for the main functions">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/AddAppointmentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/AddAppointmentController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/AddCustomerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/AddCustomerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/AppointmentInformationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/EditAppointmentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/ApptInfoDropDownController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/AddAppointmentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/CustomerListController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/MainCustomerController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/CustomerRecordController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/CustomerRecordController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/EditAppointmentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/EditAppointmentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/LoginFormController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/LoginFormController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/MainAppointmetController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/MainAppointmetController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/LoginFormController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/MainCustomerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/MainCustomerController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/demo/Add Appointment.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/demo/Add Appointment.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/demo/AddCustomer.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/demo/Add Customer.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/demo/CustomerList.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/demo/Main Customers.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/demo/CustomerRecord.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/demo/Customer Record.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/demo/Edit Appointment.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/demo/Edit Appointment.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/demo/LoginForm.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/demo/Login Form.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/demo/Main Appointments.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/demo/Main Appointments.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,8 +27,8 @@
       <list>
         <option value="XML Properties File" />
         <option value="Interface" />
-        <option value="FxmlFile" />
         <option value="Class" />
+        <option value="FxmlFile" />
       </list>
     </option>
   </component>
@@ -218,7 +213,14 @@
       <option name="project" value="LOCAL" />
       <updated>1700246908297</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="I need to implement add, save, and delete functions to appointments and customer records that update the DB. Also, look into if you can save the initial instance of the DB to revert back to.&#10;&#10;I need to add a dropdown combox to change the appointments customer name that will also update customer ID field&#10;&#10;I need to find out what happened to delete function on the main customer controller. &#10;&#10;Almost done finishing up all the errors and checks for the main functions">
+      <created>1700284788151</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1700284788151</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -241,7 +243,8 @@
     <MESSAGE value="I used a lambda expression to search known appoinments by name and ID.&#10;&#10;I need to be able to Add, Edit cutomer records and appoinments as well as deleting both." />
     <MESSAGE value="I need to implement add, save, and delete functions to appointments and customer records that update the DB. Also, look into if you can save the initial instance of the DB to revert back to." />
     <MESSAGE value="I need to implement add, save, and delete functions to appointments and customer records that update the DB. Also, look into if you can save the initial instance of the DB to revert back to.&#10;&#10;I need to add a dropdown combox to change the appointments customer name that will also update customer ID field" />
-    <option name="LAST_COMMIT_MESSAGE" value="I need to implement add, save, and delete functions to appointments and customer records that update the DB. Also, look into if you can save the initial instance of the DB to revert back to.&#10;&#10;I need to add a dropdown combox to change the appointments customer name that will also update customer ID field" />
+    <MESSAGE value="I need to implement add, save, and delete functions to appointments and customer records that update the DB. Also, look into if you can save the initial instance of the DB to revert back to.&#10;&#10;I need to add a dropdown combox to change the appointments customer name that will also update customer ID field&#10;&#10;I need to find out what happened to delete function on the main customer controller. &#10;&#10;Almost done finishing up all the errors and checks for the main functions" />
+    <option name="LAST_COMMIT_MESSAGE" value="I need to implement add, save, and delete functions to appointments and customer records that update the DB. Also, look into if you can save the initial instance of the DB to revert back to.&#10;&#10;I need to add a dropdown combox to change the appointments customer name that will also update customer ID field&#10;&#10;I need to find out what happened to delete function on the main customer controller. &#10;&#10;Almost done finishing up all the errors and checks for the main functions" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

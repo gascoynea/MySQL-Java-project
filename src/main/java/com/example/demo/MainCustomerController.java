@@ -147,23 +147,34 @@ public class MainCustomerController implements Initializable {
     public void onDeleteButtonClick(ActionEvent actionEvent) {
         Customers customerInfo = CustomerRec_Table.getSelectionModel().selectedItemProperty().get();
         try {
-            int counter = 0;
-            for(Appointments appointment : appointmentsList){
-                if(appointment.getCustomerId() == customerInfo.getCustomerID()) {
-                    counter += 1;
+            if(customerInfo == null){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("No customer selected.");
+                alert.setContentText("Please select a customer to delete. Thank you.");
+                alert.showAndWait();
+            }
+            else {
+                int counter = 0;
+                for (Appointments appointment : appointmentsList) {
+                    if (appointment.getCustomerId() == customerInfo.getCustomerID()) {
+                        counter += 1;
+                    }
+                }
+                if (counter == 0) {
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Confirmation");
+                    alert.setHeaderText("Are you sure you want to delete this customer record?");
+                    alert.setContentText("Please select 'OK' to delete. Thank you.");
+                    alert.showAndWait();
+                }
+                else {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Error");
-                    alert.setHeaderText("There are appointments made for this customer.");
+                    alert.setHeaderText("There are " + counter + " appointment/s made for this customer.");
                     alert.setContentText("Please delete all appointment related to this customer to delete customer record. Thank you.");
                     alert.showAndWait();
                 }
-            }
-            if (counter == 0) {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Confirmation");
-                alert.setHeaderText("Are you sure you want to delete this customer record?");
-                alert.setContentText("Please select 'OK' to delete. Thank you.");
-                alert.showAndWait();
             }
 
         } catch (Exception e) {

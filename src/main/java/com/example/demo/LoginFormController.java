@@ -45,7 +45,7 @@ public class LoginFormController implements Initializable {
                 locationLabel.setText(language.getString("America"));
                 passwordLogin.setText(language.getString("Password"));
                 userNameLogin.setText(language.getString("Username"));
-                System.out.println(region);
+                //System.out.println(region);
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -72,7 +72,7 @@ public class LoginFormController implements Initializable {
                     reference.userName = loginName;
                     for(Users user: usersList) {
                         if(loginName.equals(user.getUserName()))
-                            System.out.println(loginName + " " + user.getUserID());
+                            //System.out.println(loginName + " " + user.getUserID());
                         reference.userID = user.getUserID();
                     }
                     FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Main Appointments.fxml"));
