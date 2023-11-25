@@ -20,7 +20,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class CustomerAppointmentReport implements Initializable {
     @FXML
@@ -74,6 +77,7 @@ public class CustomerAppointmentReport implements Initializable {
     ObservableList<String> customerNames = DBACustomers.getCustomerNames();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         for(Appointments appointment : appointmentsList){
             appointmentsLocalDateTime.add(appointment.getStart().toLocalDateTime());
         }
@@ -96,11 +100,17 @@ public class CustomerAppointmentReport implements Initializable {
         }
         appointmentType.setItems(appointmentTypes);
 
-        /////////////////////////////////////////////////
-        for(Contacts contact : contactsList){
-            contactNames.add(contact.getContact_Name());
-            contactIDs.add(contact.getConID());
-        }
+        /*
+        2nd Lambda expression. Without having a for loop to reduce lines.
+        Also, with more data this will create a faster process speed.
+         */
+        ObservableList<String> contactNames = FXCollections.observableArrayList();
+        ObservableList<Integer> contactIDS = FXCollections.observableArrayList();
+        contactsList.forEach(contacts -> {
+            contactNames.add(contacts.getContact_Name());
+            contactIDS.add(contacts.getConID());
+        });
+
         contactCB.setItems(contactNames);
 
         appointmentIDCol.setCellValueFactory(new PropertyValueFactory<Appointments, Integer>("appointmentID"));

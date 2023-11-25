@@ -25,9 +25,13 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class MainCustomerController implements Initializable {
+    @FXML
     public TextField customerSearchTextField;
+    @FXML
     public Button searchButton;
+    @FXML
     public Button addCustomerButton;
+    @FXML
     public Button deleteButton;
     @FXML
     private TableColumn<Customers, String> divisionCol;
@@ -124,20 +128,23 @@ public class MainCustomerController implements Initializable {
         stage.show();
         ((Stage) apptsButton.getScene().getWindow()).close();
     }
-
+    @FXML
     public void onSearchButtonClick(ActionEvent actionEvent) {
         CustomerRec_Table.getItems().clear();
         CustomerRec_Table.getItems().addAll(searchCustomersList(customerSearchTextField.getText(), DBACustomers.getAllCustomers()));
     }
+    @FXML
     private List<Customers> searchCustomersList(String searchText, List<Customers> listCustomers){
         List<String> searchTextWordsArray = Arrays.asList(searchText.trim().split(" "));
-        //Lambda expression 1
+        /*
+        Lambda expression 1 for allows for less line space while doing more functions.
+         */
         return listCustomers.stream().filter(input -> {
             return searchTextWordsArray.stream().allMatch(word ->
                     input.getCustomerName().toLowerCase().contains(word.toLowerCase()) || Integer.toString(input.getCustomerID()).contains(word.toLowerCase()));
         }).collect(Collectors.toList());
     }
-
+    @FXML
     public void onAddCustomerButtonClick(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Add Customer.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600, 275);
@@ -147,7 +154,7 @@ public class MainCustomerController implements Initializable {
         stage.show();
         ((Stage) customerInfoButton.getScene().getWindow()).close();
     }
-
+    @FXML
     public void onDeleteButtonClick(ActionEvent actionEvent) {
         Customers customerInfo = CustomerRec_Table.getSelectionModel().selectedItemProperty().get();
         Connection connection = DBConnection.openConnection();

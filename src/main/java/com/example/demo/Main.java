@@ -25,18 +25,6 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         Database.DBConnection.openConnection();
-//        String[] zoneList = TimeZone.getAvailableIDs();
-//        String est = "EST";
-//        System.out.println(TimeZone.getDefault());
-//        TimeZone.setDefault(TimeZone.getTimeZone("EST"));
-//        System.out.println(TimeZone.getDefault());
-
-//        System.out.println(DBACountries.getCountryNames());
-//        DBACustomers.getCustomerNames();
-//        DBAContacts.getContactName();
-//        DBAAppointments.getAppointmentID();
-//        DBAFirstLevelDivisions.getDivisionNames();
-//        DBAUsers.getUserNames();
         launch();
         Database.DBConnection.closeConnection();
     }
