@@ -4,12 +4,14 @@ import BDAccess.DBAAppointments;
 import BDAccess.DBACountries;
 import BDAccess.DBACustomers;
 import BDAccess.DBAFirstLevelDivisions;
+import Database.DBConnection;
 import Model.Appointments;
 import Model.Countries;
 import Model.Customers;
 import Model.FirstLevelDivisions;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableListBase;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,12 +25,21 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
 public class CustomerRecordController implements Initializable {
+    @FXML
+    public TextField countryIDTF;
+    @FXML
+    public TextField divisionIDTF;
     @FXML
     private Button addAppointmentButton;
 
@@ -109,28 +120,25 @@ public class CustomerRecordController implements Initializable {
 
     @FXML
     private TableColumn<Appointments, Integer> userIDCol;
+    ObservableList<Appointments> customerAppointmentsList = FXCollections.observableArrayList();
+    ObservableList<Appointments> customerAppointmentsListUpdated = FXCollections.observableArrayList();
+    ObservableList<Customers> customersList = DBACustomers.getAllCustomers();
+    ObservableList<FirstLevelDivisions> divisionsList = DBAFirstLevelDivisions.getAllFirstLevelDivisions();
+    ObservableList<Countries> countriesList = DBACountries.getAllCountries();
+    ObservableList<Appointments> apptList = DBAAppointments.getAllAppointments();
     ObservableList<String> divisionNames = DBAFirstLevelDivisions.getDivisionNames();
     ObservableList<String> countryNames = DBACountries.getCountryNames();
-    ObservableList<Customers> customersList = DBACustomers.getAllCustomers();
-    ObservableList<Appointments> appointmentsList = DBAAppointments.getAllAppointments();
+    ObservableList<String> updatedDivNames = FXCollections.observableArrayList();
+    Customers customer;
+
     public Appointments customerAppointmentInfo;
     private Customers customerInfo;
+    private static PreparedStatement preparedStatement;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //Have to create two methods. one for creating a new custID for adding a new record and one for bring in the customer if from a record being updated
-
-        List<Integer> custIDs = new ArrayList<Integer>();
-        for(Customers customer : customersList){
-            Integer custID = customer.getCustomerID();
-            custIDs.add(custID);
-        }
-        customerIDTF.setText(String.valueOf(newCustomerID(custIDs)));
-        countryComBox.setItems(countryNames);
-        stateProvinceComBox.setItems(divisionNames);
 
         //Appointment Table populations
-        ObservableList<Appointments> apptList = DBAAppointments.getAllAppointments();
         apptIDCol.setCellValueFactory(new PropertyValueFactory<Appointments, Integer>("appointmentID"));
         titleCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("title"));
         descriptionCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("description"));
@@ -145,10 +153,7 @@ public class CustomerRecordController implements Initializable {
         customerIDCol.setCellValueFactory(new PropertyValueFactory<Appointments, Integer>("customerId"));
         userIDCol.setCellValueFactory(new PropertyValueFactory<Appointments, Integer>("userId"));
         contactIDCol.setCellValueFactory(new PropertyValueFactory<Appointments, Integer>("contactId"));
-//        for(Appointments appointment : apptList){
-//
-//        }
-//        tableViewAppointments.setItems(apptList);
+        tableViewAppointments.setItems(customerAppointmentsList);
     }
     public void onSaveClick(ActionEvent actionEvent) {
         try {
@@ -171,6 +176,44 @@ public class CustomerRecordController implements Initializable {
                     alert.close();
                 }
                 else {
+
+                    DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                    int custID = Integer.parseInt(customerIDTF.getText());
+                    String custName = nameTF.getText();
+                    String custAddress = addressTF.getText();
+                    String custPostalCode = postalcodeTF.getText();
+                    String custPhoneNumber = phoneNumberTF.getText();
+                    int custDivisionID = Integer.parseInt(divisionIDTF.getText());
+
+                    LocalDateTime now = LocalDateTime.now(ZoneId.of("UTC"));
+                    String now2 = now.format(format);
+                    LocalDateTime lastUpdateTime = LocalDateTime.parse(now2, format);
+
+                    String custLastUpdatedBy = LoginFormController.reference.userName;
+                    String createdBy = customer.getCreatedBy();
+                    LocalDateTime custcd = customer.getCreateDate().toLocalDateTime();
+
+//                    Adding customer to the DB
+                    String customerStatement = "UPDATE customers SET Customer_ID = ?, Customer_Name = ?," +
+                            " Address = ?, Postal_Code = ?, Phone = ?, Create_Date = ?, Created_By = ?," +
+                            " Last_Update = ?, Last_Updated_By = ?, Division_ID = ? WHERE Customer_ID = ?";
+
+                    preparedStatement = DBConnection.getConnection().prepareStatement(customerStatement);
+
+                    preparedStatement.setInt(1, custID);
+                    preparedStatement.setString(2, custName);
+                    preparedStatement.setString(3, custAddress);
+                    preparedStatement.setString(4, custPostalCode);
+                    preparedStatement.setString(5, custPhoneNumber);
+                    preparedStatement.setTimestamp(6, Timestamp.valueOf(custcd));
+                    preparedStatement.setString(7, createdBy);
+                    preparedStatement.setTimestamp(8, Timestamp.valueOf(lastUpdateTime));
+                    preparedStatement.setString(9, custLastUpdatedBy);
+                    preparedStatement.setInt(10, custDivisionID);
+                    preparedStatement.setInt(11, custID);
+                    preparedStatement.execute();
+
+                    System.out.println("executed");
                     FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Main Customers.fxml"));
                     Scene scene = new Scene(fxmlLoader.load(), 1250, 400);
                     Stage stage = new Stage();
@@ -178,15 +221,6 @@ public class CustomerRecordController implements Initializable {
                     stage.setScene(scene);
                     stage.show();
                     ((Stage) cancelButton.getScene().getWindow()).close();
-
-                    /*
-                    !!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-                    Code for saving this customers new information in the main customer table view as well as updating the database
-
-                    !!!!!!!!!!!!!!!!!!!!!!!!!!!
-                     */
-
                 }
             }
         } catch (Exception e) {
@@ -214,6 +248,7 @@ public class CustomerRecordController implements Initializable {
         }
     }
     public void onDeleteButtonClick(ActionEvent actionEvent) {
+        Connection connection = DBConnection.openConnection();
         try {
             if(tableViewAppointments.getSelectionModel().selectedItemProperty().get() == null) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -232,7 +267,17 @@ public class CustomerRecordController implements Initializable {
                     alert.close();
                 }
                 else {
-                    //Code for appointment deletion and have table view be updated to reflect deletion as well as database and other table views such as main appt table
+                    Appointments appointment = tableViewAppointments.getSelectionModel().selectedItemProperty().get();
+                    for (Appointments appointments : apptList) {
+                        if(appointment.getAppointmentID() == appointments.getAppointmentID()) {
+                            String apptDelete = "DELETE FROM appointments WHERE Appointment_ID = ?";
+                            PreparedStatement appointmentDelete = connection.prepareStatement(apptDelete);
+                            appointmentDelete.setInt(1, appointment.getAppointmentID());
+                            appointmentDelete.executeUpdate();
+                            appointmentDelete.close();
+                            appointmentTableRefresh(appointment.getAppointmentID());
+                        }
+                    }
                 }
             }
         } catch (Exception e) {
@@ -244,7 +289,7 @@ public class CustomerRecordController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Add Appointment.fxml"));
             Parent root = loader.load();
             AddAppointmentController scene2controller = loader.getController();
-            scene2controller.populateTextFields(customerInfo);
+            scene2controller.populateTextFields(customer);
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);
             stage.setTitle("Add Appointment");
@@ -287,72 +332,104 @@ public class CustomerRecordController implements Initializable {
         return newCustomerID;
     }
     public void onCountrySelected(ActionEvent actionEvent) {
-        String a = countryComBox.getValue().toString();
-        if(a.equals("U.S")){
-            int cID = 1;
-            ObservableList<FirstLevelDivisions> divList = DBAFirstLevelDivisions.getAllFirstLevelDivisions();
-            ObservableList<String> divNames = FXCollections.observableArrayList();
-            for(FirstLevelDivisions division : divList){
-                if(division.getCountryID() == cID){
-                    divNames.add(division.getDivision());
+        String countrySelected = countryComBox.getValue();
+        int cID = 0;
+        ObservableList<String> divNameTemp = FXCollections.observableArrayList();
+        if(countrySelected.equals("U.S")){
+            cID = 1;
+            for (FirstLevelDivisions divisions : divisionsList){
+                if (divisions.getCountryID() == cID){
+                    divNameTemp.add(divisions.getDivision());
                 }
             }
-            stateProvinceComBox.setItems(divNames);
         }
-        else if(a.equals("UK")){
-            int cID = 2;
-            ObservableList<FirstLevelDivisions> divList = DBAFirstLevelDivisions.getAllFirstLevelDivisions();
-            ObservableList<String> divNames = FXCollections.observableArrayList();
-            for(FirstLevelDivisions division : divList){
-                if(division.getCountryID() == cID){
-                    divNames.add(division.getDivision());
+        if(countrySelected.equals("UK")){
+            cID = 2;
+            for (FirstLevelDivisions divisions : divisionsList){
+                if (divisions.getCountryID() == cID){
+                    divNameTemp.add(divisions.getDivision());
                 }
             }
-            stateProvinceComBox.setItems(divNames);
         }
-        else {
-            int cID = 3;
-            ObservableList<FirstLevelDivisions> divList = DBAFirstLevelDivisions.getAllFirstLevelDivisions();
-            ObservableList<String> divNames = FXCollections.observableArrayList();
-            for(FirstLevelDivisions division : divList){
-                if(division.getCountryID() == cID){
-                    divNames.add(division.getDivision());
+        if(countrySelected.equals("Canada")){
+            cID = 3;
+            for (FirstLevelDivisions divisions : divisionsList){
+                if (divisions.getCountryID() == cID){
+                    divNameTemp.add(divisions.getDivision());
                 }
             }
-            stateProvinceComBox.setItems(divNames);
         }
-    }
-    public void onMouseCountrySelect(MouseEvent mouseEvent) {
-//
+        updatedDivNames = divNameTemp;
+        stateProvinceComBox.setItems(updatedDivNames);
+        countryIDTF.setText(String.valueOf(cID));
     }
     public void populateScene(Customers customerInformation){
-        //Appointments customerAppointments,
-        customerInfo = customerInformation;
-        ObservableList<FirstLevelDivisions> firstLevelDivisionsList = DBAFirstLevelDivisions.getAllFirstLevelDivisions();
-        ObservableList<Countries> countriesList = DBACountries.getAllCountries();
-        ObservableList<Appointments> apptList = DBAAppointments.getAllAppointments();
-        ObservableList<Appointments> customerAppointmentsList = FXCollections.observableArrayList();
-        customerIDTF.setText(String.valueOf(customerInfo.getCustomerID()));
-        nameTF.setText(String.valueOf(customerInfo.getCustomerName()));
-        addressTF.setText(String.valueOf(customerInfo.getAddress()));
-        postalcodeTF.setText(String.valueOf(customerInfo.getPostCode()));
-        phoneNumberTF.setText(String.valueOf(customerInfo.getPhone()));
-        stateProvinceComBox.getSelectionModel().select(String.valueOf(customerInfo.getDivision()));
-        for (FirstLevelDivisions division : firstLevelDivisionsList){
-            if(division.getDivID() == customerInfo.getDivisionID()){
-               int countryID = division.getCountryID();
-               for(Countries country : countriesList){
-                   if(country.getId() == countryID){
-                       countryComBox.getSelectionModel().select(country.getName());
-                   }
-               }
+        customer = customerInformation;
+        customerIDTF.setText(String.valueOf(customer.getCustomerID()));
+        countryComBox.setItems(countryNames);
+        stateProvinceComBox.setItems(divisionNames);
+        Customers customerInfo = customerInformation;
+        int idCustomer = customerInfo.getCustomerID();
+        String nameCustomer = customerInfo.getCustomerName();
+        String address = customerInfo.getAddress();
+        String postalCode = customerInfo.getPostCode();
+        String phone = customerInfo.getPhone();
+        int divisionIDCustomer = customerInfo.getDivisionID();
+        int countryID = 0;
+        String countryName = "";
+        String divName = "";
+
+        countryIDTF.setText(String.valueOf(idCustomer));
+        nameTF.setText(nameCustomer);
+        addressTF.setText(address);
+        postalcodeTF.setText(postalCode);
+        phoneNumberTF.setText(phone);
+        divisionIDTF.setText(String.valueOf(divisionIDCustomer));
+        for (FirstLevelDivisions division : divisionsList){
+            if(division.getDivID() == divisionIDCustomer){
+                countryID = division.getCountryID();
+                divName = division.getDivision();
+                if(countryID == 1){
+                    countryName = "U.S";
+                }
+                if(countryID == 2){
+                    countryName = "UK";
+                }
+                if(countryID == 3){
+                    countryName = "Canada";
+                }
             }
         }
+        countryIDTF.setText(String.valueOf(countryID));
+        stateProvinceComBox.setValue(divName);
+        countryComBox.setValue(countryName);
+
+        //Populating appointment window
         for(Appointments appointment : apptList){
             if(appointment.getCustomerId() == customerInfo.getCustomerID()){
                 customerAppointmentsList.add(appointment);
             }
         }
-        tableViewAppointments.setItems(customerAppointmentsList);
+    }
+
+    public void onDivisionSelected(ActionEvent actionEvent) {
+        String divName = stateProvinceComBox.getValue();
+        ObservableList<FirstLevelDivisions> divList = DBAFirstLevelDivisions.getAllFirstLevelDivisions();
+        for(FirstLevelDivisions division : divList){
+            if (division.getDivision().equals(divName)){
+                divisionIDTF.setText(String.valueOf(division.getDivID()));
+            }
+        }
+    }
+    public void appointmentTableRefresh(int inAppointmentID){
+        ObservableList<Appointments> appointmentsObservableList = DBAAppointments.getAllAppointments();
+        ObservableList<Appointments> refreshedAppt = FXCollections.observableArrayList();
+        for(Appointments appointment : appointmentsObservableList){
+            if(appointment.getCustomerId() == customer.getCustomerID()){
+                refreshedAppt.add(appointment);
+            }
+            tableViewAppointments.setItems(refreshedAppt);
+        }
     }
 }
+

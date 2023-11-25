@@ -21,10 +21,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.*;
+import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.TimeZone;
 
 public class MainAppointmetController implements Initializable {
+    @FXML
+    public Button appointmentSearchButton;
+    public Button monthTypeButton;
     @FXML
     private Button addApptButton;
 
@@ -108,6 +113,42 @@ public class MainAppointmetController implements Initializable {
         userIDCol.setCellValueFactory(new PropertyValueFactory<Appointments, Integer>("userId"));
         contactCol.setCellValueFactory(new PropertyValueFactory<Appointments, Integer>("contactId"));
         tableView.setItems(apptList);
+
+        boolean apptIn15 = false;
+        LocalDateTime nowMinus15 = LocalDateTime.now().minusMinutes(15);
+        LocalDateTime nowPlus15 = LocalDateTime.now().plusMinutes(15);
+
+        LocalDateTime apptStart;
+        LocalDateTime appointmentTime = null;
+        int appointmentID = 0;
+//        System.out.println(LocalDateTime.now() + " before for");
+        for(Appointments appointment : apptList){
+            apptStart = appointment.getStart().toLocalDateTime();
+//            System.out.println(apptStart + " after for");
+            if(apptStart.isAfter(nowMinus15) && apptStart.isBefore(nowPlus15)){
+                appointmentID = appointment.getAppointmentID();
+                appointmentTime = apptStart;
+//                System.out.println(appointmentID + " after if");
+                apptIn15 = true;
+            }
+
+        }
+//        System.out.println(appointmentID + " afterloop " + appointmentTime + apptIn15);
+        if(apptIn15){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning");
+            alert.setHeaderText("There is an appoinment within 15 minutes of Login!");
+            alert.setContentText("Please review Appointment info!");
+            alert.showAndWait();
+
+        }
+        else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning");
+            alert.setHeaderText("No upcoming appointments in 15 minutes.");
+            alert.setContentText("Have a good day!");
+            alert.showAndWait();
+        }
     }
     public void onCustomerRecordsClick(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Main Customers.fxml"));
@@ -173,6 +214,11 @@ public class MainAppointmetController implements Initializable {
                         tableView.setItems(DBAAppointments.getAllAppointments());
                     }
                 }
+                alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning");
+                alert.setHeaderText("An appointment was cancelled!");
+                alert.setContentText("Appointment with an appointment ID of: " + apptIDDel + " With type: " + appointmentinfo.getType());
+                alert.showAndWait();
             }
         }
         else{
@@ -182,5 +228,25 @@ public class MainAppointmetController implements Initializable {
             alert.setContentText("Please select an appointment to remove. Thank you.");
             alert.showAndWait();
         }
+    }
+
+    public void onAppointmentSearchButtonClick(ActionEvent actionEvent) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Appoinment Search.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 1065, 365);
+        Stage stage = new Stage();
+        stage.setTitle("Appointment Search");
+        stage.setScene(scene);
+        stage.show();
+        ((Stage) appointmentSearchButton.getScene().getWindow()).close();
+    }
+
+    public void oonMonthTypeButtonSelected(ActionEvent actionEvent) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Customer Appointment Report.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 600, 600);
+        Stage stage = new Stage();
+        stage.setTitle("Appointments");
+        stage.setScene(scene);
+        stage.show();
+        ((Stage) monthTypeButton.getScene().getWindow()).close();
     }
 }

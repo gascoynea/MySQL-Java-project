@@ -10,13 +10,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import java.io.IOException;
+
+import java.io.*;
 import java.net.URL;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class LoginFormController implements Initializable {
     public Button loginButton;
@@ -25,6 +26,9 @@ public class LoginFormController implements Initializable {
     public Label locationLabel;
     public Label loginFormText;
 
+
+    public LoginFormController(){
+    }
 
     class reference{
         public static String userName;
@@ -55,9 +59,11 @@ public class LoginFormController implements Initializable {
     @FXML
 
     public void onLoginClick(ActionEvent actionEvent) throws IOException {
+
         ObservableList<Users> usersList = DBAUsers.getAllUsers();
         String loginName = userNameLogin.getText();
         String password = passwordLogin.getText();
+        Boolean success = false;
         List namesList = new ArrayList();
         List passwordsList = new ArrayList<>();
         Locale locale = Locale.getDefault();
@@ -74,9 +80,11 @@ public class LoginFormController implements Initializable {
                         if(loginName.equals(user.getUserName()))
                             //System.out.println(loginName + " " + user.getUserID());
                         reference.userID = user.getUserID();
+                        success = true;
                     }
+                    loginActivity(loginName, password, success);
                     FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Main Appointments.fxml"));
-                    Scene scene = new Scene(fxmlLoader.load(), 1250, 400);
+                    Scene scene = new Scene(fxmlLoader.load(), 1400, 400);
                     Stage stage = new Stage();
                     stage.setTitle("Hello!");
                     stage.setScene(scene);
@@ -85,6 +93,7 @@ public class LoginFormController implements Initializable {
                 }
                 else {
                     if(locale.getLanguage() == "en") {
+                        loginActivity(loginName, password, success);
                         Alert alert = new Alert(Alert.AlertType.INFORMATION);
                         alert.setTitle("Error");
                         alert.setHeaderText("Wrong Password!");
@@ -92,6 +101,7 @@ public class LoginFormController implements Initializable {
                         alert.showAndWait();
                     }
                     else{
+                        loginActivity(loginName, password, success);
                         Alert alert = new Alert(Alert.AlertType.INFORMATION);
                         alert.setTitle(language.getString("Error"));
                         alert.setHeaderText(language.getString("WrongPass"));
@@ -101,7 +111,8 @@ public class LoginFormController implements Initializable {
                 }
             }
             else{
-                if(locale.getLanguage() != "en") {
+                if(locale.getLanguage() == "en") {
+                    loginActivity(loginName, password, success);
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Error");
                     alert.setHeaderText("Wrong Username!");
@@ -109,6 +120,7 @@ public class LoginFormController implements Initializable {
                     alert.showAndWait();
                 }
                 else {
+                    loginActivity(loginName, password, success);
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle(language.getString("Error"));
                     alert.setHeaderText(language.getString("WrongUsername"));
@@ -116,6 +128,24 @@ public class LoginFormController implements Initializable {
                     alert.showAndWait();
                 }
             }
+    }
+    public void loginActivity(String inUserName, String inUserPassword, Boolean inFailSucceed) throws IOException {
+        String success = "";
+        File log = new File("login_activity.txt");
+        if(inFailSucceed.equals(false)) {
+            success = "FAILED LOGIN";
+        }
+        else {
+            success = "SUCCESSFUL LOGIN";
+        }
+        if(!log.exists()){
+            log.createNewFile();
+        }
+        FileWriter fw = new FileWriter(log, true);
+        BufferedWriter bw = new BufferedWriter(fw);
+        bw.write("Username attempted: " + inUserName + ", " + "Password attempted: " + inUserPassword + ", " + "Attempt was a: " +  success + ", Login attempt Date and timestamp: "
+                + LocalDate.now() + " --- " + Timestamp.valueOf(LocalDateTime.now()) + "\n");
+        bw.close();
     }
 }
 /*

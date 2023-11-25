@@ -5,6 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c6c1ed0f-0722-4596-8d46-623794c3837d" name="Changes" comment="I need to implement add, save, and delete functions to appointments and customer records that update the DB. Also, look into if you can save the initial instance of the DB to revert back to.&#10;&#10;I need to add a dropdown combox to change the appointments customer name that will also update customer ID field&#10;&#10;I need to find out what happened to delete function on the main customer controller. &#10;&#10;Almost done finishing up all the errors and checks for the main functions">
+      <change afterPath="$PROJECT_DIR$/login_activity.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/AppoinmentSearch.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/CustomerAppointmentReport.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/demo/Appoinment Search.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/demo/Customer Appointment Report.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/AddAppointmentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/AddAppointmentController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/AddCustomerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/AddCustomerController.java" afterDir="false" />
@@ -15,7 +20,9 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/MainAppointmetController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/MainAppointmetController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/MainCustomerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/MainCustomerController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/demo/Add Appointment.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/demo/Add Appointment.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/demo/Customer Record.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/demo/Customer Record.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/demo/Edit Appointment.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/demo/Edit Appointment.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/demo/Main Appointments.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/demo/Main Appointments.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,8 +34,8 @@
       <list>
         <option value="XML Properties File" />
         <option value="Interface" />
-        <option value="Class" />
         <option value="FxmlFile" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -220,7 +227,14 @@
       <option name="project" value="LOCAL" />
       <updated>1700284788151</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="I need to implement add, save, and delete functions to appointments and customer records that update the DB. Also, look into if you can save the initial instance of the DB to revert back to.&#10;&#10;I need to add a dropdown combox to change the appointments customer name that will also update customer ID field&#10;&#10;I need to find out what happened to delete function on the main customer controller. &#10;&#10;Almost done finishing up all the errors and checks for the main functions">
+      <created>1700699967480</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1700699967480</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

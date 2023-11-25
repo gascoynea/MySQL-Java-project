@@ -44,7 +44,9 @@
       <Button fx:id="editButton" layoutX="329.0" layoutY="346.0" mnemonicParsing="false" onAction="#onEditButtonClick" prefHeight="25.0" prefWidth="92.0" text="Edit" />
       <Button fx:id="addAppointmentButton" layoutX="238.0" layoutY="346.0" mnemonicParsing="false" onAction="#onAddAppointmentButtonClick" prefHeight="25.0" prefWidth="92.0" text="Add" />
       <Button fx:id="deleteButton" layoutX="1497.0" layoutY="346.0" mnemonicParsing="false" onAction="#onDeleteButtonClick" prefHeight="25.0" prefWidth="92.0" text="Delete" />
-      <ComboBox fx:id="countryComBox" layoutX="44.0" layoutY="255.0" onAction="#onCountrySelected" onMouseClicked="#onMouseCountrySelect" prefWidth="150.0" promptText="Country" />
-      <ComboBox fx:id="stateProvinceComBox" layoutX="44.0" layoutY="280.0" prefWidth="150.0" promptText="State/Province" />
+      <ComboBox fx:id="countryComBox" layoutX="45.0" layoutY="213.0" onAction="#onCountrySelected" prefWidth="150.0" promptText="Country" />
+      <TextField fx:id="countryIDTF" layoutX="45.0" layoutY="238.0" prefHeight="25.0" prefWidth="150.0" promptText="Country ID" />
+      <ComboBox fx:id="stateProvinceComBox" layoutX="44.0" layoutY="263.0" onAction="#onDivisionSelected" prefWidth="150.0" promptText="State/Province" />
+      <TextField fx:id="divisionIDTF" layoutX="43.0" layoutY="288.0" prefHeight="25.0" prefWidth="150.0" promptText="Division ID" />
    </children>
 </AnchorPane>

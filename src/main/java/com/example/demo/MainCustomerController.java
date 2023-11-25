@@ -2,6 +2,7 @@ package com.example.demo;
 
 import BDAccess.DBAAppointments;
 import BDAccess.DBACustomers;
+import Database.DBConnection;
 import Model.Appointments;
 import Model.Customers;
 import javafx.collections.ObservableList;
@@ -17,6 +18,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.Timestamp;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -68,6 +71,7 @@ public class MainCustomerController implements Initializable {
     private TableColumn<Customers, String> nameCol;
     ObservableList<Customers> customerList = null;
     ObservableList<Appointments> appointmentsList = DBAAppointments.getAllAppointments();
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         customerList = DBACustomers.getAllCustomers();
@@ -113,7 +117,7 @@ public class MainCustomerController implements Initializable {
     @FXML
     public void onApptsButtonClick(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Main Appointments.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1250, 400);
+        Scene scene = new Scene(fxmlLoader.load(), 1400, 400);
         Stage stage = new Stage();
         stage.setTitle("Current Appointments");
         stage.setScene(scene);
@@ -146,6 +150,7 @@ public class MainCustomerController implements Initializable {
 
     public void onDeleteButtonClick(ActionEvent actionEvent) {
         Customers customerInfo = CustomerRec_Table.getSelectionModel().selectedItemProperty().get();
+        Connection connection = DBConnection.openConnection();
         try {
             if(customerInfo == null){
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -167,6 +172,27 @@ public class MainCustomerController implements Initializable {
                     alert.setHeaderText("Are you sure you want to delete this customer record?");
                     alert.setContentText("Please select 'OK' to delete. Thank you.");
                     alert.showAndWait();
+                    if(alert.getResult().getButtonData().isCancelButton()){
+                        alert.close();
+                    }
+                    else {
+                        for (Customers customer : customerList){
+                            if(customer.getCustomerID() == customerInfo.getCustomerID()){
+                                int custid = customer.getCustomerID();
+                                String deleteCustomer = "DELETE FROM customers WHERE Customer_ID = ?";
+                                PreparedStatement psDelete = connection.prepareStatement(deleteCustomer);
+                                psDelete.setInt(1, custid);
+                                psDelete.executeUpdate();
+                                psDelete.close();
+                                CustomerRec_Table.setItems(DBACustomers.getAllCustomers());
+                            }
+                        }
+                        alert = new Alert(Alert.AlertType.WARNING);
+                        alert.setTitle("Warning");
+                        alert.setHeaderText("You just deleted a customer record.");
+                        alert.setContentText("Keep it up!");
+                        alert.showAndWait();
+                    }
                 }
                 else {
                     Alert alert = new Alert(Alert.AlertType.ERROR);

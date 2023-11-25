@@ -237,6 +237,7 @@ public class AddCustomerController implements Initializable {
                     preparedStatement.setString(9, custLastUpdatedBy);
                     preparedStatement.setInt(10, custDivisionID);
                     preparedStatement.execute();
+                    preparedStatement.close();
 
                     FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Main Customers.fxml"));
                     Scene scene = new Scene(fxmlLoader.load(), 1250, 400);

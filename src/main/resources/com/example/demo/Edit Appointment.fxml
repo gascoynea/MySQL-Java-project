@@ -50,12 +50,12 @@
             <TextField fx:id="appointmentIDField" editable="false" layoutX="15.0" layoutY="59.0" prefHeight="25.0" prefWidth="174.0" promptText="Appointment ID" />
             <TextField fx:id="createdByFeild" editable="false" layoutX="452.0" layoutY="101.0" prefHeight="25.0" prefWidth="174.0" promptText="Created By" />
             <TextField fx:id="titleField" layoutX="14.0" layoutY="101.0" prefHeight="25.0" prefWidth="174.0" promptText="Title" />
-            <TextField fx:id="appointmentEnd" layoutX="234.0" layoutY="320.0" prefHeight="25.0" prefWidth="174.0" promptText="Appointment End (Local Time)" />
+            <TextField fx:id="appointmentEnd" editable="false" layoutX="234.0" layoutY="320.0" prefHeight="25.0" prefWidth="174.0" promptText="Appointment End (Local Time)" />
             <TextField fx:id="createDateField" editable="false" layoutX="452.0" layoutY="59.0" prefHeight="25.0" prefWidth="174.0" promptText="Create Date" />
             <TextField fx:id="descriptionField" layoutX="14.0" layoutY="143.0" prefHeight="25.0" prefWidth="174.0" promptText="Description" />
             <TextField fx:id="locationField" layoutX="14.0" layoutY="182.0" prefHeight="25.0" prefWidth="174.0" promptText="Location" />
             <TextField fx:id="typeField" layoutX="14.0" layoutY="219.0" prefHeight="25.0" prefWidth="174.0" promptText="Type" />
-            <TextField fx:id="appointmentStart" layoutX="233.0" layoutY="283.0" prefHeight="25.0" prefWidth="174.0" promptText="Appointment Start (Local Time)" />
+            <TextField fx:id="appointmentStart" editable="false" layoutX="233.0" layoutY="283.0" prefHeight="25.0" prefWidth="174.0" promptText="Appointment Start (Local Time)" />
             <TextField fx:id="lastUpdateField" editable="false" layoutX="452.0" layoutY="143.0" prefHeight="25.0" prefWidth="174.0" promptText="Last Updated" />
             <TextField fx:id="lastUpdatedByField" editable="false" layoutX="452.0" layoutY="182.0" prefHeight="25.0" prefWidth="174.0" promptText="Last Updated  By" />
             <TextField fx:id="customerIDField" editable="false" layoutX="232.0" layoutY="143.0" prefHeight="25.0" prefWidth="174.0" promptText="Customer ID" />
@@ -65,11 +65,11 @@
             <ComboBox fx:id="contactNameCB" layoutX="232.0" layoutY="101.0" onAction="#onContactNameSelected" prefHeight="25.0" prefWidth="174.0" promptText="Contacts" />
             <ComboBox fx:id="customerNameCB" layoutX="232.0" layoutY="59.0" onAction="#onCustomerNameSelected" prefHeight="25.0" prefWidth="174.0" promptText="Customer Name" />
             <DatePicker fx:id="dateDP" layoutX="234.0" layoutY="219.0" promptText="Date of Appointment" />
-            <ComboBox fx:id="endHourOfAppointmentCB1" layoutX="15.0" layoutY="320.0" prefHeight="25.0" prefWidth="174.0" promptText="End Hour (UTC)" />
-            <ComboBox fx:id="hourOfAppointmentCB" layoutX="15.0" layoutY="283.0" prefHeight="25.0" prefWidth="174.0" promptText="Start Hour (UTC)" />
-            <TextField fx:id="estEndTF" layoutX="453.0" layoutY="320.0" prefHeight="25.0" prefWidth="174.0" promptText="Appoinmente End (EST)" />
-            <TextField fx:id="estStartTF" layoutX="452.0" layoutY="283.0" prefHeight="25.0" prefWidth="174.0" promptText="Appoinment Start (EST)" />
-            <Label layoutX="63.0" layoutY="255.0" text="UTC Timezone" />
+            <ComboBox fx:id="endHourOfAppointmentCB1" layoutX="15.0" layoutY="320.0" prefHeight="25.0" prefWidth="174.0" promptText="End Hour" />
+            <ComboBox fx:id="hourOfAppointmentCB" layoutX="15.0" layoutY="283.0" prefHeight="25.0" prefWidth="174.0" promptText="Start Hour" />
+            <TextField fx:id="estEndTF" editable="false" layoutX="453.0" layoutY="320.0" prefHeight="25.0" prefWidth="174.0" promptText="Appoinmente End (EST)" />
+            <TextField fx:id="estStartTF" editable="false" layoutX="452.0" layoutY="283.0" prefHeight="25.0" prefWidth="174.0" promptText="Appoinment Start (EST)" />
+            <Label layoutX="77.0" layoutY="255.0" text="Hour Slot Local" />
             <Label layoutX="280.0" layoutY="255.0" text="Local Timezone" />
             <Label layoutX="502.0" layoutY="255.0" text="EST Timezone" />
             <Button fx:id="checkAvailabilityButton" layoutX="47.0" layoutY="363.0" mnemonicParsing="false" onAction="#onCheckClick" text="Check Availability" />
