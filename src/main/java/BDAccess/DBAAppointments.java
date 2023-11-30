@@ -9,7 +9,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
+/**
+ * Used to connect to the Appointments in the Data Base.
+ */
 public class DBAAppointments {
+    /**
+     * Generates an Observable list of Appointments.
+     * @return
+     */
     public static ObservableList<Appointments> getAllAppointments() {
         ObservableList<Appointments> appointmentsList = FXCollections.observableArrayList();
 
@@ -45,6 +52,11 @@ public class DBAAppointments {
         //System.out.println(appointmentsList.get(0).getAppointmentID());
         return appointmentsList;
     }
+
+    /**
+     * Generates an Observable list of Appointment IDs.
+     * @return
+     */
     public static ObservableList<Appointments> getAppointmentID() {
         ObservableList<Appointments> appointments = DBAAppointments.getAllAppointments();
         return appointments;

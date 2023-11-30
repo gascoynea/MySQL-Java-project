@@ -9,7 +9,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
+/**
+ * Used to access Customer data form the data base.
+ */
 public class DBACustomers {
+    /**
+     * Generates an Observable list of Customers.
+     * @return
+     */
     public static ObservableList<Customers> getAllCustomers() {
         ObservableList<Customers> customersList = FXCollections.observableArrayList();
 
@@ -47,6 +54,11 @@ public class DBACustomers {
 
         return customersList;
     }
+
+    /**
+     * Generates an Observable list of Customers names.
+     * @return
+     */
     public static ObservableList<String> getCustomerNames(){
         ObservableList<Customers> customers = DBACustomers.getAllCustomers();
         ObservableList<String> customerNamesList = FXCollections.observableArrayList();

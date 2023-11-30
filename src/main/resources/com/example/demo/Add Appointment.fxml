@@ -41,42 +41,44 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.AddAppointmentController">
+<VBox prefHeight="460.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.AddAppointmentController">
   <children>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="377.0" prefWidth="640.0" VBox.vgrow="ALWAYS">
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="434.0" prefWidth="640.0" VBox.vgrow="ALWAYS">
       <children>
             <Label layoutX="186.0" layoutY="14.0" text="Create New Appointment">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-            <Button fx:id="saveButton" layoutX="521.0" layoutY="362.0" mnemonicParsing="false" onAction="#onSaveButtonClick" text="Save" />
-            <Button fx:id="cancelButton" layoutX="564.0" layoutY="362.0" mnemonicParsing="false" onAction="#onCancelButtonClick" text="Cancel" />
+            <Button fx:id="saveButton" layoutX="520.0" layoutY="421.0" mnemonicParsing="false" onAction="#onSaveButtonClick" text="Save" />
+            <Button fx:id="cancelButton" layoutX="563.0" layoutY="421.0" mnemonicParsing="false" onAction="#onCancelButtonClick" text="Cancel" />
             <TextField fx:id="apptTF" editable="false" layoutX="15.0" layoutY="70.0" prefHeight="25.0" prefWidth="174.0" promptText="Appoinment ID" />
-            <TextField fx:id="lastUpdatedTF" editable="false" layoutX="444.0" layoutY="151.0" prefHeight="25.0" prefWidth="174.0" promptText="Last Updated" />
+            <TextField fx:id="lastUpdatedTF" layoutX="444.0" layoutY="151.0" prefHeight="25.0" prefWidth="174.0" promptText="Last Updated" />
             <TextField fx:id="titleTF" layoutX="14.0" layoutY="112.0" prefHeight="25.0" prefWidth="174.0" promptText="Title" />
-            <TextField fx:id="dateCreatedTF" editable="false" layoutX="444.0" layoutY="113.0" prefHeight="25.0" prefWidth="174.0" promptText="Date Created" />
+            <TextField fx:id="dateCreatedTF" layoutX="444.0" layoutY="113.0" prefHeight="25.0" prefWidth="174.0" promptText="Date Created" />
             <TextField fx:id="descriptionTF" layoutX="14.0" layoutY="151.0" prefHeight="25.0" prefWidth="174.0" promptText="Description" />
             <TextField fx:id="locationTF" layoutX="15.0" layoutY="193.0" prefHeight="25.0" prefWidth="174.0" promptText="Location" />
             <TextField fx:id="typeTF" layoutX="15.0" layoutY="232.0" prefHeight="25.0" prefWidth="174.0" promptText="Type" />
-            <TextField fx:id="lastUpdatedByTF" editable="false" layoutX="444.0" layoutY="193.0" prefHeight="25.0" prefWidth="174.0" promptText="Last Updated By" />
-            <TextField fx:id="customerIDTF" editable="false" layoutX="233.0" layoutY="151.0" prefHeight="25.0" prefWidth="174.0" promptText="Customer ID" />
-            <TextField fx:id="userIDTF" editable="false" layoutX="444.0" layoutY="233.0" prefHeight="25.0" prefWidth="174.0" promptText="User ID" />
-            <TextField fx:id="contactIDTF" editable="false" layoutX="233.0" layoutY="192.0" prefHeight="25.0" prefWidth="174.0" promptText="Contact ID" />
+            <TextField fx:id="lastUpdatedByTF" layoutX="444.0" layoutY="193.0" prefHeight="25.0" prefWidth="174.0" promptText="Last Updated By" />
+            <TextField fx:id="customerIDTF" layoutX="233.0" layoutY="151.0" prefHeight="25.0" prefWidth="174.0" promptText="Customer ID" />
+            <TextField fx:id="userIDTF" layoutX="444.0" layoutY="233.0" prefHeight="25.0" prefWidth="174.0" promptText="User ID" />
+            <TextField fx:id="contactIDTF" layoutX="233.0" layoutY="192.0" prefHeight="25.0" prefWidth="174.0" promptText="Contact ID" />
             <ComboBox fx:id="customerListDD" layoutX="233.0" layoutY="70.0" onAction="#onCustomerNameSelected" prefHeight="25.0" prefWidth="174.0" promptText="Customers" />
-            <TextField fx:id="createdByTF" editable="false" layoutX="444.0" layoutY="70.0" prefHeight="25.0" prefWidth="174.0" promptText="Created By" />
+            <TextField fx:id="createdByTF" layoutX="444.0" layoutY="70.0" prefHeight="25.0" prefWidth="174.0" promptText="Created By" />
             <ComboBox fx:id="contactListCB" layoutX="233.0" layoutY="112.0" onAction="#onContactNameSelected" prefHeight="25.0" prefWidth="174.0" promptText="Contacts" />
-            <ComboBox fx:id="hourOfAppointmentCB" layoutX="15.0" layoutY="291.0" prefHeight="25.0" prefWidth="174.0" promptText="Start Hour" />
+            <ComboBox fx:id="hourOfAppointmentCB" layoutX="14.0" layoutY="350.0" prefHeight="25.0" prefWidth="174.0" promptText="Start Hour" />
             <DatePicker fx:id="dateDP" layoutX="234.0" layoutY="233.0" promptText="Date of Appointment" />
-            <ComboBox fx:id="endHourOfAppointmentCB1" layoutX="15.0" layoutY="319.0" prefHeight="25.0" prefWidth="174.0" promptText="End Hour" />
-            <TextField fx:id="appointmentStart" editable="false" layoutX="233.0" layoutY="291.0" prefHeight="25.0" prefWidth="174.0" promptText="Appointment Start (Local Time)" />
-            <TextField fx:id="appointmentEnd" editable="false" layoutX="234.0" layoutY="319.0" prefHeight="25.0" prefWidth="174.0" promptText="Appointment End (Local Time)" />
-            <Button fx:id="checkAvailabilityButton" layoutX="48.0" layoutY="362.0" mnemonicParsing="false" onAction="#onCheckClick" text="Check Availability" />
-            <Label layoutX="77.0" layoutY="269.0" text="Hour Slot" />
-            <TextField fx:id="estStartTF" editable="false" layoutX="444.0" layoutY="290.0" prefHeight="25.0" prefWidth="174.0" promptText="Appoinment Start (EST)" />
-            <TextField fx:id="estEndTF" editable="false" layoutX="444.0" layoutY="318.0" prefHeight="25.0" prefWidth="174.0" promptText="Appoinmente End (EST)" />
-            <Label layoutX="279.0" layoutY="269.0" text="Local Timezone" />
-            <Label layoutX="494.0" layoutY="269.0" text="EST Timezone" />
+            <ComboBox fx:id="endHourOfAppointmentCB1" layoutX="14.0" layoutY="378.0" prefHeight="25.0" prefWidth="174.0" promptText="End Hour" />
+            <TextField fx:id="appointmentStart" editable="false" layoutX="232.0" layoutY="350.0" prefHeight="25.0" prefWidth="174.0" promptText="Appointment Start (Local Time)" />
+            <TextField fx:id="appointmentEnd" editable="false" layoutX="233.0" layoutY="378.0" prefHeight="25.0" prefWidth="174.0" promptText="Appointment End (Local Time)" />
+            <Button fx:id="checkAvailabilityButton" layoutX="47.0" layoutY="421.0" mnemonicParsing="false" onAction="#onCheckClick" text="Check Availability" />
+            <Label layoutX="76.0" layoutY="328.0" text="Hour Slot" />
+            <TextField fx:id="estStartTF" editable="false" layoutX="443.0" layoutY="349.0" prefHeight="25.0" prefWidth="174.0" promptText="Appoinment Start (EST)" />
+            <TextField fx:id="estEndTF" editable="false" layoutX="443.0" layoutY="377.0" prefHeight="25.0" prefWidth="174.0" promptText="Appoinmente End (EST)" />
+            <Label layoutX="225.0" layoutY="328.0" text="Local Timezone Start  and End Time" />
+            <Label layoutX="442.0" layoutY="328.0" text="EST Timezone Start and End Time" />
+            <ComboBox fx:id="userIDCB" layoutX="443.0" layoutY="296.0" onAction="#onUserIDSelected" prefHeight="25.0" prefWidth="174.0" promptText="User ID" />
+            <Label layoutX="485.0" layoutY="270.0" text="User ID Selection:" />
       </children>
     </AnchorPane>
   </children>

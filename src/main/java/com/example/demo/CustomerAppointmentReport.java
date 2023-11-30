@@ -20,11 +20,13 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
+/**
+ * Used to manipulate the Customer Appointment Report FXML.
+ *
+ * 2nd LAMBDA expression in initialize Method
+ */
 public class CustomerAppointmentReport implements Initializable {
     @FXML
     public Button mainAppointmetsButton;
@@ -66,15 +68,20 @@ public class CustomerAppointmentReport implements Initializable {
     ObservableList<String> appointmentTypesList = FXCollections.observableArrayList();
     ObservableList<String> monthsOccupied = FXCollections.observableArrayList();
     ObservableList<String> appointmentTypes = FXCollections.observableArrayList();
-    ////////////////////////////////////////////////
     ObservableList<Contacts> contactsList = DBAContacts.getAllContacts();
     ObservableList<String> contactNames = FXCollections.observableArrayList();
     ObservableList<Integer> contactIDs = FXCollections.observableArrayList();
     ObservableList<Appointments> contactSpecificAppointments = FXCollections.observableArrayList();
-
-    ////////////////////////////////////////////////////
     ObservableList<Customers> customersList = DBACustomers.getAllCustomers();
     ObservableList<String> customerNames = DBACustomers.getCustomerNames();
+
+    /**
+     * 2nd LAMBDA expression. Without having a for loop to reduce lines.
+     * Populated the combo box and table views.
+     * Also, with more data this will create a faster process speed.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -87,9 +94,6 @@ public class CustomerAppointmentReport implements Initializable {
             }
         }
         monthCB.setItems(monthsOccupied);
-
-        ///////////////////////////////////////////////
-
         for(Appointments appointment : appointmentsList){
             appointmentTypesList.add(appointment.getType());
         }
@@ -125,6 +129,11 @@ public class CustomerAppointmentReport implements Initializable {
         customerCB.setItems(customerNames);
 
     }
+
+    /**
+     * Used to populate typeTF with count of how many of a certian type of appointment there is.
+     * @param event
+     */
     @FXML
     void onAppointmentTypeSelected(ActionEvent event) {
         String typeSelected = appointmentType.getValue();
@@ -137,6 +146,10 @@ public class CustomerAppointmentReport implements Initializable {
         typeTF.setText(String.valueOf(count));
     }
 
+    /**
+     * Used to populate monthTF with count of how many appointments there are in a certain month.
+     * @param event
+     */
     @FXML
     void onMonthSelected(ActionEvent event) {
         String monthSelected = monthCB.getValue();
@@ -149,6 +162,11 @@ public class CustomerAppointmentReport implements Initializable {
         monthTF.setText(String.valueOf(count));
     }
 
+    /**
+     * Brings you back to main appointment FXML.
+     * @param actionEvent
+     * @throws IOException
+     */
     @FXML
     public void onMainAppointmetsButtonClick(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Main Appointments.fxml"));
@@ -159,6 +177,11 @@ public class CustomerAppointmentReport implements Initializable {
         stage.show();
         ((Stage) mainAppointmetsButton.getScene().getWindow()).close();
     }
+
+    /**
+     * Is used to show the schedule of a specific contact once name selected from combo box.
+     * @param actionEvent
+     */
     @FXML
     public void onContactSelected(ActionEvent actionEvent) {
         contactSpecificAppointments = FXCollections.observableArrayList();
@@ -176,6 +199,11 @@ public class CustomerAppointmentReport implements Initializable {
         }
         contactTableView.setItems(contactSpecificAppointments);
     }
+
+    /**
+     * Counts total number of appointments for each customer selected from combo box.
+     * @param actionEvent
+     */
     @FXML
     public void onCustomerSelect(ActionEvent actionEvent) {
         String customerName = customerCB.getValue().toString();

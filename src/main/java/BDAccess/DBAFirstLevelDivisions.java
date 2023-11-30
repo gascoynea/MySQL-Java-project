@@ -4,10 +4,16 @@ import Database.DBConnection;
 import Model.FirstLevelDivisions;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import java.sql.*;
 
+/**
+ * Used to access Divisions data form the data base.
+ */
 public class DBAFirstLevelDivisions {
+    /**
+     * Generates an Observable list of First Level Divisions.
+     * @return
+     */
     public static ObservableList<FirstLevelDivisions> getAllFirstLevelDivisions() {
         ObservableList<FirstLevelDivisions> firstLevelDivisionsList = FXCollections.observableArrayList();
 
@@ -21,14 +27,8 @@ public class DBAFirstLevelDivisions {
             while(rs.next()){
                 int divID = rs.getInt("Division_ID");
                 String division = rs.getString("Division");
-//                Timestamp create_Date = rs.getTimestamp("Create_Date");
-//                String created_by = rs.getString("Created_By");
-//                Timestamp last_Update = rs.getTimestamp("Last_Update");
-//                String last_Updated_By = rs.getString("Last_Updated_By");
                 int countryID = rs.getInt("Country_ID");
-
                 FirstLevelDivisions divSet = new FirstLevelDivisions(divID, division, countryID);
-//                create_Date, created_by, last_Update, last_Updated_By, countryID
                 firstLevelDivisionsList.add(divSet);
             }
         } catch (SQLException e) {
@@ -37,6 +37,11 @@ public class DBAFirstLevelDivisions {
 
         return firstLevelDivisionsList;
     }
+
+    /**
+     * Generates an Observable list of First Level Divisions names.
+     * @return
+     */
     public static ObservableList<String> getDivisionNames(){
         ObservableList<FirstLevelDivisions> divisionsList = DBAFirstLevelDivisions.getAllFirstLevelDivisions();
         ObservableList<String> divisionNames = FXCollections.observableArrayList();

@@ -24,6 +24,11 @@ import java.sql.Timestamp;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * This controller is used to manipulate the Main Customers FXML.
+ *
+ * Lambda expression in searchCustomersList method
+ */
 public class MainCustomerController implements Initializable {
     @FXML
     public TextField customerSearchTextField;
@@ -76,6 +81,13 @@ public class MainCustomerController implements Initializable {
     ObservableList<Customers> customerList = null;
     ObservableList<Appointments> appointmentsList = DBAAppointments.getAllAppointments();
 
+    /**
+     * Initializes window with certain data
+     * Usually I use to populate fields that just require a list of objects from a DB
+     * Such as a tableview or ComboBox
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         customerList = DBACustomers.getAllCustomers();
@@ -94,8 +106,15 @@ public class MainCustomerController implements Initializable {
 
         CustomerRec_Table.setItems(customerList);
     }
+
+    /**
+     *Opens the Customer Record FXML when clicked.
+     * Also, alerts of no customer selected from table view.
+     * @param actionEvent
+     * @throws IOException
+     */
     @FXML
-    public void onCustInfoButtonclick(ActionEvent actionEvent) throws IOException {
+    public void onCustInfoButonclick(ActionEvent actionEvent) throws IOException {
         try{
             if(CustomerRec_Table.getSelectionModel().selectedItemProperty().get() != null) {
                 Customers selectedCustomer = CustomerRec_Table.getSelectionModel().selectedItemProperty().get();
@@ -118,6 +137,12 @@ public class MainCustomerController implements Initializable {
             throw new RuntimeException(e);
         }
     }
+
+    /**
+     * Opens the Main Appointment FXML when pressed.
+     * @param actionEvent
+     * @throws IOException
+     */
     @FXML
     public void onApptsButtonClick(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Main Appointments.fxml"));
@@ -128,11 +153,25 @@ public class MainCustomerController implements Initializable {
         stage.show();
         ((Stage) apptsButton.getScene().getWindow()).close();
     }
+
+    /**
+     * Method calls the searchCustomersList method when button pressed.
+     * @param actionEvent
+     */
     @FXML
     public void onSearchButtonClick(ActionEvent actionEvent) {
         CustomerRec_Table.getItems().clear();
         CustomerRec_Table.getItems().addAll(searchCustomersList(customerSearchTextField.getText(), DBACustomers.getAllCustomers()));
     }
+
+    /**
+     * LAMBDA EXPRESSION: Lambda expression 1 for allows for less line space while doing more functions
+     *
+     * Method to search through table view by customer ID or customer name.
+     * @param searchText
+     * @param listCustomers
+     * @return
+     */
     @FXML
     private List<Customers> searchCustomersList(String searchText, List<Customers> listCustomers){
         List<String> searchTextWordsArray = Arrays.asList(searchText.trim().split(" "));
@@ -144,6 +183,13 @@ public class MainCustomerController implements Initializable {
                     input.getCustomerName().toLowerCase().contains(word.toLowerCase()) || Integer.toString(input.getCustomerID()).contains(word.toLowerCase()));
         }).collect(Collectors.toList());
     }
+
+    /**
+     * Method called when Add customer button clicked.
+     * Opens up Add Customer FXML.
+     * @param actionEvent
+     * @throws IOException
+     */
     @FXML
     public void onAddCustomerButtonClick(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Add Customer.fxml"));
@@ -154,6 +200,14 @@ public class MainCustomerController implements Initializable {
         stage.show();
         ((Stage) customerInfoButton.getScene().getWindow()).close();
     }
+
+    /**
+     * Method called when delete button clicked.
+     * Causes selected customer in the CustomerRec_Table tableview to be deleted and removed form the
+     * Table as well as the DB.
+     * Deletes all appointments with customer id of customer being deleted.
+     * @param actionEvent
+     */
     @FXML
     public void onDeleteButtonClick(ActionEvent actionEvent) {
         Customers customerInfo = CustomerRec_Table.getSelectionModel().selectedItemProperty().get();
@@ -202,22 +256,46 @@ public class MainCustomerController implements Initializable {
                     }
                 }
                 else {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error");
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Confirmation");
                     alert.setHeaderText("There are " + counter + " appointment/s made for this customer.");
-                    alert.setContentText("Please delete all appointment related to this customer to delete customer record. Thank you.");
+                    alert.setContentText("Do you want to delete all appointments attached to the customer record as well as the customer record?.");
                     alert.showAndWait();
+                    if(alert.getResult().getButtonData().isCancelButton()){
+                        alert.close();
+                    }
+                    else{
+                        for (Customers customer : customerList){
+                            if(customer.getCustomerID() == customerInfo.getCustomerID()){
+                                int custid = customer.getCustomerID();
+                                for(Appointments appointment : appointmentsList) {
+                                    if(appointment.getCustomerId() == custid) {
+                                        int apptID = appointment.getAppointmentID();
+                                        String deleteAppointment = "DELETE FROM appointments WHERE Customer_ID = ?";
+                                        PreparedStatement psApptDelete = connection.prepareStatement(deleteAppointment);
+                                        psApptDelete.setInt(1, custid);
+                                        psApptDelete.executeUpdate();
+                                        psApptDelete.close();
+                                        String deleteCustomer = "DELETE FROM customers WHERE Customer_ID = ?";
+                                        PreparedStatement psDelete = connection.prepareStatement(deleteCustomer);
+                                        psDelete.setInt(1, custid);
+                                        psDelete.executeUpdate();
+                                        psDelete.close();
+                                        CustomerRec_Table.setItems(DBACustomers.getAllCustomers());
+                                    }
+                                }
+                            }
+                        }
+                        alert = new Alert(Alert.AlertType.WARNING);
+                        alert.setTitle("Warning");
+                        alert.setHeaderText("You just deleted a customer record.");
+                        alert.setContentText("Keep it up!");
+                        alert.showAndWait();
+                    }
                 }
             }
-
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
-
-//    public void onCustomerRecordSelected(MouseEvent mouseEvent) {
-//        Customers selectedCustomer = CustomerRec_Table.getSelectionModel().selectedItemProperty().get();
-//        System.out.println(selectedCustomer.getCustomerName());
-////        return selectedCustomer;
-//    }
 }

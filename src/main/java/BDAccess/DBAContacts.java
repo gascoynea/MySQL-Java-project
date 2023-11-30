@@ -8,8 +8,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-
+/**
+ * Used to access Contact data form the data base.
+ */
 public class DBAContacts {
+    /**
+     * Generates an Observable list of Contacts.
+     * @return
+     */
     public static ObservableList<Contacts> getAllContacts() {
         ObservableList<Contacts> contactsList = FXCollections.observableArrayList();
 
@@ -34,12 +40,21 @@ public class DBAContacts {
 
         return contactsList;
     }
+
+    /**
+     * Prints a contact name.
+     */
     public static void getContactName() {
         ObservableList<Contacts> contacts = DBAContacts.getContacts();
         for (Contacts contact : contacts) {
             System.out.println(contact.getContact_Name());
         }
     }
+
+    /**
+     * Generates an Observable list of Contacts. REDUNDANT.
+     * @return
+     */
     public static ObservableList<Contacts> getContacts(){
         ObservableList<Contacts> contactsList = FXCollections.observableArrayList();
         try

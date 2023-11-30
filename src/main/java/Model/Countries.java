@@ -2,6 +2,9 @@ package Model;
 
 import java.sql.Timestamp;
 
+/**
+ * Used for creating Country objects
+ */
 public class Countries {
 
     private int id;

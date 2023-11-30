@@ -12,14 +12,16 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
-public class AppoinmentSearch implements Initializable {
+/**
+ * used to manipulate Appointment Search FXML.
+ */
+public class AppointmentSearch implements Initializable {
     @FXML
     public Button mainAppointmentButton;
     @FXML
@@ -62,6 +64,11 @@ public class AppoinmentSearch implements Initializable {
     private TableColumn<Appointments, Integer> userIDCol;
     ObservableList<Appointments> apptList = DBAAppointments.getAllAppointments();
 
+    /**
+     * Sorts Tableview appointments by one week ahead and behind and populates the table view with the
+     * appointments that falls within range.
+     * @param event
+     */
     @FXML
     void onBiWeeklyRBSelected(ActionEvent event) {
         if(biWeeklyRB.isSelected()){
@@ -88,6 +95,11 @@ public class AppoinmentSearch implements Initializable {
         tableView.setItems(weekAppointmentList);
     }
 
+    /**
+     * Sorts Tableview appointments by one month ahead and behind and populates the table view with the
+     * appointments that falls within range.
+     * @param event
+     */
     @FXML
     void onMonthlyRBSelected(ActionEvent event) {
         if(monthlyRB.isSelected()){
@@ -114,6 +126,11 @@ public class AppoinmentSearch implements Initializable {
         tableView.setItems(monthAppointmentList);
     }
 
+    /**
+     * populates table view with appointment list before weekly or mothly search.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         apptList = DBAAppointments.getAllAppointments();
@@ -124,16 +141,18 @@ public class AppoinmentSearch implements Initializable {
         typeCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("type"));
         startDTCol.setCellValueFactory(new PropertyValueFactory<Appointments, Timestamp>("start"));
         endDTCol.setCellValueFactory(new PropertyValueFactory<Appointments, Timestamp>("end"));
-//        dateCreatedCol.setCellValueFactory(new PropertyValueFactory<Appointments, Timestamp>("createDate"));
-//        createdByCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("createdBy"));
-//        lastUpdateCol.setCellValueFactory(new PropertyValueFactory<Appointments, Timestamp>("lastUpdate"));
-//        lastUpdatedByCol.setCellValueFactory(new PropertyValueFactory<Appointments, String>("lastUpdatedBy"));
         customerIDCol.setCellValueFactory(new PropertyValueFactory<Appointments, Integer>("customerId"));
         userIDCol.setCellValueFactory(new PropertyValueFactory<Appointments, Integer>("userId"));
         contactCol.setCellValueFactory(new PropertyValueFactory<Appointments, Integer>("contactId"));
         tableView.setItems(apptList);
     }
 
+    /**
+     * On main appointment button pressed.
+     * Opens Main Appointments FXML
+     * @param actionEvent
+     * @throws IOException
+     */
     public void mainAppointmentButtonClick(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Main Appointments.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1400, 400);

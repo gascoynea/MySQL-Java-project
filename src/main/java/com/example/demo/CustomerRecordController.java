@@ -11,7 +11,6 @@ import Model.Customers;
 import Model.FirstLevelDivisions;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableListBase;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,7 +20,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
@@ -31,10 +29,12 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * Manipulates customer record FXML.
+ */
 public class CustomerRecordController implements Initializable {
     @FXML
     public TextField countryIDTF;
@@ -135,6 +135,11 @@ public class CustomerRecordController implements Initializable {
     private Customers customerInfo;
     private static PreparedStatement preparedStatement;
 
+    /**
+     * Prepopulates tableviewappointments
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -155,6 +160,14 @@ public class CustomerRecordController implements Initializable {
         contactIDCol.setCellValueFactory(new PropertyValueFactory<Appointments, Integer>("contactId"));
         tableViewAppointments.setItems(customerAppointmentsList);
     }
+
+    /**
+     * On save button pressed.
+     * Checks if text boxes are empty.
+     * Confirmation for saving customer into Database.
+     * Updates customer to Database.
+     * @param actionEvent
+     */
     public void onSaveClick(ActionEvent actionEvent) {
         try {
             if(customerIDTF.getText().equals("") || nameTF.getText().equals("") || addressTF.getText().equals("") || postalcodeTF.getText().equals("")
@@ -227,6 +240,14 @@ public class CustomerRecordController implements Initializable {
             throw new RuntimeException(e);
         }
     }
+
+    /**
+     * When cancel button pressed.
+     * Asks for confirmation with alert.
+     * if confirmed opens MAin Customers FXML
+     * @param actionEvent
+     * @throws IOException
+     */
     public void onCancelButtonCllick(ActionEvent actionEvent) throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation");
@@ -247,6 +268,14 @@ public class CustomerRecordController implements Initializable {
             ((Stage) cancelButton.getScene().getWindow()).close();
         }
     }
+
+    /**
+     * On delete button clicked.
+     * If record appointment not selected error shown.
+     * Confirmation for deletion of appointment form customer.
+     * Deletes appointment form database and refreshes appointment list.
+     * @param actionEvent
+     */
     public void onDeleteButtonClick(ActionEvent actionEvent) {
         Connection connection = DBConnection.openConnection();
         try {
@@ -284,6 +313,12 @@ public class CustomerRecordController implements Initializable {
             throw new RuntimeException(e);
         }
     }
+
+    /**
+     * Opens add appointment FXML on ass appointment clicked.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void onAddAppointmentButtonClick(ActionEvent actionEvent) throws IOException {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Add Appointment.fxml"));
@@ -298,6 +333,13 @@ public class CustomerRecordController implements Initializable {
             throw new RuntimeException(e);
         }
     }
+
+    /**
+     * Opens Edit appointment FXML on ass appointment clicked.
+     * Also, check to see if appointment was selected from table view.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void onEditButtonClick(ActionEvent actionEvent) throws IOException {
         try{
             if(tableViewAppointments.getSelectionModel().getSelectedItem() != null) {
@@ -322,6 +364,12 @@ public class CustomerRecordController implements Initializable {
             throw new RuntimeException(e);
         }
     }
+
+    /**
+     * Used to create unique customer ID.
+     * @param customerIDs
+     * @return
+     */
     public int newCustomerID(List customerIDs){
         int newCustomerID;
         int possibleID = 1;
@@ -331,6 +379,12 @@ public class CustomerRecordController implements Initializable {
         newCustomerID = possibleID;
         return newCustomerID;
     }
+
+    /**
+     * Auto populates Country ID when country is selected in country combo box.
+     * populates available divisions in divsions combo box with pertinent division names.
+     * @param actionEvent
+     */
     public void onCountrySelected(ActionEvent actionEvent) {
         String countrySelected = countryComBox.getValue();
         int cID = 0;
@@ -363,6 +417,11 @@ public class CustomerRecordController implements Initializable {
         stateProvinceComBox.setItems(updatedDivNames);
         countryIDTF.setText(String.valueOf(cID));
     }
+
+    /**
+     * Populates fields with data from selected customer from the Main customers FXML table view.
+     * @param customerInformation
+     */
     public void populateScene(Customers customerInformation){
         customer = customerInformation;
         customerIDTF.setText(String.valueOf(customer.getCustomerID()));
@@ -412,6 +471,10 @@ public class CustomerRecordController implements Initializable {
         }
     }
 
+    /**
+     * Auto Populated division ID text field once division name selected.
+     * @param actionEvent
+     */
     public void onDivisionSelected(ActionEvent actionEvent) {
         String divName = stateProvinceComBox.getValue();
         ObservableList<FirstLevelDivisions> divList = DBAFirstLevelDivisions.getAllFirstLevelDivisions();
@@ -421,6 +484,11 @@ public class CustomerRecordController implements Initializable {
             }
         }
     }
+
+    /**
+     * Was going to be implemented to refersh appointment table but found a different way to do.
+     * @param inAppointmentID
+     */
     public void appointmentTableRefresh(int inAppointmentID){
         ObservableList<Appointments> appointmentsObservableList = DBAAppointments.getAllAppointments();
         ObservableList<Appointments> refreshedAppt = FXCollections.observableArrayList();

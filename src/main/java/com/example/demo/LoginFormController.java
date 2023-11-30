@@ -10,7 +10,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-
 import java.io.*;
 import java.net.URL;
 import java.sql.Timestamp;
@@ -19,6 +18,9 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.*;
 
+/**
+ * Login form Controller used to manipulate login form.
+ */
 public class LoginFormController implements Initializable {
     public Button loginButton;
     public TextField userNameLogin;
@@ -27,13 +29,16 @@ public class LoginFormController implements Initializable {
     public Label loginFormText;
 
 
-    public LoginFormController(){
-    }
-
     class reference{
         public static String userName;
         public static int userID;
     }
+
+    /**
+     * Populates specific fields on start up of the FXML.
+     * @param url
+     * @param Bundle
+     */
     @FXML
     public void initialize(URL url, ResourceBundle Bundle) {
         //Getting local zone location.
@@ -56,6 +61,14 @@ public class LoginFormController implements Initializable {
         }
     }
 
+    /**
+     * Method called when login button click.
+     * Checks if username and password is correct.
+     * Opens up Main Appointments FXML
+     * Calls Login Activity method to record login attempts and appends it to Login_Activity.txt
+     * @param actionEvent
+     * @throws IOException
+     */
     @FXML
 
     public void onLoginClick(ActionEvent actionEvent) throws IOException {
@@ -129,6 +142,14 @@ public class LoginFormController implements Initializable {
                 }
             }
     }
+
+    /**
+     * login activity reocrding method for the login_activity.txt
+     * @param inUserName
+     * @param inUserPassword
+     * @param inFailSucceed
+     * @throws IOException
+     */
     public void loginActivity(String inUserName, String inUserPassword, Boolean inFailSucceed) throws IOException {
         String success = "";
         File log = new File("login_activity.txt");
@@ -148,8 +169,3 @@ public class LoginFormController implements Initializable {
         bw.close();
     }
 }
-/*
--Determine users location and display it on login form as a label.
--Login form in english or french dependant on the users pc language settings.
--have the error control messages reflect the users language.
- */

@@ -1,12 +1,14 @@
 package com.example.demo;
-
+;
 import BDAccess.DBAAppointments;
 import BDAccess.DBAContacts;
 import BDAccess.DBACustomers;
+import BDAccess.DBAUsers;
 import Database.DBConnection;
 import Model.Appointments;
 import Model.Contacts;
 import Model.Customers;
+import Model.Users;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -26,6 +28,9 @@ import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.TimeZone;
 
+/**
+ * Used to manipulate the appointment controller to edit known appointments
+ */
 public class EditAppointmentController implements Initializable {
 
     @FXML
@@ -54,6 +59,7 @@ public class EditAppointmentController implements Initializable {
     public TextField estStartTF;
     @FXML
     public Button checkAvailabilityButton;
+    public ComboBox userIDCB;
     @FXML
     private Button cancelButton;
 
@@ -94,7 +100,14 @@ public class EditAppointmentController implements Initializable {
     ObservableList<Contacts> contactsList = DBAContacts.getAllContacts();
     ObservableList<String> contactNamesList = FXCollections.observableArrayList();
     ObservableList<String> customersNamesList = FXCollections.observableArrayList();
+    ObservableList<Users> usersList = FXCollections.observableArrayList();
     private static PreparedStatement preparedStatement;
+
+    /**
+     * initializes data in combo boxes and some text fields
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         for (Contacts contact : contactsList){
@@ -117,7 +130,20 @@ public class EditAppointmentController implements Initializable {
         }
         hourOfAppointmentCB.setItems(hourSlots);
         endHourOfAppointmentCB1.setItems(hourSlots);
+        usersList = DBAUsers.getAllUsers();
+        ObservableList<Integer> userIDList = FXCollections.observableArrayList();
+        for(Users user : usersList){
+            userIDList.add(user.getUserID());
+        }
+        userIDCB.setItems(userIDList);
     }
+
+    /**
+     * On cancel Button Click confirms the edit appointment cancellation and ask for confirmation.
+     * Opens up main appointment fxml
+     * @param actionEvent
+     * @throws IOException
+     */
     public void onCancelButtonClick(ActionEvent actionEvent) throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation");
@@ -138,6 +164,11 @@ public class EditAppointmentController implements Initializable {
             ((Stage) cancelButton.getScene().getWindow()).close();
         }
     }
+
+    /**
+     * method for using object form main appointment form to populate fields in form.
+     * @param populatingAppointment
+     */
     public void populateTextFields(Appointments populatingAppointment) {
         appointmentInformation = populatingAppointment;
         appointmentIDField.setText(String.valueOf(populatingAppointment.getAppointmentID()));
@@ -145,23 +176,14 @@ public class EditAppointmentController implements Initializable {
         descriptionField.setText(populatingAppointment.getDescription());
         locationField.setText(populatingAppointment.getLocation());
         typeField.setText(populatingAppointment.getType());
-
-//        LocalDateTime apptStart = populatingAppointment.getStart().toLocalDateTime();
-//        String apptStartFormatted = apptStart.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-//        appointmentStart.setText(apptStartFormatted);
         appointmentStart.setText(String.valueOf(populatingAppointment.getStart()));
-
-//        LocalDateTime apptEnd = populatingAppointment.getEnd().toLocalDateTime();
-//        String apptEndFormatted = apptEnd.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-//        appointmentEnd.setText(apptEndFormatted);
         appointmentEnd.setText(String.valueOf(populatingAppointment.getEnd()));
-
         createDateField.setText(String.valueOf(populatingAppointment.getCreateDate()));
         createdByFeild.setText(populatingAppointment.getCreatedBy());
         lastUpdateField.setText(String.valueOf(populatingAppointment.getLastUpdate()));
         lastUpdatedByField.setText(populatingAppointment.getLastUpdatedBy());
         customerIDField.setText(String.valueOf(populatingAppointment.getCustomerId()));
-        userIDField.setText(String.valueOf(populatingAppointment.getUserId()));
+        //userIDField.setText(String.valueOf(populatingAppointment.getUserId()));
         contactField.setText(String.valueOf(populatingAppointment.getContactId()));
         for (Customers customer : customersList){
             if(customer.getCustomerID() == appointmentInformation.getCustomerId()){
@@ -189,15 +211,28 @@ public class EditAppointmentController implements Initializable {
         LocalDateTime estEndDateTime = appointmentInformation.getEnd().toLocalDateTime().minusHours(localToestOffset);
         estStartTF.setText(String.valueOf(estStartDateTime));
         estEndTF.setText(String.valueOf(estEndDateTime));
+        //hourOfAppointmentCB.setValue(String.valueOf(populatingAppointment.getStart()));
+        userIDCB.setValue(appointmentInformation.getUserId());
     }
+
+    /**
+     * When save button is pressed checks data in fields for accuracy and ask for confirmation of save or cancellation.
+     * Compares appointment data to appoint data in database to confirm appointment overlap, and time discrepancies are
+     * not present.
+     * Updates DB with new data for apointment.
+     * @param actionEvent
+     * @throws SQLException
+     * @throws IOException
+     */
     public void onSaveButtonClick(ActionEvent actionEvent) throws SQLException, IOException {
         try
         {
             if(customerNameCB.getValue() == null || contactNameCB.getValue() == null || appointmentIDField.getText().equals("") || titleField.getText().equals("")
             || descriptionField.getText().equals("") || locationField.getText().equals("") || typeField.getText().equals("") || hourOfAppointmentCB.getValue() == null
             || endHourOfAppointmentCB1.getValue() == null || createDateField.getText().equals("") || createdByFeild.getText().equals("") || lastUpdateField.getText().equals("")
-            || lastUpdatedByField.getText().equals("") || customerIDField.getText().equals("") || userIDField.getText().equals("") || contactField.getText().equals("")
-            || dateDP.getValue() == null) {
+            || lastUpdatedByField.getText().equals("") || customerIDField.getText().equals("") || contactField.getText().equals("")
+            || dateDP.getValue() == null || userIDCB.getValue() == null) {
+                //userIDField.getText().equals("") ||
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");
                 alert.setHeaderText("One or more Text Fields or Combo Box's are empty.");
@@ -205,14 +240,14 @@ public class EditAppointmentController implements Initializable {
                 alert.showAndWait();
             }
             else {
-                System.out.println("1");
                 String dateSelected = dateDP.getValue().toString();
                 String startTimeSelectedLocal = hourOfAppointmentCB.getValue().toString();
                 String endTimeSelectedLocal = endHourOfAppointmentCB1.getValue().toString();
                 String dateStart = dateSelected + " " + startTimeSelectedLocal;
                 String dateEnd = dateSelected + " " + endTimeSelectedLocal;
-                System.out.println(dateStart);
+
                 LocalDateTime startAppointment = LocalDateTime.parse(dateStart, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+                System.out.println(startAppointment);
                 LocalDateTime endAppointment = LocalDateTime.parse(dateEnd, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
                 DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
                 //All time zone IDs local, UTC, and EST
@@ -241,14 +276,6 @@ public class EditAppointmentController implements Initializable {
                     alert.showAndWait();
                     return;
                 }
-                if (startAppointment.getDayOfWeek().toString() == "SATURDAY" || startAppointment.getDayOfWeek().toString() == "SUNDAY") {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error");
-                    alert.setHeaderText("The appointment falls on a weekend.");
-                    alert.setContentText("Please choose a day between Monday and Friday.");
-                    alert.showAndWait();
-                    return;
-                }
                 if (estStartDateTime.getHour() < 8 || estStartDateTime.getHour() > 21 || estEndDateTime.getHour() > 22 || estEndDateTime.getHour() < 9) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Error");
@@ -257,8 +284,11 @@ public class EditAppointmentController implements Initializable {
                     alert.showAndWait();
                     return;
                 }
+                appointmentsList = DBAAppointments.getAllAppointments();
+                int apptEditID = Integer.parseInt(appointmentIDField.getText());
                 for (Appointments appointment : appointmentsList) {
-                    if(appointment.getStart().equals(Timestamp.valueOf(startAppointment)) || appointment.getStart().after(Timestamp.valueOf(startAppointment))
+                    if((appointment.getAppointmentID() != apptEditID)
+                            && (appointment.getStart().equals(Timestamp.valueOf(startAppointment)) || appointment.getStart().after(Timestamp.valueOf(startAppointment)))
                             && (appointment.getEnd().equals(Timestamp.valueOf(endAppointment)) || appointment.getEnd().before(Timestamp.valueOf(endAppointment)))){
                         Alert alert = new Alert(Alert.AlertType.ERROR);
                         alert.setTitle("Error");
@@ -280,6 +310,7 @@ public class EditAppointmentController implements Initializable {
                 if (alert.getResult().getButtonData().isCancelButton()) {
                     alert.close();
                 } else {
+                    System.out.println("MAde it");
                     int appointmentID = Integer.parseInt(appointmentIDField.getText());
                     String title = titleField.getText();
                     String description = descriptionField.getText();
@@ -292,12 +323,16 @@ public class EditAppointmentController implements Initializable {
                     Timestamp lastUpdatedTimeStamp = Timestamp.valueOf(LocalDateTime.now());
                     String lastUpdatedBy = lastUpdatedByField.getText();
                     int custid = Integer.parseInt(customerIDField.getText());
-                    int userid = Integer.parseInt(userIDField.getText());
+                    System.out.println(custid);
+                    int userid = Integer.parseInt(userIDCB.getValue().toString());
+//                    int userid = Integer.parseInt(userIDField.getText());
                     int contactid = Integer.parseInt(contactField.getText());
                     //Adding appointment to the DB
+
                     String insertStatementAppointments = "UPDATE appointments SET Appointment_ID = ?, Title = ?," +
                             " Description = ?, Location = ?, Type = ?, Start = ?, End = ?, Create_Date = ?, Created_By = ?," +
-                            " Last_Update = ?, Last_Updated_By = ?, Customer_ID = ?, User_ID = ?, Contact_ID = ? WHERE Customer_ID = ?";
+                            " Last_Update = ?, Last_Updated_By = ?, Customer_ID = ?, User_ID = ?, Contact_ID = ? WHERE Appointment_ID = ?";
+
                     preparedStatement = DBConnection.getConnection().prepareStatement(insertStatementAppointments);
                     preparedStatement.setInt(1, appointmentID);
                     preparedStatement.setString(2, title);
@@ -311,8 +346,8 @@ public class EditAppointmentController implements Initializable {
                     preparedStatement.setTimestamp(10, lastUpdatedTimeStamp);
                     preparedStatement.setString(11, lastUpdatedBy);
                     preparedStatement.setInt(12, custid);
-                    preparedStatement.setInt(13, contactid);
-                    preparedStatement.setInt(14, userid);
+                    preparedStatement.setInt(13, userid);
+                    preparedStatement.setInt(14, contactid);
                     preparedStatement.setInt(15, appointmentID);
                     preparedStatement.execute();
                     preparedStatement.close();
@@ -330,6 +365,12 @@ public class EditAppointmentController implements Initializable {
             throw new RuntimeException(e);
         }
     }
+
+    /**
+     * Method used for selecting contact name form combobox.
+     * auto-populates contact field with contact ID.
+     * @param actionEvent
+     */
     @FXML
     public void onContactNameSelected(ActionEvent actionEvent) {
         String contactName = contactNameCB.getValue().toString();
@@ -341,6 +382,12 @@ public class EditAppointmentController implements Initializable {
         }
         contactField.setText(String.valueOf(contactID));
     }
+
+    /**
+     * Method called upon clicking a customer name in the customername combo box.
+     * Auto-populates customer ID in customer id text field.
+     * @param actionEvent
+     */
     @FXML
     public void onCustomerNameSelected(ActionEvent actionEvent) {
         String customerName = customerNameCB.getValue().toString();
@@ -353,10 +400,21 @@ public class EditAppointmentController implements Initializable {
         customerIDField.setText(String.valueOf(customerID));
 //        customerNameTF.setText(customerName);
     }
+
+    /**
+     * Method for creating a timestamp in a specific format.
+     * @return
+     */
     public String getTime(){
         String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date());
         return timeStamp;
     }
+
+    /**
+     * When check button pressed.
+     * Check times for discrepancies like the save button. Populated time text fields with local times and EST times.
+     * @param actionEvent
+     */
     @FXML
     public void onCheckClick(ActionEvent actionEvent) {
         if (dateDP.getValue() == null || hourOfAppointmentCB.getValue() == null || endHourOfAppointmentCB1.getValue() == null) {
@@ -402,14 +460,6 @@ public class EditAppointmentController implements Initializable {
                 alert.showAndWait();
                 return;
             }
-            if (startAppointment.getDayOfWeek().toString() == "SATURDAY" || startAppointment.getDayOfWeek().toString() == "SUNDAY") {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText("The appointment falls on a weekend.");
-                alert.setContentText("Please choose a day between Monday and Friday.");
-                alert.showAndWait();
-                return;
-            }
             if (estStartDateTime.getHour() < 8 || estStartDateTime.getHour() > 21 || estEndDateTime.getHour() > 22 || estEndDateTime.getHour() < 9) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");
@@ -418,8 +468,11 @@ public class EditAppointmentController implements Initializable {
                 alert.showAndWait();
                 return;
             }
+            appointmentsList = DBAAppointments.getAllAppointments();
+            int apptEditID = Integer.parseInt(appointmentIDField.getText());
             for (Appointments appointment : appointmentsList) {
-                if(appointment.getStart().equals(Timestamp.valueOf(startAppointment)) || appointment.getStart().after(Timestamp.valueOf(startAppointment))
+                if((appointment.getAppointmentID() != apptEditID)
+                        && (appointment.getStart().equals(Timestamp.valueOf(startAppointment)) || appointment.getStart().after(Timestamp.valueOf(startAppointment)))
                         && (appointment.getEnd().equals(Timestamp.valueOf(endAppointment)) || appointment.getEnd().before(Timestamp.valueOf(endAppointment)))){
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Error");
@@ -434,6 +487,9 @@ public class EditAppointmentController implements Initializable {
             estStartTF.setText(strEstStartDateTime);
             estEndTF.setText(strEstEndDateTime);
         }
+    }
+
+    public void OnUserIDSelected(ActionEvent actionEvent) {
     }
 }
 

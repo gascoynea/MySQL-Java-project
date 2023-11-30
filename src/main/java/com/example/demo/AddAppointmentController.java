@@ -3,10 +3,12 @@ package com.example.demo;
 import BDAccess.DBAAppointments;
 import BDAccess.DBAContacts;
 import BDAccess.DBACustomers;
+import BDAccess.DBAUsers;
 import Database.DBConnection;
 import Model.Appointments;
 import Model.Contacts;
 import Model.Customers;
+import Model.Users;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -20,7 +22,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.*;
@@ -28,6 +29,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 
+/**
+ * used to manipulate Add Appointment FXML
+ */
 public class AddAppointmentController implements Initializable {
     @FXML
     public TextField createdByTF;
@@ -49,6 +53,7 @@ public class AddAppointmentController implements Initializable {
     public TextField estStartTF;
     @FXML
     public TextField estEndTF;
+    public ComboBox userIDCB;
     @FXML
     private TextField apptTF;
 
@@ -94,8 +99,14 @@ public class AddAppointmentController implements Initializable {
     ObservableList<Appointments> appointmentsList = FXCollections.observableArrayList();
     ObservableList<Contacts> contactsList = FXCollections.observableArrayList();
     ObservableList<LocalTime> hourSlots = FXCollections.observableArrayList();
+    ObservableList<Users> usersList = FXCollections.observableArrayList();
     private static PreparedStatement preparedStatement;
 
+    /**
+     * Populates certain fields in the FXML.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //Populating Customer Name ComboBox
@@ -136,15 +147,29 @@ public class AddAppointmentController implements Initializable {
         }
         hourOfAppointmentCB.setItems(hourSlots);
         endHourOfAppointmentCB1.setItems(hourSlots);
+        usersList = DBAUsers.getAllUsers();
+        ObservableList<Integer> userIDList = FXCollections.observableArrayList();
+        for(Users user : usersList){
+            userIDList.add(user.getUserID());
+        }
+        userIDCB.setItems(userIDList);
     }
 
+    /**
+     * When save button is pressed checks data in fields for accuracy and ask for confirmation of save or cancellation.
+     * Compares appointment data to appoint data in database to confirm appointment overlap, and time discrepancies are
+     * not present.
+     * Adds appointment to database.
+     * @param actionEvent
+     */
     public void onSaveButtonClick(ActionEvent actionEvent) {
         try {
             if (customerListDD.getValue() == null || contactListCB.getValue() == null || apptTF.getText().equals("") || titleTF.getText().equals("")
                     || descriptionTF.getText().equals("") || locationTF.getText().equals("") || typeTF.getText().equals("") || hourOfAppointmentCB.getValue() == null
                     || endHourOfAppointmentCB1.getValue() == null || dateCreatedTF.getText().equals("") || createdByTF.getText().equals("") || lastUpdatedTF.getText().equals("")
-                    || lastUpdatedByTF.getText().equals("") || customerIDTF.getText().equals("") || userIDTF.getText().equals("") || contactIDTF.getText().equals("")
+                    || lastUpdatedByTF.getText().equals("") || customerIDTF.getText().equals("") || userIDCB.getValue() == null || contactIDTF.getText().equals("")
                     || dateDP.getValue() == null) {
+                //userIDTF.getText().equals("")
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");
                 alert.setHeaderText("One or more Text Fields or Combo Box's are empty.");
@@ -183,14 +208,6 @@ public class AddAppointmentController implements Initializable {
                     alert.setTitle("Error");
                     alert.setHeaderText("The start time is after the end time or is the same time.");
                     alert.setContentText("Please choose a start before the end time to continue.");
-                    alert.showAndWait();
-                    return;
-                }
-                if (startAppointment.getDayOfWeek().toString() == "SATURDAY" || startAppointment.getDayOfWeek().toString() == "SUNDAY") {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error");
-                    alert.setHeaderText("The appointment falls on a weekend.");
-                    alert.setContentText("Please choose a day between Monday and Friday.");
                     alert.showAndWait();
                     return;
                 }
@@ -256,8 +273,8 @@ public class AddAppointmentController implements Initializable {
                     preparedStatement.setTimestamp(10, lastUpdatedTimeStamp);
                     preparedStatement.setString(11, lastUpdatedBy);
                     preparedStatement.setInt(12, custid);
-                    preparedStatement.setInt(13, contactid);
-                    preparedStatement.setInt(14, userid);
+                    preparedStatement.setInt(13, userid);
+                    preparedStatement.setInt(14, contactid);
                     preparedStatement.execute();
                     preparedStatement.close();
                     System.out.println("PS executed");
@@ -277,6 +294,12 @@ public class AddAppointmentController implements Initializable {
         }
     }
 
+    /**
+     * Asks for confirmation on cancellation of appointment creation.
+     * Brings you back to Main Customers FXML
+     * @param actionEvent
+     * @throws IOException
+     */
     @FXML
     public void onCancelButtonClick(ActionEvent actionEvent) throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -298,6 +321,10 @@ public class AddAppointmentController implements Initializable {
         }
     }
 
+    /**
+     * populates customer id text field.
+     * @param actionEvent
+     */
     @FXML
     public void onCustomerNameSelected(ActionEvent actionEvent) {
         if (customerListDD.isFocused()) {
@@ -312,6 +339,10 @@ public class AddAppointmentController implements Initializable {
         }
     }
 
+    /**
+     * populates contact id text field.
+     * @param actionEvent
+     */
     @FXML
     public void onContactNameSelected(ActionEvent actionEvent) {
         if (contactListCB.isFocused()) {
@@ -326,6 +357,11 @@ public class AddAppointmentController implements Initializable {
         }
     }
 
+    /**
+     * generates unique appointment id.
+     * @param appointmentIDs
+     * @return
+     */
     @FXML
     public int newAppointmentID(List appointmentIDs) {
         int newAppointmentID;
@@ -337,16 +373,21 @@ public class AddAppointmentController implements Initializable {
         return newAppointmentID;
     }
 
+    /**
+     * gets a timestamp in a specific format.
+     * @return
+     */
     @FXML
     public String getTime() {
         String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date());
         return timeStamp;
     }
 
-    //    public void changeHourSlotToLocalTime(int inHourSlot){
-//        int hout
-//    }
-    //Used to Populate certain fields like customer name, customer ID when adding to a customer from the customers record
+    /**
+     * Used to Populate certain fields like customer name, customer ID when adding to a customer from the customers record
+     * @param customerInfo
+     */
+
     @FXML
     public void populateTextFields(Customers customerInfo) {
         Customers customerInformation = customerInfo;
@@ -358,6 +399,11 @@ public class AddAppointmentController implements Initializable {
         }
     }
 
+    /**
+     * When check button pressed.
+     * Check times for discrepancies like the save button. Populated time text fields with local times and EST times.
+     * @param actionEvent
+     */
     @FXML
     public void onCheckClick(ActionEvent actionEvent) {
         if (dateDP.getValue() == null || hourOfAppointmentCB.getValue() == null || endHourOfAppointmentCB1.getValue() == null) {
@@ -403,14 +449,6 @@ public class AddAppointmentController implements Initializable {
                 alert.showAndWait();
                 return;
             }
-            if (startAppointment.getDayOfWeek().toString() == "SATURDAY" || startAppointment.getDayOfWeek().toString() == "SUNDAY") {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText("The appointment falls on a weekend.");
-                alert.setContentText("Please choose a day between Monday and Friday.");
-                alert.showAndWait();
-                return;
-            }
             if (estStartDateTime.getHour() < 8 || estStartDateTime.getHour() > 21 || estEndDateTime.getHour() > 22 || estEndDateTime.getHour() < 9) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");
@@ -435,5 +473,8 @@ public class AddAppointmentController implements Initializable {
             estStartTF.setText(strEstStartDateTime);
             estEndTF.setText(strEstEndDateTime);
         }
+    }
+
+    public void onUserIDSelected(ActionEvent actionEvent) {
     }
 }

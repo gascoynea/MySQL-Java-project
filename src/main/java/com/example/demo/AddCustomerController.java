@@ -15,20 +15,20 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * Used to manipulate add customer controller FXML
+ */
 public class AddCustomerController implements Initializable {
     @FXML
     public TextField createdDateTF;
@@ -86,6 +86,11 @@ public class AddCustomerController implements Initializable {
     ObservableList<FirstLevelDivisions> divisionsList = DBAFirstLevelDivisions.getAllFirstLevelDivisions();
     private static PreparedStatement preparedStatement;
 
+    /**
+     * Populates combo boxes and unique customer ID.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         List<Integer> custIDs = new ArrayList<Integer>();
@@ -101,6 +106,12 @@ public class AddCustomerController implements Initializable {
         createdDateTF.setText(getTime());
         lastUpdatedDateTF.setText(getTime());
     }
+
+    /**
+     * Gednerates unique customer ID
+     * @param customerIDs
+     * @return
+     */
     public int newCustomerID(List customerIDs){
         int newCustomerID;
         int possibleID = 1;
@@ -110,6 +121,13 @@ public class AddCustomerController implements Initializable {
         newCustomerID = possibleID;
         return newCustomerID;
     }
+
+    /**
+     * Asks for confirmation on cancellation of customer creation.
+     * Brings you back to Main Customers FXML
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void onCancelButtonClick(ActionEvent event) throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -131,6 +149,12 @@ public class AddCustomerController implements Initializable {
             ((Stage) cancelButton.getScene().getWindow()).close();
         }
     }
+
+    /**
+     * On country selected in combobox, populates country ID text field with id.
+     * Sets available division names to choose from.
+     * @param event
+     */
     @FXML
     void onCountrySelected(ActionEvent event) {
         String a = countryCB.getValue().toString();
@@ -172,6 +196,11 @@ public class AddCustomerController implements Initializable {
         }
 
     }
+
+    /**
+     * Populates Division ID text Field with id when division name selected in combobox.
+     * @param event
+     */
     @FXML
     void onDivisionSelect(ActionEvent event) {
         String divName = divisionCB.getValue().toString();
@@ -183,6 +212,14 @@ public class AddCustomerController implements Initializable {
         }
         divisionIDTF.setText(String.valueOf(divID));
     }
+
+    /**
+     * Checks for any data discrepancies.
+     * Confirms save or cancel.
+     * Adds new customer to Data base.
+     * Opens up Main Customers FXML
+     * @param event
+     */
     @FXML
     void onSaveButtonClick(ActionEvent event) {
         try {
@@ -252,6 +289,11 @@ public class AddCustomerController implements Initializable {
             throw new RuntimeException(e);
         }
     }
+
+    /**
+     * gets timestamp.
+     * @return
+     */
     public String getTime(){
         String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date());
         return timeStamp;

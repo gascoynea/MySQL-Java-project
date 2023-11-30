@@ -27,7 +27,7 @@
         </columns>
       </TableView>
       <Button fx:id="deleteButton" layoutX="1105.0" layoutY="331.0" mnemonicParsing="false" onAction="#onDeleteButtonClick" prefHeight="25.0" prefWidth="120.0" text="Delete Record" />
-      <Button fx:id="customerInfoButton" layoutX="11.0" layoutY="331.0" mnemonicParsing="false" onAction="#onCustInfoButtonclick" prefHeight="25.0" prefWidth="178.0" text="Customer Information/Update" />
+      <Button fx:id="customerInfoButton" layoutX="11.0" layoutY="331.0" mnemonicParsing="false" onAction="#onCustInfoButonclick" prefHeight="25.0" prefWidth="178.0" text="Customer Information/Update" />
       <Button fx:id="apptsButton" layoutX="1115.0" layoutY="12.0" mnemonicParsing="false" onAction="#onApptsButtonClick" prefHeight="25.0" prefWidth="120.0" text="Appointments" />
       <TextField fx:id="customerSearchTextField" layoutX="11.0" layoutY="24.0" prefHeight="25.0" prefWidth="249.0" promptText="Customer Search by Name or Customer ID" />
       <Button fx:id="searchButton" layoutX="258.0" layoutY="24.0" mnemonicParsing="false" onAction="#onSearchButtonClick" text="Search" />

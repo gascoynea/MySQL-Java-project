@@ -14,7 +14,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -22,10 +21,11 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.*;
-import java.util.Date;
 import java.util.ResourceBundle;
-import java.util.TimeZone;
 
+/**
+ * Main appointment Controller used to manipulate the Main Appointment FXML
+ */
 public class MainAppointmetController implements Initializable {
     @FXML
     public Button appointmentSearchButton;
@@ -95,6 +95,10 @@ public class MainAppointmetController implements Initializable {
     private Stage stage;
     private Scene scene;
 
+    /**
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         apptList = DBAAppointments.getAllAppointments();
@@ -121,24 +125,20 @@ public class MainAppointmetController implements Initializable {
         LocalDateTime apptStart;
         LocalDateTime appointmentTime = null;
         int appointmentID = 0;
-//        System.out.println(LocalDateTime.now() + " before for");
         for(Appointments appointment : apptList){
             apptStart = appointment.getStart().toLocalDateTime();
-//            System.out.println(apptStart + " after for");
             if(apptStart.isAfter(nowMinus15) && apptStart.isBefore(nowPlus15)){
                 appointmentID = appointment.getAppointmentID();
                 appointmentTime = apptStart;
-//                System.out.println(appointmentID + " after if");
                 apptIn15 = true;
             }
 
         }
-//        System.out.println(appointmentID + " afterloop " + appointmentTime + apptIn15);
         if(apptIn15){
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Warning");
             alert.setHeaderText("There is an appoinment within 15 minutes of Login!");
-            alert.setContentText("Please review Appointment info!");
+            alert.setContentText("Please review Appointment info!\nAppointment ID: " + appointmentID + "\nStart Time: " + appointmentTime);
             alert.showAndWait();
 
         }
@@ -150,6 +150,11 @@ public class MainAppointmetController implements Initializable {
             alert.showAndWait();
         }
     }
+
+    /**
+     * @param actionEvent
+     * @throws IOException
+     */
     public void onCustomerRecordsClick(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Main Customers.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1250, 365);
@@ -159,15 +164,25 @@ public class MainAppointmetController implements Initializable {
         stage.show();
         ((Stage) apptsCustRecordsButton.getScene().getWindow()).close();
     }
+
+    /**
+     * @param actionEvent
+     * @throws IOException
+     */
     public void onAddClick(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Add Appointment.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 650, 400);
+        Scene scene = new Scene(fxmlLoader.load(), 650, 650);
         Stage stage = new Stage();
         stage.setTitle("Add Appointment to a known user");
         stage.setScene(scene);
         stage.show();
         ((Stage) addApptButton.getScene().getWindow()).close();
     }
+
+    /**
+     * @param actionEvent
+     * @throws IOException
+     */
     public void onEditClick(ActionEvent actionEvent) throws IOException {
         try{
             if(tableView.getSelectionModel().getSelectedItem() != null) {
@@ -192,6 +207,11 @@ public class MainAppointmetController implements Initializable {
             throw new RuntimeException(e);
         }
     }
+
+    /**
+     * @param actionEvent
+     * @throws SQLException
+     */
     @FXML
     public void onRemoveButtonClick(ActionEvent actionEvent) throws SQLException {
         if(tableView.getSelectionModel().selectedItemProperty().get() != null) {
@@ -230,6 +250,11 @@ public class MainAppointmetController implements Initializable {
         }
     }
 
+    /**
+     * Opens up Appointment Search FXML when appointment search button pressed.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void onAppointmentSearchButtonClick(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Appoinment Search.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1065, 365);
@@ -240,6 +265,12 @@ public class MainAppointmetController implements Initializable {
         ((Stage) appointmentSearchButton.getScene().getWindow()).close();
     }
 
+    /**
+     * This method activates when the reports button is pressed.
+     * Opens up Customer Appointment Report.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void oonMonthTypeButtonSelected(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Customer Appointment Report.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600, 600);
