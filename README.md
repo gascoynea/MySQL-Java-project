@@ -1,7 +1,5 @@
 Title: C195 Project. 
 Author: Adam Gascoyne
-Date: Nov. 25th, 2023
-Contact: Email: gascoynea@yahoo.com Phone: 360-710-7728
 Student Application Number: 1.0.0
 
 Purpose:
